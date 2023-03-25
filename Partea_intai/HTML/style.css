@@ -92,6 +92,7 @@ nav .icon-burger {
 }
 
 nav .icon-burger .line {
+	display: flex;
 	width: 30px;
 	height: 5px;
 	background-color: #fff;
