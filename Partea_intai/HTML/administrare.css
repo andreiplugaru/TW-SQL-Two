@@ -106,9 +106,9 @@ nav .icon-burger .line {
 .container {
 	display: flex;
 	flex-direction: column;
-	justify-content: flex-start;
+	justify-content: center;
 	padding-bottom: 4em;
-	align-items: start;
+	align-items: center;
 	/* height: 100%; */
 	position: relative;
 	min-height: calc(100vh - 4em - 4em);
@@ -131,78 +131,6 @@ nav .icon-burger .line {
 	text-align: center;
 	align-self: center;
 } */
-
-.container a{
-	color: #3e65da;
-	font-size: 20px;
-	font-weight: bold;
-	font-style: italic;
-	text-decoration: none;
-	padding-left: 25px;
-	padding-bottom: 20px;
-	padding-top: 20px;
-
-}
-.container a:hover{
-	text-decoration: underline;
-	font-style: normal;
-	color: #7d92d3;
-	 
-}
-
-.container .table-container{
-	margin: 20px 20px 20px 20px;
-	/* padding: 0 10%; */
-	/* box-sizing: border-box; */
-}
-
-.container .table-container .table{
-	width: 100%;
-	border-collapse: collapse;
-}
-
-.container .table-container .table thead{
-	background-color: #b9c1d6;
-	border: 1px solid #2141a4;
-
-}
-
-.container .table-container .table thead tr th{
-	font-size: 20px;
-	font-weight: bold;
-	letter-spacing: 0.35px;
-	color: #3e65da;
-	opacity: 1;
-	padding: 9px;
-	vertical-align: top;
-}
-
-.container .table-container .table tbody tr td{
-	/* font-size: 16px;
-	letter-spacing: 0.35px;
-	font-weight: normal;
-	color:#2141a4; */
-	background-color: #7d92d3;
-	padding: 8px;
-	text-align: justify;
-	border: 1px solid #2141a4;
-
-}
-
-.container .table-container .table tbody tr td .pb{
-	font-size: 16px;
-	letter-spacing: 0.35px;
-	font-weight: normal;
-	color:#2141a4;
-	text-decoration: none;
-	/* display: block; */
-}
-
-.container .table-container .table tbody tr td a:hover{
-	text-decoration: underline;
-	font-style: normal;
-	color: #072067;
-}
 
 .container a{
 	color: #3e65da;
@@ -307,41 +235,6 @@ footer {
 	.container {
 		flex-direction: column;
 	}
-
-	.container .table-container .table thead{
-		display: none;
-	}
-
-	.container .table-container .table,
-	.container .table-container .table tbody
-	.container .table-container .table tr
-	.container .table-container .table td{
-		display: block;
-		width: 100%;
-	}
-
-	.container .table-container .table tr{
-		margin-bottom: 25px;
-	}
-
-	.container .table-container .table tbody tr td{
-		text-align: justify;
-		padding-left: 45%;
-		position: relative;
-	}
-
-	.container .table-container .table tbody td:before{
-		color: #2750cc ;
-		content: attr(data-label);
-		position: absolute;
-		left:0;
-		width:40%;
-		padding-left: 5px;
-		font-weight: 600;
-		font-size: 14px;
-		text-align: left;
-	}
-
 
 
 }

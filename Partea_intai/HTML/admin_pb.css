@@ -113,24 +113,7 @@ nav .icon-burger .line {
 	position: relative;
 	min-height: calc(100vh - 4em - 4em);
 
-} 
-/* .responsive {
-	margin-top: 2em;
-	width: 820px;
-	height: 350px;
-	align-self: center;
-
-} */
-
-/* .container p {
-	font-size: x-large;
-	font-weight: bold;
-	color: #2b4cb1;
-	width: 90%;
-	margin: 0 auto;
-	text-align: center;
-	align-self: center;
-} */
+}
 
 .container a{
 	color: #3e65da;
@@ -150,52 +133,46 @@ nav .icon-burger .line {
 	 
 }
 
-.container .table-container{
-	margin: 20px 20px 20px 20px;
-	/* padding: 0 10%; */
-	/* box-sizing: border-box; */
+.container .table_container{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
 }
 
-.container .table-container .table{
-	width: 100%;
-	border-collapse: collapse;
-}
-
-.container .table-container .table thead{
-	background-color: #b9c1d6;
-	border: 1px solid #2141a4;
+.container .table_container .table{
+    width: 100%;
+    border-collapse: collapse;
 
 }
 
-.container .table-container .table thead tr th{
-	font-size: 20px;
-	font-weight: bold;
-	letter-spacing: 0.35px;
-	color: #3e65da;
-	opacity: 1;
-	padding: 9px;
-	vertical-align: top;
+.container .table_container .table td,
+.container .table_container .table th{
+    padding: 12px 15px;
+    border: 1px solid  #2141a4;
+    text-align: center;
+    font-size: 16px;
 }
 
-.container .table-container .table tbody tr td{
-	/* font-size: 16px;
-	letter-spacing: 0.35px;
-	font-weight: normal;
-	color:#2141a4; */
-	background-color: #7d92d3;
-	padding: 8px;
-	text-align: justify;
-	border: 1px solid #2141a4;
+.container .table_container .table th{
+    background-color: #b9c1d6;;
+    color: #3e65da;
 
 }
 
-.container .table-container .table tbody tr td .pb{
-	font-size: 16px;
+.container .table_container .table tbody tr td .btn{
+    font-size: 16px;
 	letter-spacing: 0.35px;
 	font-weight: normal;
 	color:#2141a4;
 	text-decoration: none;
-	/* display: block; */
+}
+
+.container .table_container .table tbody tr td .pb{
+    font-size: 16px;
+	letter-spacing: 0.35px;
+	font-weight: normal;
+	color:#2141a4;
+	text-decoration: none;
 }
 
 .container .table-container .table tbody tr td a:hover{
@@ -204,22 +181,9 @@ nav .icon-burger .line {
 	color: #072067;
 }
 
-.container a{
-	color: #3e65da;
-	font-size: 20px;
-	font-weight: bold;
-	font-style: italic;
-	text-decoration: none;
-	padding-left: 25px;
-	padding-bottom: 20px;
-	padding-top: 20px;
-
-}
-.container a:hover{
-	text-decoration: underline;
-	font-style: normal;
-	color: #7d92d3;
-	 
+.container .table_container .table tbody{
+    background-color:  #7d92d3;
+    color: #2141a4;
 }
 
 
@@ -308,40 +272,40 @@ footer {
 		flex-direction: column;
 	}
 
-	.container .table-container .table thead{
-		display: none;
-	}
+    .container .table_container .table thead{
+        display: none;
+    }
+    
+    .container .table_container .table,
+    .container .table_container .table tbody,
+    .container .table_container .table tr,
+    .container .table_container .table td{
+        display: block;
+        width: 100%;
+    }
 
-	.container .table-container .table,
-	.container .table-container .table tbody
-	.container .table-container .table tr
-	.container .table-container .table td{
-		display: block;
-		width: 100%;
-	}
+    .container .table_container .table tr{
+        margin-bottom: 15px;
+    }
 
-	.container .table-container .table tr{
-		margin-bottom: 25px;
-	}
+    .container .table_container .table td{
+        text-align: right;
+        padding-left: 40%;
+        text-align: right;
+        position: relative;
+    }
 
-	.container .table-container .table tbody tr td{
-		text-align: justify;
-		padding-left: 45%;
-		position: relative;
-	}
+    .container .table_container .table td::before{
+        content:  attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 45%;
+        padding-left: 15px;
+        font-size: 15px;
+        font-weight: bold;
+        text-align: left;
 
-	.container .table-container .table tbody td:before{
-		color: #2750cc ;
-		content: attr(data-label);
-		position: absolute;
-		left:0;
-		width:40%;
-		padding-left: 5px;
-		font-weight: 600;
-		font-size: 14px;
-		text-align: left;
-	}
-
+    }
 
 
 }
