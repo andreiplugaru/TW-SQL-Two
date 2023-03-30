@@ -29,12 +29,29 @@
 
         <div class="container">
             <form action="action_page.php" method="post">
+<<<<<<< Updated upstream
                 <label for="username"><b>Username</b></label>
                 <input type="text" placeholder="Enter Username" name="username" class="first" required>
 
                 <label for="password"><b>Password</b></label>
                 <input type="password" placeholder="Enter Password" name="password" class="first" required>
                 <button type="submit">Login</button>
+=======
+                <img src="icons/person-outline.svg" />
+
+                <label for="username"><b>Utilizator</b></label>
+
+                <input type="text" name="username" class="inputs" required>
+                <img src="icons/lock-closed-outline.svg" />
+
+                <label for="password"><b>Parola</b></label>
+                <input type="password" name="password" class="inputs" required>
+                <div class="error-text centered">Datele de autentificare nu sunt valide!</div>
+
+                <button type="submit">Login</button>
+                <a href="recuperare_parola.html" class="password_reset centered">Am uitat parola</a>
+
+>>>>>>> Stashed changes
             </form>
         </div>
         <footer>
