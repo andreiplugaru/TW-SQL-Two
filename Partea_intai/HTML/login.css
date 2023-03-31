@@ -34,12 +34,6 @@ button:hover {
     opacity: 0.8;
 }
 
-<<<<<<< Updated upstream
-.first {
-    grid-column: 2;
-}
-
-=======
 .inputs {
     grid-column: 3;
 }
@@ -57,19 +51,10 @@ button:hover {
     /* margin: 16px 16px 16px 0; */
 }
 
->>>>>>> Stashed changes
 form {
     padding: 1em;
     border: 1px solid #fff;
     display: grid;
-<<<<<<< Updated upstream
-    grid-template-columns: 0.51fr 1fr;
-    grid-gap: 16px;
-    border-radius: 10px;
-
-}
-
-=======
     grid-template-columns: 0.1fr 1fr 1fr;
     /* grid-gap: 16px; */
     border-radius: 16px;
@@ -108,7 +93,6 @@ form p {
     grid-column: 1 / -1;
 }
 
->>>>>>> Stashed changes
 @media screen and (max-width: 768px) {
     form {
         grid-template-columns: 1fr;
@@ -127,20 +111,16 @@ form p {
         grid-column: 1;
     }
 
-    input,
-    button {
+    .inputs {
         grid-column: 1;
     }
 
     .first {
         grid-column: 1;
     }
-<<<<<<< Updated upstream
-=======
 
     .container a {
         grid-column: 1;
         text-align: center;
     }
->>>>>>> Stashed changes
 }
