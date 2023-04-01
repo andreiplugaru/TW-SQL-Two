@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Inregistrare</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="login.css">
 </head>
@@ -29,20 +29,20 @@
 
         <div class="container">
             <form action="action_page.php" method="post">
-                <img src="icons/person-outline.svg" />
-
                 <label for="username"><b>Utilizator</b></label>
-
                 <input type="text" name="username" class="inputs" required>
-                <img src="icons/lock-closed-outline.svg" />
 
                 <label for="password"><b>Parola</b></label>
                 <input type="password" name="password" class="inputs" required>
-                <div class="error-text centered">Datele de autentificare nu sunt valide!</div>
 
-                <button type="submit">Login</button>
-                <a href="recuperare_parola.html" class="password_reset centered">Am uitat parola</a>
+                <label for="password_confirm"><b>Confirmare parola</b></label>
+                <input type="password" name="password_confirm" class="inputs" required>
 
+                <label for="email"><b>Email</b></label>
+                <input type="email" name="email" class="inputs" required>
+                <div class="error-text centered">Datele de inregistrare nu sunt valide!</div>
+
+                <button type="submit">Inregistrare</button>
             </form>
         </div>
         <footer>
