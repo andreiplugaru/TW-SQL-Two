@@ -23,7 +23,7 @@ body {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
-	background-color: #f8f9fa;
+	background-color: #e5e9ed;
 
 }
 
@@ -108,7 +108,7 @@ nav .icon-burger .line {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-	/* padding-bottom: 4em; */
+	padding-bottom: 4em;
 	align-items: center;
 	height: 100%;
 	position: relative;
@@ -140,7 +140,6 @@ footer {
 	background: #3e65da;
 	width: 100%;
 	min-height: 4em;
-	/* margin-top: 21em; */
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
