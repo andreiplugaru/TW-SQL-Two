@@ -367,7 +367,7 @@ footer {
 		flex-direction: column;
 	}
 
-    .container .table_container .table thead{
+    .container .table_container .table thead, th{
         display: none;
     }
     
