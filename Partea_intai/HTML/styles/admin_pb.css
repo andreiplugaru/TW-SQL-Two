@@ -133,6 +133,13 @@ nav .icon-burger .line {
 	 
 }
 
+.container h1{
+	color: #2141a4;
+	font-size: x-large;
+	padding: 50px 20px 0px 20px;
+}
+
+
 .container .table_container{
     width: 100%;
     box-sizing: border-box;
@@ -166,6 +173,57 @@ nav .icon-burger .line {
 	color:#2141a4;
 	text-decoration: none;
 }
+
+/* .container .table_container .table tbody tr td .btn1{
+    font-size: 16px;
+	letter-spacing: 0.35px;
+	font-weight: normal;
+	color:#2141a4;
+	text-decoration: none;
+	width: 80px;
+	font-size: 14px;
+	text-decoration: none;
+	line-height: 25px;
+	display: inline-block;
+	background-color: #1538a2;
+	font-weight: medium;
+	color: #fff;
+	text-align: center;
+	align-items: center;
+	/* justify-content: center;
+	vertical-align: middle;
+	user-select: none;
+	border: 1px solid transparent;
+	font-size: 14px;
+	opacity: 1s;	 
+} */
+
+.container .table_container .table tbody tr td .btn1{
+	display: flex;
+	justify-content: center;
+	color: #fff;
+	background-color: #1538a2;
+	text-decoration: none;
+	border: 1px solid transparent;
+	display: inline-block;
+	padding: 5px 15px;
+	font-weight: medium;
+	border-radius: 3px;
+
+}
+
+/* .container .table_container .table tbody tr td .btn1 a{
+	color: #fff;
+	background-color: #1538a2;
+	border: 1px solid transparent;
+	display: inline-block;
+	padding: 5px 15px;
+	font-weight: medium;
+	border-radius: 3px;
+
+} */
+
+
 
 .container .table_container .table tbody tr td .pb{
     font-size: 16px;
