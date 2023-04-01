@@ -190,19 +190,20 @@ nav .icon-burger .line {
 	color: #fff;
 	text-align: center;
 	align-items: center;
-	/* justify-content: center;
+	justify-content: center;
 	vertical-align: middle;
 	user-select: none;
 	border: 1px solid transparent;
 	font-size: 14px;
-	opacity: 1s;	 
+	opacity: 1s;
 } */
 
-.container .table_container .table tbody tr td .btn1{
+.container .table_container .table tbody tr td .btn1,
+.container .table_container .table tbody tr td .btn2{
 	display: flex;
-	justify-content: center;
-	color: #fff;
-	background-color: #1538a2;
+	/* justify-content: center;
+	color: #fff;  */
+	/* background-color: #1538a2; */
 	text-decoration: none;
 	border: 1px solid transparent;
 	display: inline-block;
@@ -210,7 +211,43 @@ nav .icon-burger .line {
 	font-weight: medium;
 	border-radius: 3px;
 
+	/* background-image: url('../images/blueX.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 50px;
+	height: 50px; */
+	/*display: block;*/ 
+
 }
+
+.container .table_container .table tbody tr td .btn1{
+	background-image: url('../images/blueCheck.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 50px;
+	height: 50px;
+
+}
+
+.container .table_container .table tbody tr td .btn2{
+	background-image: url('../images/blueX.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 50px;
+	height: 50px;
+}
+
+
+.container .table_container .table tbody tr td .btn1:hover,
+.container .table_container .table tbody tr td .btn2:hover{
+	/* background-color:#002ead;
+	transition: 0.7s; */
+	box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  	transform: translateY(-0.25em);
+}
+
+
+
 
 /* .container .table_container .table tbody tr td .btn1 a{
 	color: #fff;
