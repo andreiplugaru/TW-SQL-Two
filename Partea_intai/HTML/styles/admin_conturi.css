@@ -17,22 +17,13 @@ body {
 	height: 100%;
 }
 
-.container {
+/* .container {
 	position: relative;
 	margin-top: 5em;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
 
-}
-
-/* .container img {
-	display: block;
-	width: 100%;
-} */
-/* .container p {
-	padding-top: 1em;
-	align-self: center;
 } */
 
 nav {
@@ -109,6 +100,7 @@ nav .icon-burger .line {
 	justify-content: flex-start;
 	padding-bottom: 4em;
 	align-items: start;
+	margin-top: 5em;
 	/* height: 100%; */
 	position: relative;
 	min-height: calc(100vh - 4em - 4em);
@@ -189,14 +181,11 @@ footer {
 	justify-content: space-around;
 	position: absolute;
 	bottom: 0;
-	/* background-color: limegreen; */
-
 }
 
 
 .footer-content a {
-	/* text-align: center; */
-	/* text-decoration: none; */
+
 	padding: 1em;
 	font-size: 16px;
 	font-weight: bold;
@@ -207,10 +196,6 @@ footer {
 
 
 @media screen and (max-width: 768px) {
-	/* .responsive {
-		width: 100%;
-		height: auto;
-	} */
 
 	nav .logo {
 		float: none;
