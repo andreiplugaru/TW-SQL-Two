@@ -17,14 +17,14 @@ body {
 	height: 100%;
 }
 
-.container {
+/* .container {
 	position: relative;
 	margin-top: 5em;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
 
-}
+} */
 
 /* .container img {
 	display: block;
@@ -109,6 +109,7 @@ nav .icon-burger .line {
 	justify-content: flex-start;
 	padding-bottom: 4em;
 	align-items: start;
+	margin-top: 5em;
 	/* height: 100%; */
 	position: relative;
 	min-height: calc(100vh - 4em - 4em);
