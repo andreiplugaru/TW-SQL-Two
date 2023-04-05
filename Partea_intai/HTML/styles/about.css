@@ -22,6 +22,7 @@ body {
 	margin-top: 1em;
 	display: flex;
 	/* flex-direction: row; */
+
 	/* justify-content: space-around; */
 	/* background-color: #f8f9fa; */
 	flex-direction: column;
@@ -32,6 +33,21 @@ body {
 	position: relative;
 	min-height: calc(100vh - 4em);
 	padding-top: 4em;
+    overflow: hidden;
+
+}
+
+.container .bg{
+  opacity: 0.1;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  min-height: calc(100vh - 4em);
+  margin-top: 2em;
+  padding-bottom: 4em;
+  flex-direction: column;
+  margin-bottom: 2em;
 
 }
 
@@ -139,7 +155,7 @@ nav .icon-burger .line {
 .container p {
 	font-size: large;
 	/* font-weight: bold; */
-	color: #2b4cb1;
+	color: #04123a;
 	/* width: 90%;
 	margin: 0 auto; */
 	/* min-height: calc(100% - 200px - 50px); */
@@ -152,11 +168,15 @@ nav .icon-burger .line {
 }
 
 .container .p_special {
-	color: #2e12e1;
+	color: #211472;
 	font-weight: 800;
-	font-size: x-large;
+	font-size: medium;
 }
 
+.container img{
+    width: 20px;
+    height: 20px;
+}
 
 
 footer {
@@ -193,7 +213,7 @@ input:focus {
 
 
 @media screen and (max-width: 768px) {
-	.responsive {
+	.responsive, bg {
 		width: 100%;
 		height: auto;
 	}
