@@ -34,6 +34,7 @@ body {
 .container p {
 	padding-top: 1em;
 	align-self: center;
+    padding-left: 1em;
 }
 
 nav {
@@ -81,6 +82,8 @@ nav .links a {
 	text-decoration: none;
 }
 
+ 
+
 #nav-toggle {
 	position: absolute;
 	top: -100px;
@@ -106,7 +109,7 @@ nav .icon-burger .line {
 
 .container {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	justify-content: center;
 	padding-bottom: 4em;
 	align-items: center;
@@ -135,6 +138,19 @@ nav .icon-burger .line {
 	text-align: center;
 	align-self: center;
 }
+
+.container button {
+	font-size: x-large;
+	font-weight: bold;
+	color: #2b4cb1;
+	width: 90%;
+	margin: 0 auto;
+    margin-top: 1em;
+	/* min-height: calc(100% - 200px - 50px); */
+	text-align: center;
+	align-self: center;
+}
+
 
 footer {
 	background: #3e65da;
