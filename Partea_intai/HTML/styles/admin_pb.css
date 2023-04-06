@@ -142,7 +142,8 @@ nav .icon-burger .line {
 
 .import_export{
 	display: grid;
-    grid-template-columns: 0.1fr 1fr;
+    grid-template-columns: 0.03fr 1fr;
+	grid-template-rows: 1fr 1fr;
 	/* min-height: calc(100vh - 4em - 4em); */
 	padding-bottom: 4em;
 	padding-left: 1em;
@@ -152,7 +153,9 @@ nav .icon-burger .line {
 	width: 25px;
 	height: 25px;
 	grid-column: 1;
-	/* padding-left: 1em; */
+	align-self: center;
+	align-items: center;
+	justify-content: center;
 }
 
 .import_export a{
@@ -162,7 +165,8 @@ nav .icon-burger .line {
 	font-weight: bold;
 	font-style: italic;
 	text-decoration: none;
-	/* margin-bottom: 1em; */
+	margin-bottom: 1em;
+	margin-top: 1em;
 }
 
 .import_export a:hover{
