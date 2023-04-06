@@ -113,6 +113,7 @@ nav .icon-burger .line {
 	position: relative;
 	min-height: calc(100vh - 4em - 4em);
 	margin-top: 5em;
+	background-color: #fff;
 
 }
 
