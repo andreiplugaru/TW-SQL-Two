@@ -140,10 +140,36 @@ nav .icon-burger .line {
 	padding: 50px 20px 0px 20px;
 }
 
-.container .imp_exp{
+.import_export{
+	display: grid;
+    grid-template-columns: 0.1fr 1fr;
+	/* min-height: calc(100vh - 4em - 4em); */
+	padding-bottom: 4em;
+	padding-left: 1em;
+}
+
+.import_export .imp_exp{
 	width: 25px;
-	width: 25px;
-	display: inline;
+	height: 25px;
+	grid-column: 1;
+	/* padding-left: 1em; */
+}
+
+.import_export a{
+	grid-column: 2;
+	color: #3e65da;
+	font-size: 20px;
+	font-weight: bold;
+	font-style: italic;
+	text-decoration: none;
+	/* margin-bottom: 1em; */
+}
+
+.import_export a:hover{
+	text-decoration: underline;
+	font-style: normal;
+	color: #7d92d3;
+
 }
 
 
