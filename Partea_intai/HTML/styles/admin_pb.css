@@ -140,6 +140,12 @@ nav .icon-burger .line {
 	padding: 50px 20px 0px 20px;
 }
 
+.container .imp_exp{
+	width: 50px;
+	width: 50px;
+	display: block;
+}
+
 
 .container .table_container{
     width: 100%;
@@ -311,10 +317,10 @@ footer {
 
 
 @media screen and (max-width: 768px) {
-	/* .responsive {
-		width: 100%;
-		height: auto;
-	} */
+	.imp_exp {
+		width: 50px;
+		height: 50px;
+	}
 
 	nav .logo {
 		float: none;
