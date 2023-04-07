@@ -270,6 +270,11 @@ input:focus {
 	.container {
 		flex-direction: column;
 	}
+
+	.container .bg {
+		display: none;
+	}
+
 }
 
 .error-text {
