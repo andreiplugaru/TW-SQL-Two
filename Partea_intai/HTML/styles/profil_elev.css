@@ -22,12 +22,10 @@
 	font-weight: bold;
 	font-style: italic;
 	text-decoration: none;
-	padding-left: 25px;
-	padding-bottom: 20px;
-	padding-top: 20px;
-	padding-right: 20px;
-	;
+}
 
+.container-item {
+	padding: 1em;
 }
 
 .container a:hover {
@@ -97,10 +95,6 @@
 	font-weight: bold;
 	font-style: italic;
 	text-decoration: none;
-	padding-left: 25px;
-	padding-bottom: 20px;
-	padding-top: 20px;
-
 }
 
 .container a:hover {
@@ -110,11 +104,44 @@
 
 }
 
+.problems-table tbody tr:nth-of-type(even) {
+	background-color: #f3f3f3;
+}
+
+.problems-table tbody tr:last-of-type {
+	border-bottom: 2px solid #009879;
+}
+
 .container {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	justify-content: flex-start;
 	align-items: start;
+}
+
+.problems-table tbody tr.active-row {
+	font-weight: bold;
+	color: #009879;
+}
+
+.problems-table {
+	border-collapse: collapse;
+	margin: 25px 0;
+	font-size: 0.9em;
+	font-family: sans-serif;
+	min-width: -webkit-fill-available;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.problems-table thead tr {
+	background-color: #009879;
+	color: #ffffff;
+	text-align: left;
+}
+
+.problems-table th,
+.problems-table td {
+	padding: 12px 15px;
 }
 
 @media screen and (max-width: 768px) {
@@ -130,7 +157,7 @@
 	.container .table-container .table,
 	.container .table-container .table tbody .container .table-container .table tr .container .table-container .table td {
 		display: block;
-		width: 100%;
+		min-width: rem-calc(640);
 	}
 
 	.container .table-container .table tr {
@@ -155,6 +182,9 @@
 		text-align: left;
 	}
 
+	tbody {
+		width: -webkit-fill-available;
+	}
 
 
 }
