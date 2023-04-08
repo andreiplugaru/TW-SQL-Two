@@ -195,6 +195,15 @@ input:focus {
 }
 
 
+.container-item {
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 1em;
+	margin: 1em;
+	background-color: #fff;
+	border-radius: 15px;
+	width: -webkit-fill-available;
+}
+
 
 @media screen and (max-width: 768px) {
 	.responsive {
