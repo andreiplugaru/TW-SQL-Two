@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/admin_pb.css">
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/administrare.css">
     <title>Admin probleme</title>
 
 </head>
@@ -14,10 +15,11 @@
     <div class="wrapper">
         <nav>
             <input id="nav-toggle" type="checkbox">
-            <div class="logo">SQL-TWO</div>
+            <div class="logo"><a href="index.html">SQL-TWO</a></div>
             <ul class="links">
-                <li><a href="#help">Help</a></li>
-                <li><a href="#about">Home</a></li>
+                <li><a href="help.html">Help</a></li>
+                <li><a class="nav-visited" href="administrare.html">Pagina administrare</a></li>
+                <li><a href="../index.html">Delogare</a></li>
             </ul>
             <label for="nav-toggle" class="icon-burger">
                 <span class="line"> </span>
@@ -27,81 +29,104 @@
         </nav>
 
         <div class="container">
-
-            <div class="table_container">
-
-                <table class="table">
-
+            <div class="container-item left-column">
+                <table style="width: fit-content;">
                     <tr>
-                        <th>Problema</th>
-                        <th>Actiune</th>
+                        <td>
+                            <a href="administrare.html">Administrare conturi</a>
+                        </td>
                     </tr>
-                    <tbody>
-                        <tr>
-                            <td data-label="Problema"><a href="#" class="pb">parte_cerinta_pb1</a></td>
-                            <td data-label="Actiune"><a href="#" class="btn">Sterge</a></td>
-                        </tr>
-                        <tr>
-                            <td data-label="Problema"><a href="#" class="pb">parte_cerinta_pb2</a></td>
-                            <td data-label="Actiune"><a href="#" class="btn">Sterge</a></td>
-                        </tr>
-                        <tr>
-                            <td data-label="Problema"><a href="#" class="pb">parte_cerinta_pb3</a></td>
-                            <td data-label="Actiune"><a href="#" class="btn">Sterge</a></td>
-                        </tr>
-                        <tr>
-                            <td data-label="Problema"><a href="#" class="pb">parte_cerinta_etc</a></td>
-                            <td data-label="Actiune"><a href="#" class="btn">Sterge</a></td>
-                        </tr>
-                    </tbody>
-
-                </table>
-            </div>
-
-
-            <h1>Gestionarea problemelor marcate drept <i>Gresite</i></h1>
-            <div class="table_container">
-
-                <table class="table">
-
                     <tr>
-                        <th>Problema</th>
-                        <th>Accepta</th>
-                        <th>Respinge</th>
+                        <td class="selected-td">
+                            <a href="admin_pb.html">Administrare probleme</a>
+                        </td>
                     </tr>
 
-                    <tbody>
-                        <tr>
-                            <td data-label="Problema"><a href="#" class="pb">parte_cerinta_pb1</a></td>
-                            <td data-label="Accepta"><button class="btn1"></button></td>
-                            <td data-label="Respinge"><button class="btn2"></button></td>
-                        </tr>
-                        <tr>
-                            <td data-label="Problema"><a href="#" class="pb">parte_cerinta_pb2</a></td>
-                            <td data-label="Accepta"><button class="btn1"></button></td>
-                            <td data-label="Respinge"><button class="btn2"></button></td>
-                        </tr>
-                        <tr>
-                            <td data-label="Problema"><a href="#" class="pb">parte_cerinta_pb3</a></td>
-                            <td data-label="Accepta"><button class="btn1"></button></td>
-                            <td data-label="Respinge"><button class="btn2"></button></td>
-                        </tr>
-                        <tr>
-                            <td data-label="Problema"><a href="#" class="pb">parte_cerinta_pb_etc</a></td>
-                            <td data-label="Accepta"><button class="btn1"></button></td>
-                            <td data-label="Respinge"><button class="btn2"></button></td>
-                        </tr>
-                    </tbody>
-
+                    <tr style="width: fit-content;">
+                        <td style="width: fit-content;">
+                            <a href="admin_statistici.html">Vezi statistici despre probleme</a>
+                        </td>
+                    </tr>
                 </table>
             </div>
+            <div class="container-item">
+                <div class="table_container">
 
+                    <table class="table">
+
+                        <tr>
+                            <th>Problema</th>
+                            <th>Actiune</th>
+                        </tr>
+                        <tbody>
+                            <tr>
+                                <td data-label="Problema"><a href="#" class="pb">parte_cerinta_pb1</a></td>
+                                <td data-label="Actiune"><a href="#" class="btn">Sterge</a></td>
+                            </tr>
+                            <tr>
+                                <td data-label="Problema"><a href="#" class="pb">parte_cerinta_pb2</a></td>
+                                <td data-label="Actiune"><a href="#" class="btn">Sterge</a></td>
+                            </tr>
+                            <tr>
+                                <td data-label="Problema"><a href="#" class="pb">parte_cerinta_pb3</a></td>
+                                <td data-label="Actiune"><a href="#" class="btn">Sterge</a></td>
+                            </tr>
+                            <tr>
+                                <td data-label="Problema"><a href="#" class="pb">parte_cerinta_etc</a></td>
+                                <td data-label="Actiune"><a href="#" class="btn">Sterge</a></td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+
+
+                <h1>Gestionarea problemelor marcate drept <i>Gresite</i></h1>
+                <div class="table_container">
+
+                    <table class="table">
+
+                        <tr>
+                            <th>Problema</th>
+                            <th>Accepta</th>
+                            <th>Respinge</th>
+                        </tr>
+
+                        <tbody>
+                            <tr>
+                                <td data-label="Problema"><a href="#" class="pb">parte_cerinta_pb1</a></td>
+                                <td data-label="Accepta"><button class="btn1"></button></td>
+                                <td data-label="Respinge"><button class="btn2"></button></td>
+                            </tr>
+                            <tr>
+                                <td data-label="Problema"><a href="#" class="pb">parte_cerinta_pb2</a></td>
+                                <td data-label="Accepta"><button class="btn1"></button></td>
+                                <td data-label="Respinge"><button class="btn2"></button></td>
+                            </tr>
+                            <tr>
+                                <td data-label="Problema"><a href="#" class="pb">parte_cerinta_pb3</a></td>
+                                <td data-label="Accepta"><button class="btn1"></button></td>
+                                <td data-label="Respinge"><button class="btn2"></button></td>
+                            </tr>
+                            <tr>
+                                <td data-label="Problema"><a href="#" class="pb">parte_cerinta_pb_etc</a></td>
+                                <td data-label="Accepta"><button class="btn1"></button></td>
+                                <td data-label="Respinge"><button class="btn2"></button></td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+                <div class="import_export">
+                    <img class="imp_exp" src="../icons/import.svg" width="50px" height="50px"> <a
+                        href="#import">Import</a>
+                    <img class="imp_exp" src="../icons/export.svg" width="50px" height="50px"> <a
+                        href="#export">Export</a>
+                </div>
+            </div>
         </div>
 
-        <div class="import_export">
-            <img class="imp_exp" src="../icons/import.svg"> <a href="#import">Import</a>
-            <img class="imp_exp" src="../icons/export.svg"> <a href="#export">Export</a>
-        </div>
+
 
         <footer>
 
