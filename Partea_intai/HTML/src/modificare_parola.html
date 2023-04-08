@@ -29,23 +29,19 @@
 
         <div class="container">
             <div class="data">
-                <div class="form-title">Logare</div>
+                <div class="form-title">Modificare parola</div>
 
                 <form action="elev_home.html" method="post">
-                    <!-- <hr> -->
-                    <img src="../icons/person-outline.svg" />
 
-                    <label for="username"><b>Utilizator</b></label>
+                    <label for="parola"><b>Parola</b></label>
 
-                    <input type="text" name="username" class="inputs" required>
-                    <img src="../icons/lock-closed-outline.svg" />
+                    <input type="text" name="parola" class="inputs" required>
 
-                    <label for="password"><b>Parola</b></label>
-                    <input type="password" name="password" class="inputs" required>
-                    <div class="error-text centered">Datele de autentificare nu sunt valide!</div>
+                    <label for="confirmare_parola"><b>Confirmare parola</b></label>
 
-                    <button type="submit">Login</button>
-                    <a href="recuperare_parola.html" class="password_reset centered">Am uitat parola</a>
+                    <input type="text" name="confirmare_parola" class="inputs" required>
+
+                    <button type="submit">Modificare</button>
 
                 </form>
             </div>

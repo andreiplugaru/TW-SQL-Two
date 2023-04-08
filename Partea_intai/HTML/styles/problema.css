@@ -48,8 +48,8 @@ form .btn-submit {
     justify-self: last baseline;
     /* padding-left: 1em; */
     grid-gap: .1em;
-    height: 100px;
-
+    height: fit-content;
+    width: -webkit-fill-available;
 }
 
 .dropbtn {
@@ -59,12 +59,19 @@ form .btn-submit {
     font-size: 16px;
     border: none;
     cursor: pointer;
+    border-radius: 5px;
+
 }
 
 /* The container <div> - needed to position the dropdown content */
 .dropdown {
     position: relative;
     display: inline-block;
+    grid-column: 2;
+    justify-self: last baseline;
+    align-self: center;
+    margin: 1em;
+    /* align-self: end; */
 }
 
 /* Dropdown Content (Hidden by Default) */
@@ -208,13 +215,18 @@ form .btn-submit {
     /* resize: both; */
     min-height: 40px;
     line-height: 20px;
+    border-radius: 5px;
 }
 
 .textarea[contenteditable]:empty::before {
-    content: "Placeholder still possible";
+    content: "Scrie rezolvarea aici";
     color: gray;
 }
 
+.category {
+    margin-top: 1em;
+    margin-left: 1em;
+}
 
 /* 
 p strong {
@@ -383,6 +395,22 @@ h2 {
     padding-left: 1em;
     padding-top: 1em;
     font-size: x-large;
+}
+
+.next-problem {
+    justify-self: left;
+    padding: 6px 10px;
+    border: none;
+    background: #009cff;
+    color: #eee;
+    cursor: pointer;
+    border-radius: 3px;
+
+}
+
+.next-problem:hover {
+    background: #0266a4;
+
 }
 
 @media screen and (max-width: 768px) {

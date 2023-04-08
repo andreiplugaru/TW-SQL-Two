@@ -14,11 +14,11 @@
     <div class="wrapper">
         <nav>
             <input id="nav-toggle" type="checkbox">
-            <div class="logo">SQL-TWO</div>
+            <div class="logo"><a href="index.html">SQL-TWO</a></div>
             <ul class="links">
-                <li><a href="#help">Help</a></li>
-                <li><a href="login.html">Logare</a></li>
-                <li><a href="signup.html">Inregistrare</a></li>
+                <li><a href="help.html">Help</a></li>
+                <li><a href="profil_elev.html">Profil</a></li>
+                <li><a class="nav-visited" href="problema.html">Problema</a></li>
             </ul>
             <label for="nav-toggle" class="icon-burger">
                 <span class="line"> </span>
@@ -29,73 +29,56 @@
 
         <div class="container">
             <div class="container-item">
-                <form>
-                    <div class="problem-requirement">
-                        Presupunând că în următoarea lună bursa de 450 RON se mărește cu 10%, cea de 350 RON cu 15% și
-                        cea de 250 RON cu 20%, afișați pentru fiecare student numele acestuia, data corespunzătoare
-                        primei zile din luna urmatoare și valoarea bursei pe care o va încasa luna următoare. Pentru cei
-                        care nu iau bursa, se va afisa valoarea 0.
+                <div class="problem-marking">
+                    <a href="">
+                        <div class="wrong_problem">
+                            <img class="wrong-button" style="background-image: url('../images/wrong.svg') "></img>
+                            <div class="overlay">
+                                <div class="text">Marcare problema gresita</div>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="dropdown">
+                        <button class="dropbtn">Selectare dificultate</button>
+                        <div class="dropdown-content">
+                            <a href="#">Usoara</a>
+                            <a href="#">Medie</a>
+                            <a href="#">Grea</a>
+                        </div>
                     </div>
-                    <div class="problem-marking">
-                        <a href="">
-                            <div class="wrong_problem">
-                                <img class="wrong-button" style="background-image: url('../images/wrong.svg') "></img>
-                                <div class="overlay">
-                                    <div class="text">Marcare problema gresita</div>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="dropdown">
-                            <button class="dropbtn">Selectare dificultate</button>
-                            <div class="dropdown-content">
-                                <a href="#">Usoara</a>
-                                <a href="#">Medie</a>
-                                <a href="#">Grea</a>
-                            </div>
-                        </div>
-                        <!-- <div class="pieContainer">
-                        <div class="pieBackground"></div>
+                </div>
+            </div>
 
-                        <div id="pieSlice1" class="hold">
-                            <div class="pie"></div>
-                             <p style="  position: absolute;
-                            top: 20px;
-                            left: 100px;
-                            color: white;
-                            text-orientation: sideways; text-align: unset;">Grea</p> 
-                        </div>
-                        <div id="pieSlice2" class="hold">
-                            <div class="pie"></div>
-                             <p style="position: absolute;
-                            top: 20px;
-                            left: 100px;
-                            color: white;
-                            text-orientation: sideways; text-align:unset;  transform: translate(-40%, -50%) rotate(-120deg);
-                            
-">Medie</p> 
-                        </div>
-                        <div id="pieSlice3" class="hold">
-                            <div class="pie"></div>
-                            <p
-                                style=" position: absolute;
-                            /* top: 20px;
-                            left: 100px; */
-                            color: white;
-                            text-orientation: sideways; text-align: unset;  transform: translate(30px, 80px) rotate(-240deg);">
-                                Usoara</p>
-                        </div>
-                    </div> -->
+            <div class="container-item">
+
+                <div class="category">
+                    <img src="../icons/label.svg" alt="Categorie" width="20px" height="20px">
+                    JOIN
+                </div>
+                <form action="#">
+
+                    <div class="problem-requirement">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eveniet vel ratione. Amet,
+                        sunt nostrum repudiandae quam velit ipsum, ut, optio ullam blanditiis debitis dolores?
+                        Aspernatur deleniti numquam odio. Aspernatur.
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cumque praesentium quas quidem
+                        dignissimos sequi nemo suscipit aliquid! Nam illo qui dignissimos, rerum fuga numquam corporis
+                        magni alias doloremque laborum assumenda?
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum voluptatibus id magnam at, amet,
+                        nostrum aut quo fugiat sapiente itaque mollitia tenetur, perferendis voluptates odio quos
+                        temporibus sequi cupiditate. Maiores!
                     </div>
 
 
                     <span class="textarea" role="textbox" spellcheck="false" contenteditable autofocus></span>
 
-
-                    <!-- <textarea>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa quis architecto dolores perferendis aliquid aut, harum delectus voluptate nesciunt fuga quas maiores vitae recusandae nihil eveniet esse. Excepturi, voluptatibus culpa?
-
-            </textarea> -->
                     <input type="submit" class="btn-submit" value="Trimite solutia" />
+
+
+                </form>
+                <form action="creare_problema.html">
+                    <button class="next-problem" action="#">Problema urmatoare[apare doar daca a fost rezolvata
+                        corect]</button>
                 </form>
             </div>
             <div class="container-item">
