@@ -68,12 +68,13 @@
 	text-decoration: none;
 }
 
+/* 
 .container-item .table-container .table tbody tr td a:hover {
 	text-decoration: underline;
 	font-style: normal;
 	color: #072067;
 }
-
+*/
 .container-item .table_container .table tbody {
 	background-color: #7d92d3;
 	color: #2141a4;
@@ -84,12 +85,12 @@
 	border-radius: 5px;
 }
 
-td:hover {
+.left-column td:hover {
 	background-color: #3e65da;
 	border-radius: 5px;
 }
 
-td:hover a {
+.left-column td:hover a {
 	color: #fff;
 }
 
