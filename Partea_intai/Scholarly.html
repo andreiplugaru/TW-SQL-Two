@@ -17,17 +17,121 @@
     <!--1.Introducere-->
     <section id="introduction" role="doc-introduction">
         <h2>Introducere</h2>
-        <section id="purpose">
-            <h3>Alte sectiuni</h3>
+        Acest document contine o prezentare a apllicatiei web SQL-TWO, realizata de
+
+        <div itemscope itemtype="https://schema.org/Person">
+            <span itemprop="familyName">Plugaru</span>
+            <span itemprop="givenName">Andrei</span>
+            si
+            <span itemprop="familyName">Pal</span>
+            <span itemprop="givenName">Alexandra</span>
+            in cadrul disciplinei Tehnologii Web.
+        </div>
+
+        <section id="Document-conventions">
+            <h3>Conventii</h3>
             <p>
-                Urmeaza a fi completat.
+                Acest document a fost redactat luand in consideratie prevederile oferite de macheta
+                <a href="#ieee-template" property="sa:roleAction" resource="#note1" rel="footnote"> IEEE System
+                    Requirements
+                    Specification Template</a>
             </p>
+        </section>
+        <section id="purpose">
+            <h3>Scopul produsului</h3>
+            <p>
+                Scopul aplicatiei este de a facilita invatarea limbajului SQL prin rezolvarea si crearea unor exercitii
+                aferente domeniului.
+            </p>
+        </section>
+        <section id="intended-audience">
+            <h3>Publicul tinta</h3>
+            <p>
+                Documentul este destinat persoanelor ce sunt in curs de invatare a limbajului SQL ce vor folosi
+                aplicatia SQL-TWO, precum si eventualilor dezvoltatori software care vor dori extinderea
+                functionalitatilor aplicatiei.
+            </p>
+        </section>
+        <section id="references">
+
+            <h3>
+                Referinte
+            </h3>
+            <ol>
+                <li id="ieee-template">
+
+                    <a href="https://github.com/rick4470/IEEE-SRS-Tempate"> IEEE Template for System Requirements
+                        Specification Documents</a><br>
+
+                </li>
+                <li id="scholarly-document-structure">
+                    <a href="https://w3c.github.io/scholarly-html/#abstract"> Scholarly document structure</a>
+                </li>
+                <li id="ionic">
+                    <a href="https://ionic.io/ionicons">Ionic</a>
+                </li>
+                <li id="pixabay">
+                    <a href="https://ionic.io/ionicons">pixabay</a>
+                </li>
+                <li id="repository-github">
+                    <a href="https://github.com/andreiplugaru/TW-SQL-Two">Repository-ul de GitHub al proiectului</a>
+                </li>
+                <li id="font">
+                    <a href=" https://learn.microsoft.com/en-us/typography/font-list/lucida-sans">Lucida Sans font</a>
+                </li>
+
+            </ol>
         </section>
     </section>
 
     <!--2.Functionalitati-->
-    <section id="system-features">
-        <h2>Functionalitati</h2>
+    <section id="functionalities">
+        <h2>Caracteristicile aplicatiei</h2>
+        <section id="users-functionalities">
+            <h2>Functionalitatile utilizatorilor</h2>
+            <p>
+                Functinalitatile aplicatiei in functie de rol.
+                Functionalitatile elevului:
+            </p>
+            <ol>
+                <li>Crearea unui cont, logare si recuperare parola</li>
+                <li>Modificarea datelor contului</li>
+                <li>Rezolvarea unor exercitii si marcarea lor</li>
+                <li>Adaugarea unor noi exercitii</li>
+                <li>Vizualizarea exercitiilor rezolvate si adaugate</li>
+                <li>Vizualizarea unor statistici despre exercitiile propuse</li>
+            </ol>
+            <p>
+                Functionalitatile administratorului:
+            </p>
+            <ol>
+                <li>Logare</li>
+                <li>Administrarea conturilor si a exercitiilor</li>
+                <li>Vizualizarea unor statistici despre toate exercitiile</li>
+                <li>Importarea si exportarea exercitiilor</li>
+            </ol>
+
+        </section>
+        <section id="implementation-details">
+            <h2>Detalii de implementare</h2>
+            <p>
+                In cadrul dezvoltarii interfetei s-a tinut cont de unele bune practici.
+                In primul rand, paginile sunt proiectate pentru a fi responsive.
+                De asemenea, paginile sunt in acelasi stil, toate urmand un sablon bazat pe integrarea de sectiuni
+                marcate.
+                Fontul folosit in cadrul proiectului este <a href="#font">Lucida Sans</a>. Drept motivatie este
+                spatierea
+                egala care il face usor de citit si ii ofera aplicatiei un aspect formal, in spiritul invatarii.
+
+                Pentru crearea layout-ului fiecarei pagini, s-a utilizat atat flex, cat si grid. Layout-ul general al
+                paginilor este construit cu flex,
+                iar anumite componente particulare cu grid.
+            </p>
+        </section>
+    </section>
+
+    <section id="user-interfaces">
+        <h2>Interfetele utilizatorului</h2>
         <section id="home">
             <h3>Home</h3>
             <p>
@@ -199,6 +303,20 @@
                 </p>
             </section>
         </section>
+    </section>
+    <section id="source-code">
+        <h2>Gestionarea Codului</h2>
+        Pentru gestionarea codului sursa a proiectului s-a folosit un repository de <a
+            href="#repository-github">Github</a>. Pentru adaugarea
+        unor noi functionalitati, in mare parte s-a creat cate un branch nou.
+    </section>
+    <section id="other-requirements">
+        <h2>Alte ?cerinte?</h2>
+        <p>
+            Imaginile si iconitele folosite sunt fara drepturi de autor. Iconitele au fost preluate de pe site-ul <a
+                href="#ionic">https://ionic.io/ionicons</a>,
+            iar imaginile de pe <a href="#pixabay">https://pixabay.com/</a>.
+        </p>
     </section>
 </body>
 
