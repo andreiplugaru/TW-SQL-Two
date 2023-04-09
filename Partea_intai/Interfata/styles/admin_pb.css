@@ -20,7 +20,13 @@
 
 .container .table_container .table tbody tr td .btn1:hover,
 .container .table_container .table tbody tr td .btn2:hover {
+<<<<<<< Updated upstream
     box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+=======
+    /* background-color:#002ead;
+	transition: 0.7s; */
+    /* box-shadow: 0 0.5em 0.5em -0.4em var(--hover); */
+>>>>>>> Stashed changes
     transform: translateY(-0.25em);
     cursor: pointer;
 }

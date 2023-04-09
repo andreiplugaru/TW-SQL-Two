@@ -26,16 +26,12 @@
 	margin-bottom: 2em;
 	width: 820px;
 	height: 350px;
-	align-self: left;
-
-
 }
 
 .container p {
 	font-size: large;
 	color: #04123a;
 	text-align: justify;
-	align-self: left;
 	padding-left: 20px;
 	padding-right: 15px;
 	padding-top: 1em;
