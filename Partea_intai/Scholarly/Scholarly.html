@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>SQL-Two(SQL Tutoring) Scholarly HTML Report</title>
+    <link rel="stylesheet" href="https://w3c.github.io/scholarly-html/css/scholarly.min.css">
+    <script src="https://w3c.github.io/scholarly-html/js/scholarly.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>SQL-Two(SQL Tutoring) Raport - Scholarly HTML</h1>
+    </header>
+
+    <!--1.Introducere-->
+    <section id="introduction" role="doc-introduction">
+        <h2>Introducere</h2>
+        Acest document contine o prezentare a apllicatiei web SQL-TWO, realizata de
+
+        <div itemscope itemtype="https://schema.org/Person">
+            <span itemprop="familyName">Plugaru</span>
+            <span itemprop="givenName">Andrei</span>
+            si
+            <span itemprop="familyName">Pal</span>
+            <span itemprop="givenName">Alexandra</span>
+            in cadrul disciplinei Tehnologii Web.
+        </div>
+
+        <section id="Document-conventions">
+            <h3>Conventii</h3>
+            <p>
+                Acest document a fost redactat luand in consideratie prevederile oferite de macheta
+                <a href="#ieee-template" property="sa:roleAction" resource="#note1" rel="footnote"> IEEE System
+                    Requirements
+                    Specification Template</a>
+            </p>
+        </section>
+        <section id="purpose">
+            <h3>Scopul produsului</h3>
+            <p>
+                Scopul aplicatiei este de a facilita invatarea limbajului SQL prin rezolvarea si crearea unor exercitii
+                aferente domeniului.
+            </p>
+        </section>
+        <section id="intended-audience">
+            <h3>Publicul tinta</h3>
+            <p>
+                Documentul este destinat persoanelor ce sunt in curs de invatare a limbajului SQL ce vor folosi
+                aplicatia SQL-TWO, precum si eventualilor dezvoltatori software care vor dori extinderea
+                functionalitatilor aplicatiei.
+            </p>
+        </section>
+        <section id="references">
+
+            <h3>
+                Referinte
+            </h3>
+            <ol>
+                <li id="ieee-template">
+
+                    <a href="https://github.com/rick4470/IEEE-SRS-Tempate"> IEEE Template for System Requirements
+                        Specification Documents</a><br>
+
+                </li>
+                <li id="scholarly-document-structure">
+                    <a href="https://w3c.github.io/scholarly-html/#abstract"> Scholarly document structure</a>
+                </li>
+                <li id="ionic">
+                    <a href="https://ionic.io/ionicons">Ionic</a>
+                </li>
+                <li id="pixabay">
+                    <a href="https://ionic.io/ionicons">pixabay</a>
+                </li>
+                <li id="repository-github">
+                    <a href="https://github.com/andreiplugaru/TW-SQL-Two">Repository-ul de GitHub al proiectului</a>
+                </li>
+                <li id="font">
+                    <a href=" https://learn.microsoft.com/en-us/typography/font-list/lucida-sans">Lucida Sans font</a>
+                </li>
+
+            </ol>
+        </section>
+    </section>
+
+    <!--2.Functionalitati-->
+    <section id="functionalities">
+        <h2>Caracteristicile aplicatiei</h2>
+        <section id="users-functionalities">
+            <h2>Functionalitatile utilizatorilor</h2>
+            <p>
+                Functinalitatile aplicatiei in functie de rol.
+                Functionalitatile elevului:
+            </p>
+            <ol>
+                <li>Crearea unui cont, logare si recuperare parola</li>
+                <li>Modificarea datelor contului</li>
+                <li>Rezolvarea unor exercitii si marcarea lor</li>
+                <li>Adaugarea unor noi exercitii</li>
+                <li>Vizualizarea exercitiilor rezolvate si adaugate</li>
+                <li>Vizualizarea unor statistici despre exercitiile propuse</li>
+            </ol>
+            <p>
+                Functionalitatile administratorului:
+            </p>
+            <ol>
+                <li>Logare</li>
+                <li>Administrarea conturilor si a exercitiilor</li>
+                <li>Vizualizarea unor statistici despre toate exercitiile</li>
+                <li>Importarea si exportarea exercitiilor</li>
+            </ol>
+
+        </section>
+        <section id="implementation-details">
+            <h2>Detalii de implementare</h2>
+            <p>
+                In cadrul dezvoltarii interfetei s-a tinut cont de unele bune practici.
+                In primul rand, paginile sunt proiectate pentru a fi responsive.
+                De asemenea, paginile sunt in acelasi stil, toate urmand un sablon bazat pe integrarea de sectiuni
+                marcate.
+                Fontul folosit in cadrul proiectului este <a href="#font">Lucida Sans</a>. Drept motivatie este
+                spatierea
+                egala care il face usor de citit si ii ofera aplicatiei un aspect formal, in spiritul invatarii.
+
+                Pentru crearea layout-ului fiecarei pagini, s-a utilizat atat flex, cat si grid. Layout-ul general al
+                paginilor este construit cu flex,
+                iar anumite componente particulare cu grid.
+            </p>
+        </section>
+    </section>
+
+    <section id="user-interfaces">
+        <h2>Interfetele utilizatorului</h2>
+        <section id="home">
+            <h3>Home</h3>
+            <p>
+                Pagina home este prima cu care interactioneaza utilizatorul. Aceasta contine un scurt mesaj, o imagine,
+                iar in cazul in care
+                utilizatorul este logat si un buton prin care poate rezolva exercitiul propus de aplicatie.
+            <p>
+                Mai jos sunt machetele paginilor, atat in format desktop cat si responsive.
+            </p>
+            <p>
+                <img src="img/home.jpg" alt="home" width="400">
+                <img src="img/home_elev.png" alt="home_elev" width="400">
+                <img src="img/home_responsive.png" alt="home_responsive" width="200">
+            </p>
+
+
+        </section>
+        <section id="logare">
+            <h3>Logare</h3>
+            <p>
+                Pagina dedicata logarii contine campuri pentru numele de utilizator si parola. Utilizatorul poate apasa
+                butonul "login" pentru autentificare, iar in cazul
+                in care credentialele sunt corecte va fi redirectionat pe pagina principala, unde va putea incepe sa
+                rezolve teste. In caz contrar, ii va fi afisat un mesaj
+                corespunzator. Aditional, utilizatorul mai poate solicita resetarea parolei apasand pe <i>Am uitat
+                    parola</i>.
+                utilizatorul este logat si un buton prin care poate rezolva exercitiul propus de aplicatie.
+            <p>
+                Mai jos sunt machetele paginilor, atat in format desktop cat si responsive.
+            </p>
+            <p>
+                <img src="img/logare.png" alt="logare" width="400">
+                <img src="img/logare_responsive.png" alt="logare_responsive" width="200">
+            </p>
+        </section>
+        <section id="inregistrare">
+            <h3>Inregistrare</h3>
+            <p>
+                Pagina dedicata logarii contine campuri pentru numele de utilizator, parola si email. Dupa apasarea
+                butonului Inregistrare, datele introduse vor fi validate,
+                in cazul in care inregistrarea s-a efectuat, acesta va fi, in mod implicit, logat si redirectionat spre
+                pagina principala. In caz contrar, ii va fi afisat un mesaj corespunzator.
+            </p>
+            <p>
+                Mai jos este macheta paginii.
+            </p>
+            <p>
+                <img src="img/inregistrare.png" alt="inregistrare" width="400">
+            </p>
+        </section>
+        <section id="profil_elev">
+            <h3>Profil elev</h3>
+            <p>
+                Pagina dedicata profililui elevului permite acestuia efecutarea mai multor actiuni. In primul rand,
+                acesta isi poate vedea unele informatii despre cont in partea stanga a ferestrei, dar si poate solicita
+                modificarea unor setari de cont,
+                apasand pe <i>Setari cont</i> sau vizualiza statistici despre problemele propuse apasand pe
+                <i>Statistici despre problemele propuse de catre tine</i>.
+            </p>
+            <p>
+                In partea dreapta a ferestrei, utlizatorul poate vizualiza 3 tabele cu date referitoare la probleme:
+                rezolvate, marcate
+                si propuse. Acestea, insa, vor fi vizibile doar
+                in cazul in care sunt probleme apartinand categoriilor respective. Apasand pe cerinta unei probleme din
+                tabelul cu probleme rezolvate sau marcate,
+                utilizatorul va fi redirectionat pe pagina problemei respective unde va vedea atat cerinta, cat si
+                solutia corecta sau solutia propusa de acesta, in dependenta de categoria din care face problema.
+            </p>
+            <p>
+                Mai jos este macheta paginii.
+            </p>
+            <p>
+                <img src="img/profil_elev.png" alt="profil_elev" width="400">
+            </p>
+        </section>
+        <section id="about">
+            <h3>About</h3>
+            <p>
+                Pe pagina respectiva, utilizatorul va putea vizualiza informatii generale despre Sistemele de Management
+                a Bazelor de Date si Structured Query Language.
+                Scopul realizarii aplicatiei si dezvoltatorii acesteia sunt prezente, de asemenea, pe pagina respectiva.
+            </p>
+            <p>
+                Mai jos este macheta paginii.
+            </p>
+            <p>
+                <img src="img/about.png" alt="about" width="400">
+            </p>
+        </section>
+        <section id="help">
+            <h3>Help</h3>
+            <p>
+                Pe pagina respectiva, utilizatorul va putea vizualiza informatii referitoare la modul de utilizare a
+                platformei. In plus, va putea consulta schema bazei de date pentru care
+                sunt propuse problemele.
+            </p>
+            <p>
+                Mai jos este macheta paginii.
+            </p>
+            <p>
+                <img src="img/help.png" alt="help" width="400">
+            </p>
+        </section>
+        <section id="pagina_administrare">
+            <h3>Pagina de administrare</h3>
+            <br><img style="width: 100%;" src="Pagini/administrare1.png" alt=""><br>
+            <p>
+                Pagina administratorului este accesibila doar administratorilor aplicatiei web si aceasta permite
+                gestionarea
+                si modificarea conturilor elevilor si a exercitiilor existente pe site. Administratorii au acces si
+                la anumite statistici
+                asupra interogarilor si elevilor. De asemenea, in cadrul tuturor paginilor de administrare, exista
+                butoane care duc spre
+                paginile <i>Home</i>, <i>Help</i>, <i>About</i> si <i>Inregistrare</i> (<b>CONFUZZZ
+                    inregistrare?</b>).
+            </p>
+
+            <section id="administrare_conturi">
+                <h3>Administrare conturi</h3>
+                <br><img style="width: 100%;" src="Pagini/administrare2.png" alt=""><br>
+                <p>
+                    Pagina de administrare a conturilor de utilizator permite administratorilor sa gestioneze elevii
+                    inscrisi pe site.
+                    Administratorii vor putea vedea numele utilizatorului, e-mail-ul asociat acestuia si vor avea
+                    posibilitatea de a sterge
+                    contul unui utilizator-elev.
+                </p>
+            </section>
+            <section id="administrare_probleme">
+                <h3>Administrare intrebari</h3>
+                <br><img style="width: 100%;" src="Pagini/administrare3.png" alt=""><br>
+                <p>
+                    Pagina de administrare a intrebarilor existente pe site permite administratorilor sa vizualizeze
+                    un tabel in care
+                    vor aparea o parte din cerinta problemei, sub forma de link (link care va duce catre o alta
+                    pagina in care se va afisa intreg
+                    enuntul <b>CONFUZZZ ce se intampla daca apasa X</b>) alaturi de optiunea <i>Sterge</i>, care
+                    permite stergerea problemei respective, in cazul in care administratorii doresc asta.
+                    <br>
+                    Optiunile de <i>Export</i>, respectiv <i>Import</i> permit exportarea de intrebari intr-un
+                    format deschis (XML / JSON) sau
+                    importarea acestora (diferenta consta ca la import va trebui sa existe în fisier si raspunsul
+                    corect).
+                    <br>
+                </p>
+            </section>
+
+            <section id="statistici">
+                <h3>Statistici</h3>
+                <br><img style="width: 100%;" src="Pagini/administrare4.png" alt=""><br>
+                <p>
+                    <br>Pagina de statistici ofera administratorilor informatii despre conturile user-ilor si despre
+                    exercitiile de pe site.<br>
+                    <br>In cazul conturilor, administratorii vor putea urmari pentru fiecare elev, ce probleme a
+                    rezolvat si care este numarul
+                    mediu de incercari ale elevului, pentru a ajunge la solutia corecta a unei intrebari.
+                    <br>
+                    <br>In cazul exercitiilor, administratorii vor putea urmari pentru fiecare problema, enuntul
+                    acesteia, numarul de elevi care
+                    au reusit sa o rezolve corect, precum si numarul mediu de incercari ale elevilor, pentru a
+                    ajunge la solutia corecta.
+                    <br>
+                </p>
+            </section>
+        </section>
+
+        <section id="problema">
+            <h3>Pagini aferente exercitiilor</h3>
+            In timpul rezolvarii problemelor, user-ul va avea acces la butonul de <i>Stop</i> care opreste sesiunea
+            curenta de intrebari, butonul <i>Logout</i> care deconecteaza user-ul curent
+            si butoanele care duc spre paginile: <i>Profil</i> si <i>Help</i>.
+            <section id="rezolvare_problema">
+                <h3>Pagina rezolvarii unui exercitiu</h3>
+                <br><img style="width: 100%;" src="Pagini&#x2F;problema1.png" alt=""><br>
+                <!--la validator imi sare daca pun \, dar daca pun 5%C nu mi apare imaginea..-->
+                <p>
+                    Dupa ce elevul a apasat butonul de <i>Incepe teste</i>, aplicatia va incarca o pagina in care
+                    vor aparea: enuntul problemei curente, un camp
+                    (<i>[Rezolvare]</i>) in care elevul va trebui sa introduca rezolvarea si un buton <i>X</i> care
+                    permite elevului sa marcheze intrebarea
+                    drept gresita <b>CONFUZZZ</b>. Butonul de <i>Submit</i> va avea 2 actiuni posibile:</p>
+                <ul>
+                    <li>daca rezolvarea nu este corecta, pe pagina va aparea un <i>Mesaj</i> care sa semnaleze
+                        user-ului faptul ca a introdus
+                        o solutie gresita si ca trebuie sa mai incerce;</li>
+                    <li>daca rezolvarea este corecta, pe pagina vor aparea: cercul din dreapta-sus, care va permite
+                        marcarea intrebarii
+                        drept <i>G</i>rea, <i>M</i>edie sau <i>U</i>soara, o lista de comentarii pe care alti elevi
+                        le-au scris pentru exercitiu respectiv, campuri pentru
+                        introducerea unui comentariu de catre user-ul curent si butonul care conduce catre
+                        <i>Urmatoarea problema</i>.
+                    </li>
+                </ul>
+            </section>
+            <section id="introducere_problema">
+                <h3>Pagina introducerii unei noi probleme</h3>
+                <br><img style="width: 100%;" src="Pagini/problema2.png" alt=""> <br>
+                <p>
+                    Dupa ce elevul a raspuns corect la 20 de intrebari, el este obligat sa formuleze propria
+                    problema: va introduce enuntul acesteia in
+                    campul <i>Textul problemei</i>, precum si rezolvarea aferenta, in campul: <i>[Rezolvare]</i>.
+                    Dupa ce aceste campuri au fost
+                    completate, va aparea butonul <i>Submit</i>, care va conduce catre pagina unei probleme ce
+                    trebuie rezolvata.
+                </p>
+            </section>
+        </section>
+    </section>
+    <section id="source-code">
+        <h2>Gestionarea Codului</h2>
+        Pentru gestionarea codului sursa a proiectului s-a folosit un repository de <a
+            href="#repository-github">Github</a>. Pentru adaugarea
+        unor noi functionalitati, in mare parte s-a creat cate un branch nou.
+    </section>
+    <section id="other-requirements">
+        <h2>Alte ?cerinte?</h2>
+        <p>
+            Imaginile si iconitele folosite sunt fara drepturi de autor. Iconitele au fost preluate de pe site-ul <a
+                href="#ionic">https://ionic.io/ionicons</a>,
+            iar imaginile de pe <a href="#pixabay">https://pixabay.com/</a>.
+        </p>
+    </section>
+</body>
+
+</html>
