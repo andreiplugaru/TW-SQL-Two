@@ -4,4 +4,5 @@ Să se realizeze o aplicație web menită a facilita invățarea limbajului SQL 
 
 ## Membrii echipei
 <a href="https://github.com/pal-Alexandra">Pal Alexandra</a>
+<br>
 <a href="https://github.com/andreiplugaru">Plugaru Andrei</a>
