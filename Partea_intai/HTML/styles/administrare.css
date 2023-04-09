@@ -17,7 +17,6 @@
 }
 
 .container-item {
-	/* height: 100vh; */
 	padding: 1em;
 	align-items: stretch;
 }
@@ -34,7 +33,6 @@
 .container .container-item .table_container {
 	width: 100%;
 	box-sizing: border-box;
-	/* padding: 20px; */
 }
 
 .container-item .table_container .table {
@@ -68,13 +66,6 @@
 	text-decoration: none;
 }
 
-/* 
-.container-item .table-container .table tbody tr td a:hover {
-	text-decoration: underline;
-	font-style: normal;
-	color: #072067;
-}
-*/
 .container-item .table_container .table tbody {
 	background-color: #7d92d3;
 	color: #2141a4;
@@ -149,10 +140,6 @@
 	}
 
 	table td::before {
-		/*
-		* aria-label has no advantage, it won't be read inside a table
-		content: attr(aria-label);
-		*/
 		content: attr(data-label);
 		float: left;
 		font-weight: bold;

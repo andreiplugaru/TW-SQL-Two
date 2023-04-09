@@ -8,7 +8,6 @@
 input,
 button {
     grid-column: 1;
-    /* width: 300px; */
     font-size: larger;
     border-radius: 5px;
     margin-top: 0.5em;
@@ -52,7 +51,6 @@ button:hover {
     color: #f23a3a;
     font-size: larger;
     align-self: center;
-    /* margin: 16px 16px 16px 0; */
 }
 
 .form-title {
@@ -72,7 +70,6 @@ select {
     max-width: fit-content;
     min-width: 15ch;
     max-width: 30ch;
-    /* border: 1px solid var(--select-border); */
     border-radius: 0.25em;
     padding: 0.25em 0.5em;
     font-size: 1.25rem;
@@ -81,16 +78,10 @@ select {
     background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
 }
 
-/* form hr {
-    grid-column: 1/4;
-} */
-
 form {
     padding: 1em;
-    /* border: 1px solid #fff; */
     display: grid;
     grid-template-columns: 1fr;
-    /* grid-gap: 16px; */
     align-items: center;
 }
 
@@ -130,7 +121,6 @@ form textarea:focus-visible {
 }
 
 .textarea {
-    /* text-transform: uppercase; */
     border: 1px solid #ccc;
     font-family: inherit;
     font-size: inherit;

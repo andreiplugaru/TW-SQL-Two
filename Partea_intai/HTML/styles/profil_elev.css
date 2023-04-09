@@ -55,7 +55,6 @@
 	font-weight: normal;
 	color: #2141a4;
 	text-decoration: none;
-	/* display: block; */
 }
 
 .container .table-container .table tbody tr td a:hover {
@@ -116,10 +115,6 @@
 	}
 
 	table td::before {
-		/*
-		* aria-label has no advantage, it won't be read inside a table
-		content: attr(aria-label);
-		*/
 		content: attr(data-label);
 		float: left;
 		font-weight: bold;

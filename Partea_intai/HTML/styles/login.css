@@ -8,7 +8,6 @@
 input,
 button {
     grid-column: 1/4;
-    /* width: 300px; */
     font-size: larger;
     border-radius: 5px;
     margin-top: 0.5em;
@@ -48,7 +47,6 @@ button:hover {
     color: #f23a3a;
     font-size: larger;
     align-self: center;
-    /* margin: 16px 16px 16px 0; */
 }
 
 .form-title {
@@ -63,16 +61,10 @@ button:hover {
 
 }
 
-/* form hr {
-    grid-column: 1/4;
-} */
-
 form {
     padding: 1em;
-    /* border: 1px solid #fff; */
     display: grid;
     grid-template-columns: 0.1fr 1fr 1fr;
-    /* grid-gap: 16px; */
     align-items: center;
 }
 
@@ -92,14 +84,6 @@ form img {
     grid-column: 1;
     justify-self: center;
 
-}
-
-body {
-    /* background: repeating-linear-gradient(45deg,
-            #fff,
-            #606dbc 10px,
-            #fff 10px,
-            #465298 20px); */
 }
 
 .container a {

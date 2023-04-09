@@ -5,7 +5,6 @@
 }
 
 body {
-	/* height: 100vh; */
 	position: relative;
 	min-height: 100vh;
 	padding-bottom: 10px;
@@ -16,24 +15,6 @@ body {
 	flex-direction: column;
 	height: 100%;
 }
-
-/* .container {
-	position: relative;
-	margin-top: 5em;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-
-} */
-
-/* .container img {
-	display: block;
-	width: 100%;
-} */
-/* .container p {
-	padding-top: 1em;
-	align-self: center;
-} */
 
 nav {
 	position: fixed;
@@ -110,7 +91,6 @@ nav .icon-burger .line {
 	padding-bottom: 4em;
 	align-items: start;
 	margin-top: 5em;
-	/* height: 100%; */
 	position: relative;
 	min-height: calc(100vh - 4em - 4em);
 
@@ -160,14 +140,6 @@ nav .icon-burger .line {
 
 }
 
-/* .container .table_container .table tbody tr td .btn{
-    font-size: 16px;
-	letter-spacing: 0.35px;
-	font-weight: normal;
-	color:#2141a4;
-	text-decoration: none;
-}*/
-
 .container .table_container .table tbody tr td .pb{
     font-size: 16px;
 	letter-spacing: 0.35px;
@@ -198,14 +170,10 @@ footer {
 	justify-content: space-around;
 	position: absolute;
 	bottom: 0;
-	/* background-color: limegreen; */
-
 }
 
 
 .footer-content a {
-	/* text-align: center; */
-	/* text-decoration: none; */
 	padding: 1em;
 	font-size: 16px;
 	font-weight: bold;
@@ -216,10 +184,6 @@ footer {
 
 
 @media screen and (max-width: 768px) {
-	/* .responsive {
-		width: 100%;
-		height: auto;
-	} */
 
 	nav .logo {
 		float: none;
@@ -302,9 +266,6 @@ footer {
         left: 0;
         width: 45%;
         padding-left: 15px;
-        /* padding-top: 3px; */
-        /* padding-bottom: 10px; */
-        /* align-items: center; */
         font-size: 15px;
         font-weight: bold;
         text-align: left;
