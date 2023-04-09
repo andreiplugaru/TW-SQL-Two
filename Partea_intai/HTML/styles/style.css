@@ -185,9 +185,6 @@ input:focus {
 }
 
 .footer-content a {
-	/* text-align: center; */
-	/* text-decoration: none; */
-	/* padding: 1em; */
 	font-size: 16px;
 	font-weight: bold;
 	color: #fff;
@@ -215,7 +212,6 @@ input:focus {
 		float: none;
 		width: fit-content;
 		justify-content: center;
-		/* justify-self: center; */
 	}
 
 	nav .links {

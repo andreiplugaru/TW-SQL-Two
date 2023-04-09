@@ -262,7 +262,7 @@ form .btn-submit {
 .comment-box textarea {
     background: #eee;
     width: -webkit-fill-available;
-    height: 152px;
+    height: 50px;
     margin: 10px 0;
     padding: 10px;
     resize: inherit;
@@ -314,7 +314,7 @@ form .btn-submit {
 }
 
 @media screen and (max-width: 768px) {
-    .dropdown {
+    /* .dropdown {
         grid-column: 1;
-    }
+    } */
 }
