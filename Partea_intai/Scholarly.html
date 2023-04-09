@@ -201,39 +201,42 @@
         </section>
         <section id="pagina_administrare">
             <h3>Pagina de administrare</h3>
-            <br><img style="width: 100%;" src="Pagini/administrare1.png" alt=""><br>
             <p>
-                Pagina administratorului este accesibila doar administratorilor aplicatiei web si aceasta permite
+                Pagina administratorului este accesibila doar administratorilor aplicatiei web si aceasta permite, in 
+                functie de link-ul selectat,
                 gestionarea
-                si modificarea conturilor elevilor si a exercitiilor existente pe site. Administratorii au acces si
-                la anumite statistici
-                asupra interogarilor si elevilor. De asemenea, in cadrul tuturor paginilor de administrare, exista
+                si modificarea conturilor elevilor, a problemelor existente pe site si accesarea unor anumite statistici
+                asupra problemelor si elevilor. De asemenea, in cadrul tuturor paginilor de administrare, exista
                 butoane care duc spre
-                paginile <i>Home</i>, <i>Help</i>, <i>About</i> si <i>Inregistrare</i> (<b>CONFUZZZ
-                    inregistrare?</b>).
+                paginile <i>Help</i>, <i>About</i>, <i>Home</i> (prin apasarea siglei din partea stanga) si butonul de <i>Delogare</i>.
             </p>
 
             <section id="administrare_conturi">
                 <h3>Administrare conturi</h3>
-                <br><img style="width: 100%;" src="Pagini/administrare2.png" alt=""><br>
+                <br><img style="width: 100%;" src="scholarly_images/administrare.png" alt=""><br>
                 <p>
                     Pagina de administrare a conturilor de utilizator permite administratorilor sa gestioneze elevii
                     inscrisi pe site.
-                    Administratorii vor putea vedea numele utilizatorului, e-mail-ul asociat acestuia si vor avea
+                    Administratorii vor putea vedea username-ul utilizatorului, e-mail-ul asociat acestuia si vor avea
                     posibilitatea de a sterge
                     contul unui utilizator-elev.
                 </p>
             </section>
             <section id="administrare_probleme">
-                <h3>Administrare intrebari</h3>
-                <br><img style="width: 100%;" src="Pagini/administrare3.png" alt=""><br>
+                <h3>Administrare probleme</h3>
+                <br><img style="width: 100%;" src="scholarly_images/administrare_probleme.png" alt=""><br>
                 <p>
-                    Pagina de administrare a intrebarilor existente pe site permite administratorilor sa vizualizeze
+                    Pagina de administrare a problemelor existente pe site permite administratorilor sa vizualizeze
                     un tabel in care
                     vor aparea o parte din cerinta problemei, sub forma de link (link care va duce catre o alta
-                    pagina in care se va afisa intreg
-                    enuntul <b>CONFUZZZ ce se intampla daca apasa X</b>) alaturi de optiunea <i>Sterge</i>, care
+                    pagina in care se va afisa intreg enuntul si rezolvarea problemei) alaturi de optiunea <i>Sterge</i>, care
                     permite stergerea problemei respective, in cazul in care administratorii doresc asta.
+                    <br>
+                    Intr-un al doilea tabel, administratorii vor putea gestiona problemele ce au fost marcate de catre elevi/studenti drept gresite.
+                    Tabelul contine o parte din cerinta problemei, sub forma de link (link care va duce catre o alta
+                    pagina in care se va afisa intreg enuntul si rezolvarea problemei), si alte doua butoane cu care administratorul poate respinge 
+                    faptul ca problema este <i>Gresita</i> (in acest caz, problema va ramane pe site) sau poate accepta faptul ca problema este <i>Gresita</i> (caz in
+                    care problema este stearsa de pe site.)
                     <br>
                     Optiunile de <i>Export</i>, respectiv <i>Import</i> permit exportarea de intrebari intr-un
                     format deschis (XML / JSON) sau
@@ -245,16 +248,16 @@
 
             <section id="statistici">
                 <h3>Statistici</h3>
-                <br><img style="width: 100%;" src="Pagini/administrare4.png" alt=""><br>
+                <br><img style="width: 100%;" src="scholarly_images/administrare_statistici.png" alt=""><br>
                 <p>
                     <br>Pagina de statistici ofera administratorilor informatii despre conturile user-ilor si despre
                     exercitiile de pe site.<br>
-                    <br>In cazul conturilor, administratorii vor putea urmari pentru fiecare elev, ce probleme a
+                    <br>In cazul conturilor, administratorii vor putea urmari pentru fiecare elev, cate probleme a
                     rezolvat si care este numarul
-                    mediu de incercari ale elevului, pentru a ajunge la solutia corecta a unei intrebari.
+                    mediu de incercari ale elevului, pentru a ajunge la solutia corecta a unei probleme.
                     <br>
                     <br>In cazul exercitiilor, administratorii vor putea urmari pentru fiecare problema, enuntul
-                    acesteia, numarul de elevi care
+                    acesteia sub forma de link, numarul de elevi care
                     au reusit sa o rezolve corect, precum si numarul mediu de incercari ale elevilor, pentru a
                     ajunge la solutia corecta.
                     <br>
@@ -264,43 +267,58 @@
 
         <section id="problema">
             <h3>Pagini aferente exercitiilor</h3>
-            In timpul rezolvarii problemelor, user-ul va avea acces la butonul de <i>Stop</i> care opreste sesiunea
-            curenta de intrebari, butonul <i>Logout</i> care deconecteaza user-ul curent
-            si butoanele care duc spre paginile: <i>Profil</i> si <i>Help</i>.
+            In timpul rezolvarii problemelor, user-ul va avea acces la butonul de <i>Profil</i> care il va directiona
+            pe pagina aferenta si va opri sesiunea curenta de intrebari, butonul <i>Logout</i> care deconecteaza user-ul curent
+            si butoanele care duc spre paginile: <i>About</i>, <i>Help</i> si <i>Home</i> (prin apasarea siglei din partea stanga).
             <section id="rezolvare_problema">
                 <h3>Pagina rezolvarii unui exercitiu</h3>
-                <br><img style="width: 100%;" src="Pagini&#x2F;problema1.png" alt=""><br>
-                <!--la validator imi sare daca pun \, dar daca pun 5%C nu mi apare imaginea..-->
+                <br><img style="width: 100%;" src="scholarly_images/rezolva_problema.png" alt=""><br>
                 <p>
-                    Dupa ce elevul a apasat butonul de <i>Incepe teste</i>, aplicatia va incarca o pagina in care
+                    Dupa ce elevul a apasat butonul de <i>Rezolva exercitii!</i>, aplicatia va incarca o pagina in care
                     vor aparea: enuntul problemei curente, un camp
-                    (<i>[Rezolvare]</i>) in care elevul va trebui sa introduca rezolvarea si un buton <i>X</i> care
-                    permite elevului sa marcheze intrebarea
-                    drept gresita <b>CONFUZZZ</b>. Butonul de <i>Submit</i> va avea 2 actiuni posibile:</p>
+                    (<i>[Rezolvare]</i>) in care elevul va trebui sa introduca rezolvarea si un buton <i>Submit</i> care va avea 2 
+                    actiuni posibile:</p>
                 <ul>
                     <li>daca rezolvarea nu este corecta, pe pagina va aparea un <i>Mesaj</i> care sa semnaleze
                         user-ului faptul ca a introdus
                         o solutie gresita si ca trebuie sa mai incerce;</li>
-                    <li>daca rezolvarea este corecta, pe pagina vor aparea: cercul din dreapta-sus, care va permite
+                    <li>daca rezolvarea este corecta, pe pagina vor aparea: butonul din dreapta-sus, care va permite
                         marcarea intrebarii
                         drept <i>G</i>rea, <i>M</i>edie sau <i>U</i>soara, o lista de comentarii pe care alti elevi
                         le-au scris pentru exercitiu respectiv, campuri pentru
                         introducerea unui comentariu de catre user-ul curent si butonul care conduce catre
-                        <i>Urmatoarea problema</i>.
+                        <i>Urmatoarea problema</i> (in aceasta prima stare a proietului, acest buton conduce catre 
+                        pagina in care elevul trebuie sa formuleze propria problema.)
                     </li>
                 </ul>
+                <p>Tot in aceasta pagina, elevul are ocazia sa marcheze intrebarea drept <i>Gresita</i> (elevul are permisiunea de a marca
+                    un numar de 5 probleme, dupa aceste 5 marcari, elevul nu va mai putea marca nicio problema
+                    ca fiind gresita, pana ce administratorul site-ului gestioneaza problemele gresite <b>ASA?</b>).
+
+                </p>
             </section>
             <section id="introducere_problema">
                 <h3>Pagina introducerii unei noi probleme</h3>
-                <br><img style="width: 100%;" src="Pagini/problema2.png" alt=""> <br>
+                <br><img style="width: 100%;" src="scholarly_images/adauga_problema.png" alt=""> <br>
                 <p>
                     Dupa ce elevul a raspuns corect la 20 de intrebari, el este obligat sa formuleze propria
                     problema: va introduce enuntul acesteia in
-                    campul <i>Textul problemei</i>, precum si rezolvarea aferenta, in campul: <i>[Rezolvare]</i>.
+                    campul <i>Cerinta</i>, precum si rezolvarea aferenta, in campul: <i>[Rezolvare]</i>.
+                    Elevul trebuie sa selecteze si cateoria pe care problema o abordeaza: <i>Join, Group By</i> etc.
                     Dupa ce aceste campuri au fost
                     completate, va aparea butonul <i>Submit</i>, care va conduce catre pagina unei probleme ce
                     trebuie rezolvata.
                 </p>
+            </section>
+            <section id="problema rezolvata">
+                <h3>Pagina unei probleme rezolvate</h3>
+                <br><img style="width: 100%;" src="scholarly_images/problema_rezolvata.png" alt=""> <br>
+                <p>Asa cum am specificat mai sus, in tabelele aferente paginii de administrare, precum si celor din profilul elevului, exista link-uri
+                    care duc spre o pagina specifica unei singure probleme. In aceasta pagina, utilizatorul poate vedea enuntul intreg al problemei, rezolvarea
+                    proprie, precum si comentarii pentru problema respectiva. <b>COMENTARIU NOU?</b>
+
+                </p>
+
             </section>
         </section>
     </section>
