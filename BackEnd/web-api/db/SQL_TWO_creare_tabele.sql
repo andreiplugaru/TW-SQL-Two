@@ -1,6 +1,6 @@
 set serveroutput on;
-
 /
+
 CREATE TABLE users(
 id NUMBER(38,0),
 email VARCHAR2(30),
