@@ -17,6 +17,68 @@ SELECT COUNT(*) from problems where id_difficulty=1;
 SELECT SYSDATE FROM DUAL;
 
 
+CREATE OR REPLACE FUNCTION dificultate_disponibila(p_id_stud IN students.id_user%type, p_id_dif IN problem_difficulties.id%type)
+RETURN problem_difficulties.id%type AS
+    v_nr_optiuni_medie INTEGER;
+    v_nr_optiuni_usoara INTEGER;
+    v_nr_optiuni_grea INTEGER;
+    
+    v_return problem_difficulties.id%type;
+    
+         e_nu_mai_am_probleme EXCEPTION;
+    PRAGMA exception_init(e_nu_mai_am_probleme, -20006 );
+
+BEGIN
+       SELECT COUNT(*) INTO v_nr_optiuni_usoara 
+          FROM problems pb join map_problem_difficulty mpd on pb.id=mpd.id_problem 
+          WHERE mpd.id_difficulty = 1 AND
+              pb.id NOT IN ( SELECT id_problem FROM solved_problems
+                            WHERE id_student=p_id_stud 
+                        );          
+    
+        SELECT COUNT(*) INTO v_nr_optiuni_medie 
+          FROM problems pb join map_problem_difficulty mpd on pb.id=mpd.id_problem 
+          WHERE mpd.id_difficulty = 2 AND
+              pb.id NOT IN ( SELECT id_problem FROM solved_problems
+                            WHERE id_student=p_id_stud 
+                        );
+        
+        SELECT COUNT(*) INTO v_nr_optiuni_grea
+          FROM problems pb join map_problem_difficulty mpd on pb.id=mpd.id_problem 
+          WHERE mpd.id_difficulty = 3 AND
+              pb.id NOT IN ( SELECT id_problem FROM solved_problems
+                            WHERE id_student=p_id_stud 
+                        );          
+    
+        if p_id_dif = 1 then
+            if v_nr_optiuni_medie > 0 then
+                v_return := 2;
+            elsif v_nr_optiuni_grea > 0 then
+                v_return := 3;
+            end if;
+        elsif p_id_dif = 2 then
+            if v_nr_optiuni_grea > 0 then
+                v_return := 3;
+            elsif v_nr_optiuni_usoara > 0 then
+                    v_return := 1;
+            end if;
+        elsif p_id_dif = 3 then
+            if v_nr_optiuni_medie > 0 then
+                v_return := 2;
+            elsif v_nr_optiuni_usoara > 0 then
+                    v_return := 1;
+            end if;
+        else
+            RAISE e_nu_mai_am_probleme;
+        end if;
+
+                
+    return v_return;
+
+END;
+
+
+
 CREATE OR REPLACE FUNCTION problema_de_dificultate(p_id_stud IN students.id_user%type, p_nume_dif IN problem_difficulties.name%type, p_id_dif IN problem_difficulties.id%type )
 RETURN problems.requirement%type AS
     v_nr_optiuni NUMBER;
@@ -24,7 +86,7 @@ RETURN problems.requirement%type AS
     v_id_pb_urm problems.id%type;
     v_enunt_pb_urm problems.requirement%type;
     v_raspuns problems.requirement%type;
-
+    
 BEGIN
 
           SELECT COUNT(*) INTO v_nr_optiuni 
@@ -34,16 +96,51 @@ BEGIN
                             WHERE id_student=p_id_stud 
                         );
                         
-        v_linie_random := FLOOR(DBMS_RANDOM.VALUE(1, v_nr_optiuni + 1));
+          --DACA, CUMVA, AJUNG SA NU AM PROBLEMA DISPONIBILA DIN CATEGORIA DATA, ALEG PRIMA CATEGORIE DISPONIBILA
+          if v_nr_optiuni = 0 then
+                p_id_dif := dificultate_disponibila(p_id_stud, p_id_dif);
+          end if;
+                        
+         SELECT COUNT(*) INTO v_nr_optiuni 
+          FROM problems pb join map_problem_difficulty mpd on pb.id=mpd.id_problem 
+          WHERE mpd.id_difficulty=p_id_dif AND
+              pb.id NOT IN ( SELECT id_problem FROM solved_problems
+                            WHERE id_student=p_id_stud 
+                        );
+        
+        
+        --interogãrile ce vor fi propuse spre rezolvare vor fi mereu cele care au mai pu?ine încercãri``
         SELECT id INTO v_id_pb_urm FROM
-            ( SELECT id, ROW_NUMBER() OVER (ORDER BY id) AS nr_linie
-              FROM problems pb join map_problem_difficulty mpd on pb.id=mpd.id_problem 
+            ( SELECT pb.id   
+              FROM problems pb join map_problem_difficulty mpd on pb.id=mpd.id_problem
                 WHERE mpd.id_difficulty = p_id_dif AND
                       pb.id NOT IN ( SELECT id_problem FROM solved_problems
                             WHERE id_student=p_id_stud 
                         )
+              ORDER BY 
+                ( SELECT SUM(NVL2(id_student,1,0))
+                    FROM problems pb join map_problem_difficulty mpd on pb.id=mpd.id_problem
+                        left outer join solved_problems sp on pb.id=sp.id_problem
+                    GROUP BY pb.id
+                    HAVING mpd.id_difficulty = p_id_dif AND
+                      pb.id NOT IN ( SELECT id_problem FROM solved_problems
+                                        WHERE id_student=p_id_stud 
+                                    )
+                ) ASC
             )
-        WHERE nr_linie =  v_linie_random;
+        WHERE ROWNUM = 1;
+       
+         
+--        v_linie_random := FLOOR(DBMS_RANDOM.VALUE(1, v_nr_optiuni + 1));
+--        SELECT id INTO v_id_pb_urm FROM
+--            ( SELECT id, ROW_NUMBER() OVER (ORDER BY id) AS nr_linie
+--              FROM problems pb join map_problem_difficulty mpd on pb.id=mpd.id_problem 
+--                WHERE mpd.id_difficulty = p_id_dif AND
+--                      pb.id NOT IN ( SELECT id_problem FROM solved_problems
+--                            WHERE id_student=p_id_stud 
+--                        )
+--            )
+--        WHERE nr_linie =  v_linie_random;
 
         SELECT requirement INTO v_enunt_pb_urm FROM problems
         WHERE id=v_id_pb_urm;
