@@ -51,12 +51,12 @@ BEGIN
 END;
 /
 
---INSERARE PROBLEMS
+--INSERARE PROBLEMS & MAP_PROBLEM_DIFFICULTY
 DECLARE 
     v_cerinta problems.requirement%type;
     v_solutie problems.solution%type;
     v_id_category problems.id_category%type;
-    v_id_difficulty problems.id_difficulty%type;
+    v_id_difficulty map_problem_difficulty.id_difficulty%type;
     v_contor INTEGER  :=0;
 BEGIN
     
@@ -77,7 +77,9 @@ BEGIN
         
          --dbms_output.put_line(v_cerinta || ' ' || v_soluie);
         
-        INSERT INTO problems VALUES (v_contor, v_cerinta, v_solutie,v_id_category, v_id_difficulty);
+        INSERT INTO problems VALUES (v_contor, v_cerinta, v_solutie,v_id_category);
+        INSERT INTO map_problem_difficulty VALUES (v_contor, v_id_difficulty);
+
        
     end loop;
 

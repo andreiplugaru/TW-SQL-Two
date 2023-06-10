@@ -5,17 +5,19 @@ SELECT * FROM students;
 SELECT * FROM admins;
 SELECT * FROM problems;
 SELECT * FROM problem_categories;
+SELECT * FROM problem_difficulties;
+SELECT * FROM map_problem_difficulty;
 SELECT * FROM solved_problems;
 SELECT * FROM added_problems;
 SELECT * FROM wrong_problems;
 SELECT * FROM attempts;
 SELECT * FROM comments;
 
-SELECT COUNT(*) from problems where id_category=1;
+SELECT COUNT(*) from problems where id_difficulty=1;
 SELECT SYSDATE FROM DUAL;
 
 
-CREATE OR REPLACE FUNCTION problema_din_categorie(p_id_stud IN students.id_user%type, p_nume_cat IN problem_categories.name%type,p_id_cat IN problem_categories.id%type )
+CREATE OR REPLACE FUNCTION problema_de_dificultate(p_id_stud IN students.id_user%type, p_nume_dif IN problem_difficulties.name%type, p_id_dif IN problem_difficulties.id%type )
 RETURN problems.requirement%type AS
     v_nr_optiuni NUMBER;
     v_linie_random NUMBER;
@@ -24,18 +26,25 @@ RETURN problems.requirement%type AS
     v_raspuns problems.requirement%type;
 
 BEGIN
-        SELECT COUNT(*) INTO v_nr_optiuni FROM problems
-        WHERE id_category=p_id_cat AND
-              id NOT IN ( SELECT id_problem FROM solved_problems
+
+          SELECT COUNT(*) INTO v_nr_optiuni 
+          FROM problems pb join map_problem_difficulty mpd on pb.id=mpd.id_problem 
+          WHERE mpd.id_difficulty=p_id_dif AND
+              pb.id NOT IN ( SELECT id_problem FROM solved_problems
                             WHERE id_student=p_id_stud 
                         );
-        
-         SELECT id INTO v_id_pb_urm FROM problems 
-                WHERE id_category = p_id_cat AND
-                      id NOT IN ( SELECT id_problem FROM solved_problems
+                        
+        v_linie_random := FLOOR(DBMS_RANDOM.VALUE(1, v_nr_optiuni + 1));
+        SELECT id INTO v_id_pb_urm FROM
+            ( SELECT id, ROW_NUMBER() OVER (ORDER BY id) AS nr_linie
+              FROM problems pb join map_problem_difficulty mpd on pb.id=mpd.id_problem 
+                WHERE mpd.id_difficulty = p_id_dif AND
+                      pb.id NOT IN ( SELECT id_problem FROM solved_problems
                             WHERE id_student=p_id_stud 
-                        ) AND ROWNUM = 1;
-            
+                        )
+            )
+        WHERE nr_linie =  v_linie_random;
+
         SELECT requirement INTO v_enunt_pb_urm FROM problems
         WHERE id=v_id_pb_urm;
         
@@ -59,13 +68,13 @@ RETURN problems.requirement%type AS
     v_continua_alt_crietriu INTEGER;
     v_nr_pb_ultimele_3_zile INTEGER;
     
-    v_id_ultima_cat problem_categories.id%type;
-    v_ultima_cat problem_categories.name%type;
-    v_urm_cat problem_categories.name%type;
-    v_id_urm_cat problem_categories.id%type;
+    v_id_ultima_dif problem_difficulties.id%type;
+    v_ultima_dif problem_difficulties.name%type;
+    v_urm_dif problem_difficulties.name%type;
+    v_id_urm_dif problem_difficulties.id%type;
     
     v_ultima_pb problems.id%type;
-    v_nr_pb_din_ultima_cat NUMBER(4);
+    v_nr_pb_din_ultima_dif NUMBER(4);
     
     v_nr_optiuni NUMBER;
     v_linie_random NUMBER;
@@ -110,20 +119,24 @@ BEGIN
         v_continua := 0;
     end if;
     
-    if v_continua = 1 then 
+    if v_continua = 1 then
+        
+        --update dificultati
+        gestionare_dinamica_dif();
+    
         --gestionare urm pb in fctie de pb rezolvate in ultimele 3 zile
         --aflu cate pb a rezolvat in ultimele 3 zile
         SELECT COUNT(*) INTO v_nr_pb_ultimele_3_zile FROM solved_problems
         WHERE id_student = p_id_stud AND
               at_time <= SYSDATE AND at_time >= SYSDATE - 3;
-        
+            
         if v_nr_pb_ultimele_3_zile < 5  then
-            v_raspuns := problema_din_categorie(p_id_stud,'USOARA', 1);
+            v_raspuns := problema_de_dificultate(p_id_stud,'USOARA', 1);
         elsif v_nr_pb_ultimele_3_zile >= 5 AND v_nr_pb_ultimele_3_zile < 10 then
-            v_raspuns := problema_din_categorie(p_id_stud,'MEDIE', 2);
+            v_raspuns := problema_de_dificultate(p_id_stud,'MEDIE', 2);
         else
         
-            --gestionare pb in fctie de nr de pb rezolvate din fiecare categorie
+            --gestionare pb in fctie de nr de pb rezolvate din fiecare dificultate
             --mai intai gasesc ultima problema rezolvata
             
             --DACA NU A PROPUS->CAUT ULTIMA PB REZOLVATA
@@ -141,43 +154,45 @@ BEGIN
              ORDER BY at_time DESC)
              WHERE ROWNUM=1;
            end if;
-             --acum ii aflu categoria
-             SELECT id_category INTO v_id_ultima_cat FROM problems
-             WHERE id=v_ultima_pb;
+             --acum ii aflu dificultatea
+             SELECT mpd.id_difficulty INTO v_id_ultima_dif 
+             FROM problems pb join map_problem_difficulty mpd on pb.id=mpd.id_problem
+             WHERE pb.id=v_ultima_pb;
              
              
-             SELECT name INTO v_ultima_cat FROM problem_categories
-             WHERE id=v_id_ultima_cat;
+             SELECT name INTO v_ultima_dif FROM problem_difficulties
+             WHERE id=v_id_ultima_dif;
              
-             --acum aflu cate probleme a rezolvat din acea categorie 
-             SELECT COUNT(*) INTO v_nr_pb_din_ultima_cat
+             --acum aflu cate probleme a rezolvat din acea dificultate
+             SELECT COUNT(*) INTO v_nr_pb_din_ultima_dif
              from solved_problems sp join problems pb on sp.id_problem=pb.id
-                  join problem_categories pc on pc.id=pb.id_category
-             WHERE sp.id_student=p_id_stud and pc.id=v_id_ultima_cat; 
+                  join map_problem_difficulty mpd on pb.id=mpd.id_problem
+                  join problem_difficulties pd on mpd.id_difficulty = pd.id
+             WHERE sp.id_student=p_id_stud and pd.id=v_id_ultima_dif; 
             
-            --gestionare urmatoarea categorie in fctie de nr de pb rezolvate din fiecare categorie
-            if v_ultima_cat = 'USOARA' then
-                if v_nr_pb_din_ultima_cat <= 15 then
-                    v_urm_cat := 'USOARA';
-                    v_id_urm_cat :=1;
+            --gestionare urmatoarea dificultate in fctie de nr de pb rezolvate din fiecare dificultate
+            if v_ultima_dif = 'USOARA' then
+                if v_nr_pb_din_ultima_dif <= 15 then
+                    v_urm_dif := 'USOARA';
+                    v_id_urm_dif :=1;
                 else  
-                    v_urm_cat := 'MEDIE';
-                    v_id_urm_cat :=2;    
+                    v_urm_dif := 'MEDIE';
+                    v_id_urm_dif :=2;    
                 end if;
-            elsif v_ultima_cat = 'MEDIE' then
-                if v_nr_pb_din_ultima_cat <= 30 then
-                    v_urm_cat := 'MEDIE';
-                    v_id_urm_cat :=2;
+            elsif v_ultima_dif = 'MEDIE' then
+                if v_nr_pb_din_ultima_dif <= 30 then
+                    v_urm_dif := 'MEDIE';
+                    v_id_urm_dif :=2;
                 else  
-                    v_urm_cat := 'GREA';
-                    v_id_urm_cat :=3;
+                    v_urm_dif := 'GREA';
+                    v_id_urm_dif :=3;
                 end if;
             else 
-                v_urm_cat := 'GREA';
-                v_id_urm_cat :=3;
+                v_urm_dif := 'GREA';
+                v_id_urm_dif :=3;
             end if;
             
-            v_raspuns := problema_din_categorie(p_id_stud, v_urm_cat, v_id_urm_cat);
+            v_raspuns := problema_de_dificultate(p_id_stud, v_urm_dif, v_id_urm_dif);
         end if;
         
     end if; 
