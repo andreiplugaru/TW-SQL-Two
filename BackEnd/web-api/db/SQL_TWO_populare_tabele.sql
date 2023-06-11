@@ -141,16 +141,16 @@ INSERT INTO solved_problems VALUES (4, 7, TO_TIMESTAMP('21/05/2023 12:17', 'DD/M
 INSERT INTO solved_problems VALUES (4, 10, TO_TIMESTAMP('21/05/2023 12:18', 'DD/MM/YYYY HH24:MI'));
 
 
-INSERT INTO solved_problems VALUES (5, 1, TO_TIMESTAMP('24/05/2023 12:18', 'DD/MM/YYYY HH24:MI'));
-INSERT INTO solved_problems VALUES (5, 4, TO_TIMESTAMP('24/05/2023 12:19', 'DD/MM/YYYY HH24:MI'));
-INSERT INTO solved_problems VALUES (5, 7, TO_TIMESTAMP('24/05/2023 12:20', 'DD/MM/YYYY HH24:MI'));
-INSERT INTO solved_problems VALUES (5, 10, TO_TIMESTAMP('24/05/2023 12:21', 'DD/MM/YYYY HH24:MI'));
-INSERT INTO solved_problems VALUES (5, 13, TO_TIMESTAMP('24/05/2023 12:22', 'DD/MM/YYYY HH24:MI'));
-INSERT INTO solved_problems VALUES (5, 16, TO_TIMESTAMP('24/05/2023 12:23', 'DD/MM/YYYY HH24:MI'));
-INSERT INTO solved_problems VALUES (5, 19, TO_TIMESTAMP('24/05/2023 12:24', 'DD/MM/YYYY HH24:MI'));
-INSERT INTO solved_problems VALUES (5, 22, TO_TIMESTAMP('24/05/2023 12:25', 'DD/MM/YYYY HH24:MI'));
-INSERT INTO solved_problems VALUES (5, 25, TO_TIMESTAMP('24/05/2023 12:26', 'DD/MM/YYYY HH24:MI'));
-INSERT INTO solved_problems VALUES (5, 28, TO_TIMESTAMP('24/05/2023 12:27', 'DD/MM/YYYY HH24:MI'));
+INSERT INTO solved_problems VALUES (5, 1, TO_TIMESTAMP('10/06/2023 12:18', 'DD/MM/YYYY HH24:MI'));
+INSERT INTO solved_problems VALUES (5, 4, TO_TIMESTAMP('10/06/2023 12:19', 'DD/MM/YYYY HH24:MI'));
+INSERT INTO solved_problems VALUES (5, 7, TO_TIMESTAMP('10/06/2023 12:20', 'DD/MM/YYYY HH24:MI'));
+INSERT INTO solved_problems VALUES (5, 10, TO_TIMESTAMP('10/06/2023 12:21', 'DD/MM/YYYY HH24:MI'));
+INSERT INTO solved_problems VALUES (5, 13, TO_TIMESTAMP('10/06/2023 12:22', 'DD/MM/YYYY HH24:MI'));
+INSERT INTO solved_problems VALUES (5, 16, TO_TIMESTAMP('10/06/2023 12:23', 'DD/MM/YYYY HH24:MI'));
+INSERT INTO solved_problems VALUES (5, 19, TO_TIMESTAMP('10/06/2023 12:24', 'DD/MM/YYYY HH24:MI'));
+INSERT INTO solved_problems VALUES (5, 22, TO_TIMESTAMP('10/06/2023 12:25', 'DD/MM/YYYY HH24:MI'));
+INSERT INTO solved_problems VALUES (5, 25, TO_TIMESTAMP('10/06/2023 12:26', 'DD/MM/YYYY HH24:MI'));
+INSERT INTO solved_problems VALUES (5, 28, TO_TIMESTAMP('10/06/2023 12:27', 'DD/MM/YYYY HH24:MI'));
 
 /
 
@@ -159,7 +159,7 @@ SELECT * FROM solved_problems;
 --STUD1 (id=3)- n-ar trebui sa primeasca urm pb
 --STUD2 (id=4)- ar trebui sa primeasca urm pb si sa fie: USOARA 
 --STUD3 (id=5)- ar trebui sa primeasca urm pb si sa fie MEDIE 
-    --(in data de 25 mai 2023--acum testez alg, stud cu id=5 are rezolvate in ultimele 3 zile 10 probleme, iar ultima pb rezolvata este din cat MEDIE, iar in total are rez 10 pb din cat MEDIE =>urm pb medie)
+    --(in data de 11 iunie 2023--acum testez alg, stud cu id=5 are rezolvate in ultimele 3 zile 10 probleme, iar ultima pb rezolvata este din cat USOARA, iar in total are rez 6 pb din cat USOARE, 2 pb MEDII, 2 pb GRELE =>urm pb MEDIE)
 
 --INSERT INTO MARKED_PROBLEMS
 INSERT INTO marked_problems VALUES (3,3, 2);
