@@ -18,7 +18,7 @@ function onLogin(e) {
     const errorTextElement = document.getElementById('error-text');
     errorTextElement.innerHTML= '';
 
-    const request = sendRequest(LOGIN_ENDPOINT,"POST",payload);
+    const request = sendRequest(LOGIN_ENDPOINT, "POST", payload);
     request.onreadystatechange = (e) =>{
         if(request.readyState === XMLHttpRequest.DONE){
             const status = request.status;

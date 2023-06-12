@@ -33,12 +33,12 @@
             <div class="data">
                 <div class="form-title">Recuperare parola</div>
 
-                <form action="modificare_parola.html" method="post">
+                <form action="modificare_parola.html" id="recovery-pass" method="post">
                     <img alt="perosn" src="../icons/person-outline.svg">
 
                     <label for="username"><b>Utilizator</b></label>
 
-                    <input type="text" id="username" class="inputs" required>
+                    <input type="text" id="username" name="username" class="inputs" required>
 
 
                     <button type="submit">Trimite e-mail</button>
@@ -52,6 +52,10 @@
             </div>
         </footer>
     </div>
+
+    <script type="module" src="../js/schimbaParola.js"></script>
+
+
 </body>
 
 </html>
