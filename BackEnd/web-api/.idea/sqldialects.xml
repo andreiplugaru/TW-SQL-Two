@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/db/SQL_TWO_algoritm_urm_pb.sql" dialect="OracleSqlPlus" />
+    <file url="file://$PROJECT_DIR$/db/SQL_TWO_creare_tabele.sql" dialect="Oracle" />
+    <file url="file://$PROJECT_DIR$/db/SQL_TWO_populare_tabele.sql" dialect="OracleSqlPlus" />
+    <file url="file://$PROJECT_DIR$/db/inserare_pb_rezolvata.sql" dialect="OracleSqlPlus" />
+  </component>
+</project>
