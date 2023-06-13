@@ -1,5 +1,6 @@
 const oracledb = require('oracledb');
-const cs = `(description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.eu-paris-1.oraclecloud.com))(connect_data=(service_name=g38bfaa0689ce89_sqltwodb_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))`
+const cs = process.env.CONNECTION_STRING
+//const cs = `(description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.eu-paris-1.oraclecloud.com))(connect_data=(service_name=g38bfaa0689ce89_sqltwodb_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))`
 oracledb.initOracleClient({libDir: 'C:\\instantclient_21_10'});
 
 async function init() {
@@ -43,7 +44,7 @@ async function insertInTable(query, binds) {
         connection.commit();
         return result.lastRowid
     } catch (err) {
-        //  console.error(err);
+        console.error(err);
         const {errorNum} = err;
         return `-${errorNum}`;
     } finally {
@@ -65,6 +66,7 @@ async function executeQuery(query, binds) {
         const dbResult = await connection.execute(query, binds, options)
         return Object.values(dbResult.rows)
     } catch (err) {
+        console.error(err);
         const {errorNum} = err;
         return `-${errorNum}`;
     } finally {

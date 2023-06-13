@@ -14,10 +14,8 @@ const routes = ({authenticationService}) => ({
                     response.writeHead(200, DEFAULT_HEADER)
                     response.write(JSON.stringify(result));
                 } catch (err) {
-                    if (err.name === "UnauthorizedException") {
-                        response.writeHead(401, DEFAULT_HEADER)
-                        response.write(JSON.stringify(err.message))
-                    }
+                    response.writeHead(err.errorCode, DEFAULT_HEADER)
+                    response.write(JSON.stringify({'message': err.message}))
                 }
                 response.end();
             });
@@ -32,13 +30,8 @@ const routes = ({authenticationService}) => ({
                     await authenticationService.register(requestBody);
                     response.writeHead(201, DEFAULT_HEADER)
                 } catch (err) {
-                    if (err.name === "UnauthorizedException") {
-                        response.writeHead(403, DEFAULT_HEADER)
-                        response.write(JSON.stringify(err.message))
-                    } else if (err.name === "EmailTakenException" || err.name === "UsernameTakenException") {
-                        response.writeHead(400, DEFAULT_HEADER)
-                        response.write(JSON.stringify(err.message))
-                    }
+                    response.writeHead(err.errorCode, DEFAULT_HEADER)
+                    response.write(JSON.stringify({'message': err.message}))
                 }
                 response.end();
             });

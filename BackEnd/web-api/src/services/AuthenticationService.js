@@ -1,8 +1,7 @@
 let bcrypt = require('bcryptjs')
 let UnauthorizedException = require('../exceptions/UnauthorizedException.js')
 const jwt = require('jsonwebtoken')
-const jwtSecret = '4715aed3c946f7b0a38e6b534a9583628d84e96d10fbc04700770d572af3dce43625dd'
-
+const jwtSecret = process.env.JWT_SECRET
 
 class AuthenticationService {
     constructor(userService, studentService) {
@@ -33,7 +32,6 @@ class AuthenticationService {
                 response = {
                     token: token,
                     username: user[0].USERNAME,
-                    //TODO: change to right role
                     role: 'STUDENT'
                 }
             } else
@@ -43,7 +41,6 @@ class AuthenticationService {
     }
 
     async register(studentRegisterDto) {
-        let response;
         if (studentRegisterDto.username === undefined || studentRegisterDto.username === null || studentRegisterDto.username === '' || studentRegisterDto.password === undefined || studentRegisterDto.password === null || studentRegisterDto.password === '') {
             throw new UnauthorizedException()
         }
