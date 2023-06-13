@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded',function(){
 
             localStorage.removeItem('jwt');
             localStorage.removeItem('role');
+
+            window.location.assign("/");
         })
     }
 });

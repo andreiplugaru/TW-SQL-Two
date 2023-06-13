@@ -15,6 +15,7 @@ function onLogin(e) {
     const currentTarget = e.currentTarget;
 
     const payload = Object.fromEntries(new FormData(currentTarget));
+    console.log(payload);
     const errorTextElement = document.getElementById('error-text');
     errorTextElement.innerHTML = '';
 
@@ -32,9 +33,9 @@ function onLogin(e) {
 
                 //gestiune redirectionare catre home in functie de rol
                 if (response.role === 'STUDENT') {
-                    window.location.assign("/elev_home");
+                    window.location.assign("/elev_home.html");
                 } else {
-                    window.location.assign("/administrare");
+                    window.location.assign("/administrare.html");
                 }
             } else {
                 errorTextElement.innerHTML = response.message;
