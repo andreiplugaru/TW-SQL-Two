@@ -33,15 +33,17 @@
             <div class="data">
                 <div class="form-title">Modificare parola</div>
 
-                <form action="elev_home.html" method="post">
+                <form action="elev_home.html" id="change-pass" method="post">
 
                     <label for="parola"><b>Parola</b></label>
 
-                    <input type="text" id="parola" class="inputs" required>
+                    <input type="text" id="parola" name="password" class="inputs" required>
 
                     <label for="confirmare_parola"><b>Confirmare parola</b></label>
 
-                    <input type="text" id="confirmare_parola" class="inputs" required>
+                    <input type="text" id="confirmare_parola" name="repeatPassword" class="inputs" required>
+
+                    <div class="error-text centered" id = "error-text" ></div>
 
                     <button type="submit">Modificare</button>
 
@@ -54,6 +56,9 @@
             </div>
         </footer>
     </div>
+
+    <script type="module" src="../js/schimbaParola.js"></script>
+
 </body>
 
 </html>

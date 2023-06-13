@@ -33,17 +33,17 @@
             <div class="data">
                 <div class="form-title">Logare</div>
 
-                <form action="elev_home.html" method="post">
+                <form action="elev_home.html" id = "login-form" method="post">
                     <img alt="person" src="../icons/person-outline.svg">
 
                     <label for="username"><b>Utilizator</b></label>
 
-                    <input type="text" id="username" class="inputs" required>
+                    <input type="text" id="username" name="username" class="inputs" required>
                     <img alt="password" src="../icons/lock-closed-outline.svg">
 
                     <label for="password"><b>Parola</b></label>
-                    <input type="password" id="password" class="inputs" required>
-                    <div class="error-text centered">Datele de autentificare nu sunt valide!</div>
+                    <input type="password" id="password" name="password" class="inputs" required>
+                    <div class="error-text centered" id="error-text"></div>
 
                     <button type="submit">Login</button>
                     <a href="recuperare_parola.html" class="password_reset centered">Am uitat parola</a>
@@ -56,6 +56,9 @@
                 <a href="about.html">About</a>
             </div>
         </footer>
+
+        <script type="module" src="../js/login.js"></script>
+
     </div>
 </body>
 

@@ -28,16 +28,17 @@ function onRegister(e){
             const response = JSON.parse(request.response);
 
             if(status === 200){
-                //user created
+                //user creat
                 localStorage.setItem('jwt',response.token);
                 localStorage.setItem('role', response.role);
 
                 //gestiune redirectionare catre home in functie de rol
-                if(response.role == 'student'){
+                if(response.role === 'student'){
                     window.location("/elev_home");
                 }else{
                     window.location("/administrare");
                 }
+
             }else{
                 errorTextElement.innerHTML = response.message;
             }
