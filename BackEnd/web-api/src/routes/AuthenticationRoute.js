@@ -23,6 +23,10 @@ const routes = ({authenticationService}) => ({
             });
         },
         '/api/v1/auth/register:post': async (request, response) => {
+            response.setHeader('Access-Control-Allow-Origin', '*');
+            response.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
+            response.setHeader('Access-Control-Max-Age', 2592000); // 30 days
+
             let body = [];
             request.on('data', (chunk) => {
                 body.push(chunk);
