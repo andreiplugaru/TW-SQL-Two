@@ -1,8 +1,8 @@
-class UnauthorizedException extends Error {
-    constructor() {
-        super("Datele de autentificare sunt incorecte");
-        this.name = 'UnauthorizedException';
+const HttpException = require('./HttpException.js');
 
+class UnauthorizedException extends HttpException {
+    constructor() {
+        super("Datele de autentificare sunt incorecte", "UnauthorizedException", 401);
     }
 }
 

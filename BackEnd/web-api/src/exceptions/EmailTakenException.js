@@ -1,7 +1,8 @@
-class EmailTakenException extends Error {
+const HttpException = require('./HttpException.js');
+
+class EmailTakenException extends HttpException {
     constructor(email) {
-        super(`Email-ul ${email} este deja folosit`);
-        this.name = "EmailTakenException";
+        super(`Email-ul ${email} este deja folosit`, "EmailTakenException", 400);
     }
 }
 

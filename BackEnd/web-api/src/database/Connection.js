@@ -43,7 +43,7 @@ async function insertInTable(query, binds) {
         connection.commit();
         return result.lastRowid
     } catch (err) {
-        //  console.error(err);
+        console.error(err);
         const {errorNum} = err;
         return `-${errorNum}`;
     } finally {
@@ -65,6 +65,7 @@ async function executeQuery(query, binds) {
         const dbResult = await connection.execute(query, binds, options)
         return Object.values(dbResult.rows)
     } catch (err) {
+        console.error(err);
         const {errorNum} = err;
         return `-${errorNum}`;
     } finally {

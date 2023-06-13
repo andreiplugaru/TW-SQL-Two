@@ -19,10 +19,8 @@ const routes = ({
                 const solvedProblems = await solvedProblemService.findSolvedProblemsByStudentId(id)
                 response.write(JSON.stringify({problems: solvedProblems}))
             } catch (err) {
-                if (err.name === "StudentNotFoundException") {
-                    response.writeHead(404, DEFAULT_HEADER)
-                    response.write(JSON.stringify(err.message))
-                }
+                response.writeHead(err.errorCode, DEFAULT_HEADER)
+                response.write(JSON.stringify({'message': err.message}))
             }
         } else {
             const solvedProblems = await solvedProblemService.findAll()
@@ -42,25 +40,8 @@ const routes = ({
                 await solvedProblemService.save(solvedProblemDto)
                 response.writeHead(201, DEFAULT_HEADER)
             } catch (err) {
-                if (err.name === "StudentNotFoundException") {
-                    response.writeHead(404, DEFAULT_HEADER)
-                    response.write(JSON.stringify(err.message))
-                } else if (err.name === "StudentAlreadySolvedProblemException") {
-                    response.writeHead(400, DEFAULT_HEADER)
-                    response.write(JSON.stringify(err.message))
-                } else if (err.name === "NotRightProblemToInsertException") {
-                    response.writeHead(400, DEFAULT_HEADER)
-                    response.write(JSON.stringify(err.message))
-                } else if (err.name === "StudentExceededLimitException") {
-                    response.writeHead(400, DEFAULT_HEADER)
-                    response.write(JSON.stringify(err.message))
-                } else if (err.name === "StudentNotFoundException") {
-                    response.writeHead(404, DEFAULT_HEADER)
-                    response.write(JSON.stringify(err.message))
-                } else {
-                    response.writeHead(500, DEFAULT_HEADER)
-                    response.write(JSON.stringify(err.message))
-                }
+                response.writeHead(err.errorCode, DEFAULT_HEADER)
+                response.write(JSON.stringify({'message': err.message}))
             }
             response.end()
         });
@@ -76,10 +57,8 @@ const routes = ({
                 response.write(JSON.stringify({problem: problem}))
 
             } catch (err) {
-                if (err.name === "ProblemNotFoundException") {
-                    response.writeHead(404, DEFAULT_HEADER)
-                    response.write(JSON.stringify(err.message))
-                }
+                response.writeHead(err.errorCode, DEFAULT_HEADER)
+                response.write(JSON.stringify({'message': err.message}))
             }
         } else {
             response.writeHead(404, DEFAULT_HEADER)
@@ -101,13 +80,8 @@ const routes = ({
                     idCategory: problem.idCategory
                 })))
             } catch (err) {
-                if (err.name === "StudentExceededLimitException") {
-                    response.writeHead(400, DEFAULT_HEADER)
-                    response.write(JSON.stringify(err.message))
-                } else if (err.name === "StudentNotFoundException") {
-                    response.writeHead(404, DEFAULT_HEADER)
-                    response.write(JSON.stringify(err.message))
-                }
+                response.writeHead(err.errorCode, DEFAULT_HEADER)
+                response.write(JSON.stringify({'message': err.message}))
                 response.end()
             }
         } else {
