@@ -3,28 +3,23 @@ const ProblemSolvedReceivedDto = require('../dtos/ProblemSolvedReceivedDto.js');
 const url = require('url');
 const DEFAULT_HEADER = require('../util/util.js');
 const ProblemResponseDto = require("../dtos/ProblemResponseDto.js");
+const AuthenticationUtil = require("../util/AuthenticationUtil.js");
 
 const routes = ({
+                    studentService,
                     solvedProblemService,
                     problemService
                 }) => ({
     '/api/v1/problems/solved:get': async (request, response) => {
-        const parsedUrl = url.parse(request.url, true);
-        const {pathname, query} = parsedUrl;
-        response.writeHead(200, DEFAULT_HEADER)
-
-        if ('studentId' in query) {
-            try {
-                const id = query.studentId
-                const solvedProblems = await solvedProblemService.findSolvedProblemsByStudentId(id)
-                response.write(JSON.stringify({problems: solvedProblems}))
-            } catch (err) {
-                response.writeHead(err.errorCode, DEFAULT_HEADER)
-                response.write(JSON.stringify({'message': err.message}))
-            }
-        } else {
-            const solvedProblems = await solvedProblemService.findAll()
+        try {
+            let studentId = AuthenticationUtil.checkToken(studentService, request)
+            const solvedProblems = await solvedProblemService.findSolvedProblemsByStudentId(studentId)
+            response.writeHead(200, DEFAULT_HEADER)
             response.write(JSON.stringify({problems: solvedProblems}))
+
+        } catch (err) {
+            response.writeHead(err.errorCode, DEFAULT_HEADER)
+            response.write(JSON.stringify({'message': err.message}))
         }
         response.end()
 
@@ -34,8 +29,10 @@ const routes = ({
         request.on('data', (chunk) => {
             body.push(chunk);
         }).on('end', async () => {
+            let studentId = await AuthenticationUtil.checkToken(studentService, request)
+            console.log('student id = ', studentId)
             const requestBody = JSON.parse(body); // Assuming the request body is in JSON format
-            const solvedProblemDto = new ProblemSolvedReceivedDto(requestBody)
+            const solvedProblemDto = new ProblemSolvedReceivedDto(studentId, requestBody.id_problem)
             try {
                 await solvedProblemService.save(solvedProblemDto)
                 response.writeHead(201, DEFAULT_HEADER)
@@ -68,25 +65,23 @@ const routes = ({
     '/api/v1/problems/next:get': async (request, response) => {
         const parsedUrl = url.parse(request.url, true);
         const {pathname, query} = parsedUrl;
-        if ('studentId' in query) {
-            const id = query.studentId
-            try {
-                const problemId = Object.values((await problemService.findNextProblem(id))[0])[0]
-                const problem = await problemService.findById(problemId)
-                response.writeHead(200, DEFAULT_HEADER)
-                response.write(JSON.stringify(new ProblemResponseDto({
-                    id: problem.id,
-                    requirement: problem.requirement,
-                    idCategory: problem.idCategory
-                })))
-            } catch (err) {
-                response.writeHead(err.errorCode, DEFAULT_HEADER)
-                response.write(JSON.stringify({'message': err.message}))
-                response.end()
-            }
-        } else {
-            response.writeHead(404, DEFAULT_HEADER)
+
+        try {
+            let studentId = await AuthenticationUtil.checkToken(studentService, request)
+            const problemId = Object.values((await problemService.findNextProblem(studentId))[0])[0]
+            const problem = await problemService.findById(problemId)
+            response.writeHead(200, DEFAULT_HEADER)
+            response.write(JSON.stringify(new ProblemResponseDto({
+                id: problem.id,
+                requirement: problem.requirement,
+                category: problem.category,
+            })))
+        } catch (err) {
+            response.writeHead(err.errorCode, DEFAULT_HEADER)
+            response.write(JSON.stringify({'message': err.message}))
+            response.end()
         }
+
         response.end()
     }
 })

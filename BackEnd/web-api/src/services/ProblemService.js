@@ -13,7 +13,7 @@ class ProblemService {
         if (response === undefined || response.length === 0) {
             throw new ProblemNotFoundException(id)
         }
-        let problem = new Problem( { id: response.ID, requirement: response.REQUIREMENT, solution:response.SOLUTION, idCategory: response.ID_CATEGORY} );
+        let problem = new Problem( { id: response.ID, requirement: response.REQUIREMENT, solution:response.SOLUTION, category: response.CATEGORY} );
         return problem;
     }
 
