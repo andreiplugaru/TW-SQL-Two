@@ -1,9 +1,9 @@
-import { REGISTER_ENDPOINT } from "./endpoints";
+import { REGISTER_ENDPOINT } from "./endpoints.js";
 import { sendRequest } from "./request/request_handler.js"
  
 const registerForm = document.getElementById('register-form');
 
-registerForm.addEventListener('submit', onRegister)
+registerForm.addEventListener('submit', onRegister);
 
 function onRegister(e){
 
