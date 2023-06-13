@@ -4,6 +4,8 @@ const url = require('url');
 const DEFAULT_HEADER = require('../util/util.js');
 const ProblemResponseDto = require("../dtos/ProblemResponseDto.js");
 const AuthenticationUtil = require("../util/AuthenticationUtil.js");
+const querystring = require('querystring');
+
 
 const routes = ({
                     studentService,
@@ -64,8 +66,6 @@ const routes = ({
     },
     '/api/v1/problems/next:get': async (request, response) => {
         const parsedUrl = url.parse(request.url, true);
-        const {pathname, query} = parsedUrl;
-
         try {
             let studentId = await AuthenticationUtil.checkToken(studentService, request)
             const problemId = Object.values((await problemService.findNextProblem(studentId))[0])[0]
@@ -79,11 +79,22 @@ const routes = ({
         } catch (err) {
             response.writeHead(err.errorCode, DEFAULT_HEADER)
             response.write(JSON.stringify({'message': err.message}))
-            response.end()
         }
-
+        response.end()
+    },
+    '/api/v1/problems/wrong:post': async (request, response) => {
+        try {
+            let studentId = await AuthenticationUtil.checkToken(studentService, request)
+            const parsed = url.parse(request.url);
+            let problemId = querystring.parse(parsed.query).problemId
+            await problemService.markProblemAsWrong(studentId, problemId)
+        } catch (err) {
+            response.writeHead(err.errorCode, DEFAULT_HEADER)
+            response.write(JSON.stringify({'message': err.message}))
+        }
         response.end()
     }
+
 })
 
 
