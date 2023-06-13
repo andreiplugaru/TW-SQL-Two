@@ -56,7 +56,7 @@ const allRoutes = {
     ...authenticationRoutes,
     //404 route
     default: (requst, response) => {
-        response.writeHead(404, DEFAULT_HEADER)
+        response.writeHead(200, DEFAULT_HEADER)
         response.write('Not fouand')
         //   db.dostuff()
         response.end()

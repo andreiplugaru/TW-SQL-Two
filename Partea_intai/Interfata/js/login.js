@@ -1,4 +1,4 @@
-import { LOGIN_ENDPOINT } from "./endpoints";
+import { LOGIN_ENDPOINT } from "./endpoints.js";
 import { sendRequest } from "./request/request_handler.js"
 
 
@@ -16,26 +16,27 @@ function onLogin(e) {
 
     const payload = Object.fromEntries(new FormData(currentTarget));
     const errorTextElement = document.getElementById('error-text');
-    errorTextElement.innerHTML= '';
+    errorTextElement.innerHTML = '';
 
     const request = sendRequest(LOGIN_ENDPOINT, "POST", payload);
-    request.onreadystatechange = (e) =>{
-        if(request.readyState === XMLHttpRequest.DONE){
+    request.onreadystatechange = (e) => {
+        if (request.readyState === XMLHttpRequest.DONE) {
             const status = request.status;
             const response = JSON.parse(request.response);
 
-           //user logat
-            if(status === 200){
-                localStorage.setItem('jwt',response.token);
-                localStorage.setItem('role',response.role);
+            //user logat
+            if (status === 200) {
+                console.log(response);
+                localStorage.setItem('jwt', response.token);
+                localStorage.setItem('role', response.role);
 
                 //gestiune redirectionare catre home in functie de rol
-                if(response.role === 'student'){
-                    window.location("/elev_home");
-                }else{
-                    window.location("/administrare");
+                if (response.role === 'STUDENT') {
+                    window.location.assign("/elev_home");
+                } else {
+                    window.location.assign("/administrare");
                 }
-            }else{
+            } else {
                 errorTextElement.innerHTML = response.message;
             }
         }

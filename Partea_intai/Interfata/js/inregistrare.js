@@ -1,46 +1,50 @@
-import { REGISTER_ENDPOINT } from "./endpoints";
+import { REGISTER_ENDPOINT } from "./endpoints.js";
 import { sendRequest } from "./request/request_handler.js"
- 
+
 const registerForm = document.getElementById('register-form');
 
 registerForm.addEventListener('submit', onRegister)
 
-function onRegister(e){
+function onRegister(e) {
 
     e.preventDefault();
 
     const currentTarget = e.currentTarget;
 
-    const payload = Object.fromEntries(new FormData(currentTarget));
-    const errorTextElement = document.getElementById('error-text');
-    errorTextElement.innerHTML = '';
-
-    if (payload.password !== payload.repeatPassword){
+    let payload = Object.fromEntries(new FormData(currentTarget));
+    if (payload.password !== payload.repeatPassword) {
         errorTextElement.innerHTML = "Parolele nu corespund";
         return;
     }
+    let pairs = Object.entries(payload).filter(e => e[0] != 'repeatPassword')
+    payload = Object.fromEntries(pairs)
+    console.log(payload);
+    const errorTextElement = document.getElementById('error-text');
+    errorTextElement.innerHTML = '';
 
     const request = sendRequest(REGISTER_ENDPOINT, "POST", payload);
 
     request.onreadystatechange = (e) => {
-        if(request.readyState === XMLHttpRequest.DONE){
+        if (request.readyState === XMLHttpRequest.DONE) {
             const status = request.status;
             const response = JSON.parse(request.response);
 
-            if(status === 200){
+            if (status === 201) {
                 //user creat
-                localStorage.setItem('jwt',response.token);
+                localStorage.setItem('jwt', response.token);
                 localStorage.setItem('role', response.role);
 
                 //gestiune redirectionare catre home in functie de rol
-                if(response.role === 'student'){
+                console.log(response);
+                if (response.role === 'student') {
                     window.location("/elev_home");
-                }else{
+                } else {
                     window.location("/administrare");
                 }
 
-            }else{
-                errorTextElement.innerHTML = response.message;
+            } else {
+                errorTextElement.innerHTML = response;
+                //TODO: modify to response.message
             }
         }
     }

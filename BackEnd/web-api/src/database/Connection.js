@@ -9,7 +9,6 @@ async function init() {
             password: '1uJ$!ZRGo1Tazqka',
             connectString: cs
         });
-
     } catch (err) {
     }
 }
