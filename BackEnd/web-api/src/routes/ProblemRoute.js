@@ -3,7 +3,6 @@ const ProblemSolvedReceivedDto = require('../dtos/ProblemSolvedReceivedDto.js');
 const url = require('url');
 const DEFAULT_HEADER = require('../util/util.js');
 const ProblemResponseDto = require("../dtos/ProblemResponseDto.js");
-const ProblemNotFoundException = require("../exceptions/ProblemNotFoundException");
 
 const routes = ({
                     solvedProblemService,

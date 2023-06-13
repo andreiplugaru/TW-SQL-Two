@@ -4,9 +4,6 @@ const db = require('../database/Connection.js')
 const TABLE_NAME = 'students'
 
 class StudentRepository {
-    constructor() {
-    }
-
     async findAll() {
         const result = await db.selectAllFromTable(TABLE_NAME)
         return result
@@ -19,6 +16,14 @@ class StudentRepository {
         }
         const result = await db.executeQuery(query, bindParams)
         return result
+    }
+
+    async createStudent(userId) {
+        let query = `INSERT INTO STUDENTS (ID_USER) VALUES(:id_user)`
+        let binds = {
+            'id_user': userId
+        }
+        return await db.insertInTable(query, binds)
     }
 }
 

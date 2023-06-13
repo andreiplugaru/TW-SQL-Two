@@ -1,20 +1,27 @@
 const Url = require('url')
 const DEFAULT_HEADER = require('./util/util.js')
-const db = require('./database/Connection.js')
 const solvedProblemFactory = require('./factory/SolvedProblemFactory.js')
 const problemFactory = require('./factory/ProblemFactory.js')
-const routes = require('./routes/ProblemRoute.js')
-const swagger = require('./dist/swagger-initializer.js')
+const authenticationFactory = require('./factory/AuthenticationFactory.js')
+const userFactory = require('./factory/UserFactory.js')
+const studentFactory = require('./factory/StudentFactory.js')
+const ProblemRoute = require('./routes/ProblemRoute.js')
+const AuthenticationRoute = require('./routes/AuthenticationRoute.js')
 fs = require('fs');
 var path = require('path');
 
-//const swaggerDocument = require('../swagger')
 const solvedProblemService = solvedProblemFactory.generateInstance()
 const problemService = problemFactory.generateInstance()
-const problemRoutes = routes({
+const problemRoutes = ProblemRoute({
     solvedProblemService,
     problemService
 })
+const userService = userFactory.generateInstance()
+
+const studentService = studentFactory.generateInstance(userService)
+const authenticationService = authenticationFactory.generateInstance(userService, studentService)
+const authenticationRoutes = AuthenticationRoute({authenticationService})
+
 const allRoutes = {
     '/dist:get': (request, response) => {
         var filePath = '.' + request.url;
@@ -45,9 +52,8 @@ const allRoutes = {
             }
         });
     },
-
-
     ...problemRoutes,
+    ...authenticationRoutes,
     //404 route
     default: (requst, response) => {
         response.writeHead(404, DEFAULT_HEADER)
@@ -61,7 +67,7 @@ function handler(request, response) {
         url,
         method
     } = request
-
+    response.setHeader("Access-Control-Allow-Origin", "*");//for CORS
     const { pathname,query } = Url.parse(url, true)
     if (pathname.startsWith('/api/v1/dist')) {
         return allRoutes['/dist:get'](request, response)

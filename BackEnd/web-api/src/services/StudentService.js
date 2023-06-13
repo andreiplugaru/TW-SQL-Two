@@ -1,9 +1,10 @@
 const StudentNotFoundException = require('../exceptions/StudentNotFoundException.js')
 class StudentService {
     constructor({
-        studentRepository
+        studentRepository, userService
     }) {
         this.studentRepository = studentRepository
+        this.userService = userService
     }
     async findAll() {
         return await this.studentRepository.findAll()
@@ -14,6 +15,12 @@ class StudentService {
             throw new StudentNotFoundException(id)
         }
         return response
+    }
+
+    async createStudent(user){
+        let rowId = await this.userService.createUser(user)
+        let createdUser = await this.userService.getByRowId(rowId)
+        await this.studentRepository.createStudent(createdUser[0].ID)
     }
 }
 
