@@ -7,3 +7,4 @@ export const CHANGE_PASS_ENDPOINT = ENV + "/mock";
 export const NEXT_PROBLEM_ENDPOINT = 'https://opentdb.com/api.php?amount=1' //SCHIMBA LA INTEGRARE
 export const SEND_SOLUTION_ENDPOINT = ENV + "/mock";
 export const WRONG_PROBLEM_ENDPOINT = ENV + "/mock";
+export const DIFFICULTY_PROBLEM_ENDPOINT = ENV + "/mock";

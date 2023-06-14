@@ -1,5 +1,5 @@
-import { NEXT_PROBLEM_ENDPOINT, SEND_SOLUTION_ENDPOINT, WRONG_PROBLEM_ENDPOINT } from "./endpoints.js"
-import { sendJwtFetchRequest } from "./request/request_handler.js"
+import { DIFFICULTY_PROBLEM_ENDPOINT, NEXT_PROBLEM_ENDPOINT, SEND_SOLUTION_ENDPOINT, WRONG_PROBLEM_ENDPOINT } from "./endpoints.js"
+import { sendJwtFetchRequest, sendJwtFetchRequestWithoutBody } from "./request/request_handler.js"
 
 
 const problemRequirmentElement = document.getElementById('problem-requirement');
@@ -22,55 +22,87 @@ function onSendSolution(e){
         problemId: problemId,
     };
 
+                    //construire buton dificultate
+                    const problemMarkingElement = document.querySelector('.problem-marking');
+                    const dropdownElement = document.createElement('div');
+                    dropdownElement.className = 'dropdown';
+                    
+                    const buttonElement = document.createElement('button');
+                    buttonElement.className = 'dropbtn';
+                    buttonElement.textContent = 'Selectare dificultate';
+                    dropdownElement.appendChild(buttonElement);
+                    const dropdownContentElement = document.createElement('div');
+                    dropdownContentElement.className = 'dropdown-content';
     
-    const request = sendJwtFetchRequest(SEND_SOLUTION_ENDPOINT, POST, payload, jwt);
-    request.onreadystatechange = (e) => {
-        if (request.readyState === XMLHttpRequest.DONE) {
-            const status = request.status;
-            const response = JSON.parse(request.response);
+                    //adaugare link-uri
+                    const linkUsoaraElement = document.createElement('a');
+                    linkUsoaraElement.href = '#';
+                    linkUsoaraElement.textContent = 'Usoara';
+                    dropdownContentElement.appendChild(linkUsoaraElement);
+    
+                    const linkMedieElement = document.createElement('a');
+                    linkMedieElement.href = '#';
+                    linkMedieElement.textContent = 'Medie';
+                    dropdownContentElement.appendChild(linkMedieElement);
+    
+                    const linkGreaElement = document.createElement('a');
+                    linkGreaElement.href = '#';
+                    linkGreaElement.textContent = 'Grea';
+                    dropdownContentElement.appendChild(linkGreaElement);
+    
+                    dropdownElement.appendChild(dropdownContentElement);
+                    problemMarkingElement.appendChild(dropdownElement);
 
-            //solutie corecta => afisez butonul de selectare dificultate + problema urmatoare
-            if (status === 200) {
+                    manageDifficulty();                    
+    
+    // const request = sendJwtFetchRequest(SEND_SOLUTION_ENDPOINT, 'POST', payload, localStorage.getItem('jwt'));
+    // request.onreadystatechange = (e) => {
+    //     if (request.readyState === XMLHttpRequest.DONE) {
+    //         const status = request.status;
+    //         const response = JSON.parse(request.response);
+
+    //         //solutie corecta => afisez butonul de selectare dificultate + problema urmatoare
+    //         if (status === 200) {
                 
-                //construire buton dificultate
-                const problemMarkingElement = document.querySelector('.problem-marking');
-                const dropdownElement = document.createElement('div');
-                dropdownElement.className = 'dropdown';
+    //             //construire buton dificultate
+    //             const problemMarkingElement = document.querySelector('.problem-marking');
+    //             const dropdownElement = document.createElement('div');
+    //             dropdownElement.className = 'dropdown';
                 
-                const buttonElement = document.createElement('button');
-                buttonElement.className = 'dropbtn';
-                buttonElement.textContent = 'Selectare dificultate';
-                dropdownElement.appendChild(buttonElement);
-                const dropdownContentElement = document.createElement('div');
-                dropdownContentElement.className = 'dropdown-content';
+    //             const buttonElement = document.createElement('button');
+    //             buttonElement.className = 'dropbtn';
+    //             buttonElement.textContent = 'Selectare dificultate';
+    //             dropdownElement.appendChild(buttonElement);
+    //             const dropdownContentElement = document.createElement('div');
+    //             dropdownContentElement.className = 'dropdown-content';
 
-                //adaugare link-uri
-                const linkUsoaraElement = document.createElement('a');
-                linkUsoaraElement.href = '#';
-                linkUsoaraElement.textContent = 'Usoara';
-                dropdownContentElement.appendChild(linkUsoaraElement);
+    //             //adaugare link-uri
+    //             const linkUsoaraElement = document.createElement('a');
+    //             linkUsoaraElement.href = '#';
+    //             linkUsoaraElement.textContent = 'Usoara';
+    //             dropdownContentElement.appendChild(linkUsoaraElement);
 
-                const linkMedieElement = document.createElement('a');
-                linkMedieElement.href = '#';
-                linkMedieElement.textContent = 'Medie';
-                dropdownContentElement.appendChild(linkMedieElement);
+    //             const linkMedieElement = document.createElement('a');
+    //             linkMedieElement.href = '#';
+    //             linkMedieElement.textContent = 'Medie';
+    //             dropdownContentElement.appendChild(linkMedieElement);
 
-                const linkGreaElement = document.createElement('a');
-                linkGreaElement.href = '#';
-                linkGreaElement.textContent = 'Grea';
-                dropdownContentElement.appendChild(linkGreaElement);
+    //             const linkGreaElement = document.createElement('a');
+    //             linkGreaElement.href = '#';
+    //             linkGreaElement.textContent = 'Grea';
+    //             dropdownContentElement.appendChild(linkGreaElement);
 
-                dropdownElement.appendChild(dropdownContentElement);
-                problemMarkingElement.appendChild(dropdownElement);
+    //             dropdownElement.appendChild(dropdownContentElement);
+    //             problemMarkingElement.appendChild(dropdownElement);
 
-                //construire buton urm_pb ????????????
-
-
-
-
-            }
-        }
-    }
+    //             manageDifficulty();                    
+                
+                
+    //             //construire buton urm_pb ????????????
+    //             //getionarea comportamentului lui
+    //         }
+    //     }
+    // }
 
 }
 
@@ -80,7 +112,7 @@ async function getNextProblem(){
     //const data = await result.json();
     
     
-    const result = sendJwtFetchRequest(NEXT_PROBLEM_ENDPOINT,'GET',null,localStorage.getItem('jwt'));
+    const result = sendJwtFetchRequestWithoutBody(NEXT_PROBLEM_ENDPOINT,'GET', localStorage.getItem('jwt'));//PAYLOAD NULL?SAU METODA ASTA NOUA
     const data = result.json(); //REZOLVA LA INTEGRARE
     //console.log(data.results[0]);
     displayRequirement(data.results[0]);
@@ -106,7 +138,7 @@ document.getElementById('mark-wrong-link').addEventListener('click', function(ev
         problemId: problemId,
     };
     console.log(payload);
-    const request = sendJwtFetchRequest(WRONG_PROBLEM_ENDPOINT, POST, payload, jwt);
+    const request = sendJwtFetchRequest(WRONG_PROBLEM_ENDPOINT, POST, payload, localStorage.getItem('jwt'));
     
     //gestionez in fctie de raspuns
     request.onreadystatechange = (e) => {
@@ -125,5 +157,52 @@ document.getElementById('mark-wrong-link').addEventListener('click', function(ev
         }
     }    
 });
+
+
+//adaugare even listen eri pentru link-uri
+function manageDifficulty(){
+    const linkUsoaraElement = document.querySelector('.dropdown-content a:nth-child(1)');
+    const linkMedieElement = document.querySelector('.dropdown-content a:nth-child(2)');
+    const linkGreaElement = document.querySelector('.dropdown-content a:nth-child(3)');
+    linkUsoaraElement.addEventListener('click', onDifficultySelected);
+    linkMedieElement.addEventListener('click', onDifficultySelected);
+    linkGreaElement.addEventListener('click', onDifficultySelected);
+
+}
+
+
+//gestionare selectare dificultate
+function onDifficultySelected(e){
+    
+    e.preventDefault();
+  
+    const selectedDifficulty = e.target.textContent;
+    const problemId = problemIdElement.innerHTML;
+    //console.log(selectedDifficulty);
+    var payload = {
+        problemId: problemId,
+        difficulty: selectedDifficulty
+    }
+   const request = sendJwtFetchRequest(DIFFICULTY_PROBLEM_ENDPOINT, 'POST', payload, localStorage.getItem('jwt'));
+   request.onreadystatechange = (e) => {
+        if (request.readyState === XMLHttpRequest.DONE) {
+            const status = request.status;
+            const response = JSON.parse(request.response);
+
+            if (status === 200) {
+                //cerere aprobata
+                console.log('S-a marcat problema');
+            }else{
+                //cerere respinsa
+                console.log('Nu s-a marcat problema');
+            }
+        }
+    }    
+}
+
+
+
+
+//AFISARE COMENTARII
 
 getNextProblem();

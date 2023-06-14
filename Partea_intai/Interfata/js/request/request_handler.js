@@ -44,3 +44,23 @@ export async function sendJwtFetchRequest(URL, METHOD, payload, jwt) {
     return response;
   }
   
+  export async function sendJwtFetchRequestWithoutBody(URL, METHOD, jwt) {
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${jwt}`
+    };
+  
+    const options = {
+      method: METHOD,
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: headers,
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+    };
+  
+    const response = await fetch(URL, options);
+    return response;
+  }
+  
