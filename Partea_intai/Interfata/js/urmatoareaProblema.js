@@ -4,16 +4,18 @@ import {
 } from "./endpoints.js"
 import { sendJwtFetchRequest, sendJwtFetchRequestWithoutBody } from "./request/request_handler.js"
 
-//to do acces pagina doar pt user logati + studenti
-//function guard(){
-// if (sessionStorage.getItem('jwt') === null || sessionStorage.getItem('role') !== 'STUDENT') {
-//     window.open("login.html", "_self");
-// }
-//}
+
+function guard(){
+if (localStorage.getItem('jwt') === null || localStorage.getItem('role') !== 'STUDENT') {
+    window.open("login.html", "_self");
+}
+}
 
 const problemRequirmentElement = document.getElementById('problem-requirement');
 const problemCategoryElement = document.getElementById('problem-category');
 const problemIdElement = document.getElementById('problem-id');
+
+const errorTextElement = document.getElementById('error-text');
 
 const problemForm = document.getElementById('problem-form');
 problemForm.addEventListener('submit', onSendSolution);
@@ -33,15 +35,11 @@ async function onSendSolution(e) {
 
     const request = await sendJwtFetchRequest(SEND_SOLUTION_ENDPOINT, 'POST', payload, localStorage.getItem('jwt'));
     let status = request.status;
-    //console.log(request.body);
-    // request.onreadystatechange = (e) => {
-    //     if (request.readyState === XMLHttpRequest.DONE) {
-    //         const status = request.status;
-    //         const response = JSON.parse(request.response);
-
-    //         //solutie corecta => afisez butonul de selectare dificultate + problema urmatoare
+   
     if (status === 201) {
 
+        errorTextElement.innerHTML = '';
+        //solutie corecta => afisez butonul de selectare dificultate + problema urmatoare
         //construire buton dificultate
         const problemMarkingElement = document.querySelector('.problem-marking');
         const dropdownElement = document.createElement('div');
@@ -91,19 +89,20 @@ async function onSendSolution(e) {
     }
     else if (status === 400) {
         //verficare mesaj pentru a sti daca rezolvarea e corecta {"message":"rezolvarea nu e corecta"}
+        const response = JSON.parse(request.response);
+        errorTextElement.innerHTML = response.message;
     }
-    //     }
-    // }
-
 }
 
 async function getNextProblem() {
 
+    errorTextElement.innerHTML = '';
     let problem;
     await sendJwtFetchRequestWithoutBody(NEXT_PROBLEM_ENDPOINT, 'GET', localStorage.getItem('jwt'))
         .then(response => response.json())
         .then(data => { problem = data });
 
+    
     displayRequirement(problem);
     let form = document.getElementById('next-problem-form')
     if (form !== null) {
@@ -121,6 +120,8 @@ function displayRequirement(data) {
     problemCategoryElement.innerHTML = problemCategory;
     problemIdElement.innerHTML = problemId;
 
+    refreshComments();
+
 }
 
 //marcare problema gresita
@@ -128,15 +129,9 @@ document.getElementById('mark-wrong-link').addEventListener('click', async funct
     event.preventDefault(); // Prevent the default behavior of the link
 
     const problemId = problemIdElement.innerHTML;
-    // var payload = {
-    //     problemId: problemId,
-    // };
-    // console.log(payload);
     const request = await sendJwtFetchRequestWithoutBody(WRONG_PROBLEM_ENDPOINT + "?problemId=" + problemId, 'POST', localStorage.getItem('jwt'))
     let status = request.status;
     //gestionez in fctie de raspuns
-    //const response = JSON.parse(request.response);
-
     if (status === 201) {
         //mai pot marca atunci iau urm pb
         await getNextProblem();
@@ -167,11 +162,6 @@ async function onDifficultySelected(e) {
 
     const selectedDifficulty = e.target.textContent.toUpperCase();
     const problemId = problemIdElement.innerHTML;
-    //console.log(selectedDifficulty);
-    // var payload = {
-    //     problemId: problemId,
-    //     difficulty: selectedDifficulty
-    // }
 
     const request = await sendJwtFetchRequest(DIFFICULTY_PROBLEM_ENDPOINT + "?problemId=" + problemId + "&difficulty=" + selectedDifficulty, 'POST', null, localStorage.getItem('jwt'));
     let status = request.status;
@@ -190,6 +180,7 @@ function onNextProblemButtonClick(e) {
     e.preventDefault();
     //console.log('click pe Pb urmatoare')
     //TREBUIE VAZUT CAND AFISAM ADAUGA_PB
+    document.getElementById("problem-solution").textContent = "";
     getNextProblem();
 }
 
@@ -207,13 +198,10 @@ async function getAllComments() {
     let comments = [];
 
     const problemId = problemIdElement.innerHTML;
-    var payload = {
-        problemId: problemId,
-    };
-    console.log(problemId);
     await sendJwtFetchRequestWithoutBody(COMMENTS_PROBLEM_ENDPOINT + "?problemId=" + problemId, 'GET', localStorage.getItem('jwt'))
         .then(response => response.json())
         .then(data => { comments.push(...data) });
+        
     return comments;
 
 }
@@ -268,19 +256,14 @@ async function onPublishComm(e) {
 
     var commentText = document.getElementById("comment-text").value;
     const problemId = problemIdElement.innerHTML;
-    //data
-    // var currentDate = new Date();
-    // var options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-    // var formattedDate = currentDate.toLocaleDateString('en-GB', options);
     var payload = {
         message: commentText,
-        //  data: formattedDate,
         problem_id: problemId
     }
-    //data o luam de pe front sau back??
 
     const request = await sendJwtFetchRequest(PUBLISH_COMMENT_PROBLEM_ENDPOINT, 'POST', payload, localStorage.getItem('jwt'));
     let status = request.status;
+    document.getElementById("comment-text").value = "";
 
     if (status === 201) {
         //comentariu adaugat
@@ -291,9 +274,10 @@ async function onPublishComm(e) {
         //comentariu NU s-a adaugat
         console.log('NU s-a adaugat comm');
     }
+
 }
 
 
-//guard();s
+guard();
 await getNextProblem();
 refreshComments();
