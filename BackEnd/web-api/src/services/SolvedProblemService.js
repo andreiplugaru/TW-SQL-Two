@@ -14,9 +14,9 @@ class SolvedProblemService {
     }
 
     async save(solvedProblem) {
+        //TODO: check if the solution is correct
         await this.studentService.findById(solvedProblem.idStudent)
         await this.problemService.findById(solvedProblem.idProblem)
-
         await this.solvedProblemRepository.save(solvedProblem)
     }
 
