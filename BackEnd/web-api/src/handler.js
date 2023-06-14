@@ -5,19 +5,23 @@ const problemFactory = require('./factory/ProblemFactory.js')
 const authenticationFactory = require('./factory/AuthenticationFactory.js')
 const userFactory = require('./factory/UserFactory.js')
 const studentFactory = require('./factory/StudentFactory.js')
+const commentFactory = require('./factory/CommentFactory.js')
 const ProblemRoute = require('./routes/ProblemRoute.js')
 const AuthenticationRoute = require('./routes/AuthenticationRoute.js')
+const CommentRoute = require('./routes/CommentRoute.js')
 fs = require('fs');
 var path = require('path');
 const userService = userFactory.generateInstance()
 const solvedProblemService = solvedProblemFactory.generateInstance()
 const problemService = problemFactory.generateInstance()
 const studentService = studentFactory.generateInstance(userService)
+const commentService = commentFactory.generateInstance(problemService)
 const problemRoutes = ProblemRoute({
     studentService,
     solvedProblemService,
     problemService
 })
+const commentRoutes = CommentRoute({commentService})
 
 const authenticationService = authenticationFactory.generateInstance(userService, studentService)
 const authenticationRoutes = AuthenticationRoute({authenticationService})
@@ -45,13 +49,13 @@ const allRoutes = {
             if (error) {
                 response.writeHead(500, DEFAULT_HEADER)
                 response.end();
-            }
-            else {
-                response.writeHead(200, { 'Content-Type': contentType });
+            } else {
+                response.writeHead(200, {'Content-Type': contentType});
                 response.end(content, 'utf-8');
             }
         });
     },
+    ...commentRoutes,
     ...problemRoutes,
     ...authenticationRoutes,
     //404 route
@@ -62,13 +66,14 @@ const allRoutes = {
         response.end()
     }
 }
+
 function handler(request, response) {
     const {
         url,
         method
     } = request
     response.setHeader("Access-Control-Allow-Origin", "*");//for CORS
-    const { pathname,query } = Url.parse(url, true)
+    const {pathname, query} = Url.parse(url, true)
     if (pathname.startsWith('/api/v1/dist')) {
         return allRoutes['/dist:get'](request, response)
     }
