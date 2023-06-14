@@ -1,8 +1,8 @@
 class ProblemResponseDto {
-    constructor({id, requirement, idCategory }) {
+    constructor({id, requirement, category }) {
         this.id = id
         this.requirement = requirement
-        this.idCategory = idCategory
+        this.category = category
     }
 }
 

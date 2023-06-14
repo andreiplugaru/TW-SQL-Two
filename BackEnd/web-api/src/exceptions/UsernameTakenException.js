@@ -1,7 +1,8 @@
-class UsernameTakenException extends Error {
+const HttpException = require('./HttpException.js');
+
+class UsernameTakenException extends HttpException {
     constructor(username) {
-        super(`Numele de utilizator ${username} este deja folosit`);
-        this.name = "UsernameTakenException";
+        super(`Username ${username} is already taken`, "UsernameTakenException", 400);
     }
 }
 

@@ -32,62 +32,53 @@
         <div class="container">
             <div class="container-item">
                 <div class="problem-marking">
-                    <a href="">
+                    <a href="" id="mark-wrong-link">
                         <div class="wrong_problem">
                             <img class="wrong-button" alt="problema_gresita" src="../images/wrong.svg">
                             <div class="overlay">
                                 <div class="text">Marcare problema gresita</div>
                             </div>
+                            <div class="error-text centered" id="error-text"></div>
                         </div>
                     </a>
-                    <div class="dropdown">
+                    <!-- <div class="dropdown">
                         <button class="dropbtn">Selectare dificultate</button>
                         <div class="dropdown-content">
                             <a href="#">Usoara</a>
                             <a href="#">Medie</a>
                             <a href="#">Grea</a>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
-            <div class="container-item">
+            <div class="container-item" id="problem-forms">
 
-                <div class="category">
+                <div class="category"  id="problem-category">
                     <img src="../icons/label.svg" alt="Categorie" width="20" height="20">
-                    JOIN
                 </div>
-                <form action="#">
+                <div hidden id="problem-id"></div>
+                <form action="#"  id="problem-form">
 
-                    <div class="problem-requirement">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eveniet vel ratione. Amet,
-                        sunt nostrum repudiandae quam velit ipsum, ut, optio ullam blanditiis debitis dolores?
-                        Aspernatur deleniti numquam odio. Aspernatur.
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cumque praesentium quas quidem
-                        dignissimos sequi nemo suscipit aliquid! Nam illo qui dignissimos, rerum fuga numquam corporis
-                        magni alias doloremque laborum assumenda?
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum voluptatibus id magnam at, amet,
-                        nostrum aut quo fugiat sapiente itaque mollitia tenetur, perferendis voluptates odio quos
-                        temporibus sequi cupiditate. Maiores!
+                    <div class="problem-requirement" id = "problem-requirement">
                     </div>
 
-
-                    <span class="textarea" role="textbox" spellcheck="false" contenteditable autofocus></span>
+                    <span class="textarea" id="problem-solution" role="textbox" spellcheck="false" contenteditable autofocus></span>
 
                     <input type="submit" class="btn-submit" value="Trimite solutia">
 
 
                 </form>
-                <form action="creare_problema.html">
-                    <button class="next-problem">Problema urmatoare[apare doar daca a fost rezolvata
+                <!-- <form action="creare_problema.html">
+                    <button class="next-problem" id="next-problem-id">Problema urmatoare[apare doar daca a fost rezolvata
                         corect]</button>
-                </form>
+                </form> -->
             </div>
             <div class="container-item">
                 <div class="comments-title"> Comentarii</div>
                 <hr>
-                <div class="comments">
-                    <div class="post-comment">
+                <div class="comments" id="problem-comments">
+                    <!-- <div class="post-comment">
                         <div class="list">
                             <div class="user">
                                 <div class="user-meta">
@@ -115,11 +106,11 @@
                                 saepe minus at exercitationem iste nam amet.
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="comment-box">
-                        <form action="#">
-                            <textarea name="comment" cols="30" placeholder="Cometariul tau"></textarea>
-                            <button class="comment-submit">Publica</button>
+                        <form action="#" id="publish-comm">
+                            <textarea name="comment" id="comment-text" cols="30" placeholder="Cometariul tau"></textarea>
+                            <button type="submit" class="comment-submit">Publica</button>
                         </form>
                     </div>
                 </div>
@@ -131,6 +122,9 @@
             </div>
         </footer>
     </div>
+
+    <script type = "module" src = "../js/urmatoareaProblema.js"></script>
+
 </body>
 
 </html>

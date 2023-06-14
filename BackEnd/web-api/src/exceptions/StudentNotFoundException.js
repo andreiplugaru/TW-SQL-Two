@@ -1,7 +1,8 @@
-class StudentNotFoundException extends Error {
+const HttpException = require('./HttpException.js');
+
+class StudentNotFoundException extends HttpException {
     constructor(id) {
-        super(`Student with id ${id} not found`);
-        this.name = 'StudentNotFoundException';
+        super(`Student with id ${id} not found`, "StudentNotFoundException", 404);
     }
 }
 

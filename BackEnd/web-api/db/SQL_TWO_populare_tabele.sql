@@ -9,12 +9,12 @@ CREATE SEQUENCE users_seq
     INCREMENT BY 1;
 
 BEGIN
-    INSERT INTO users VALUES (users_seq.NEXTVAL, 'admin1@email.com', 'parola1', 'user1', 'admin1');
-    INSERT INTO users VALUES (users_seq.NEXTVAL, 'admin2@email.com', 'parola2', 'user2', 'admin2');
-    INSERT INTO users VALUES (users_seq.NEXTVAL, 'student1@email.com', 'parola3', 'user3', 'student1');
-    INSERT INTO users VALUES (users_seq.NEXTVAL, 'student2@email.com', 'parola4', 'user4', 'student2');
-    INSERT INTO users VALUES (users_seq.NEXTVAL, 'student3@email.com', 'parola5', 'user5', 'student3');
-    INSERT INTO users VALUES (users_seq.NEXTVAL, 'student4@email.com', 'parola6', 'user6', 'student4');
+    INSERT INTO users (email, password, firstname, lastname, username) VALUES ('admin1@email.com', 'parola1' ,'nume', 'prenume', 'user1', 'admin1');
+    INSERT INTO users (email, password, firstname, lastname, username) VALUES ('admin2@email.com', 'parola2','nume', 'prenume', 'user2', 'admin2');
+    INSERT INTO users (email, password, firstname, lastname, username) VALUES ('student1@email.com', 'parola3','nume', 'prenume', 'user3', 'student1');
+    INSERT INTO users (email, password, firstname, lastname, username) VALUES ('student2@email.com', 'parola4','nume', 'prenume', 'user4', 'student2');
+    INSERT INTO users (email, password, firstname, lastname, username) VALUES ('student3@email.com', 'parola5','nume', 'prenume', 'user5', 'student3');
+    INSERT INTO users (email, password, firstname, lastname, username) VALUES ('student4@email.com', 'parola6','nume', 'prenume', 'user6', 'student4');
 END;
 /
 
@@ -77,9 +77,8 @@ BEGIN
         
          --dbms_output.put_line(v_cerinta || ' ' || v_soluie);
         
-        INSERT INTO problems VALUES (v_contor, v_cerinta, v_solutie,v_id_category);
+        INSERT INTO problems(requirement, solution, id_category) VALUES (v_cerinta, v_solutie, v_id_category);
         INSERT INTO map_problem_difficulty VALUES (v_contor, v_id_difficulty);
-
        
     end loop;
 
@@ -225,7 +224,7 @@ INSERT INTO comments VALUES (1, 3, 4, 'mesaj1', TO_DATE('21/05/2023', 'DD/MM/YYY
 
 SELECT * FROM comments;
 
-
+insert into users (email, password, firstname, lastname) values ('sadsad', 'asdsad', 'andreu', 'plugaru')
 
 
 

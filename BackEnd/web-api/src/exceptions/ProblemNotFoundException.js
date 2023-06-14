@@ -1,7 +1,8 @@
-class ProblemNotFoundException extends Error {
+const HttpException = require('./HttpException.js');
+
+class ProblemNotFoundException extends HttpException {
     constructor(id) {
-        super(`Problem with id ${id} not found`);
-        this.name = 'ProblemNotFoundException';
+        super(`Problem with id ${id} not found`, "ProblemNotFoundException", 404);
     }
 }
 

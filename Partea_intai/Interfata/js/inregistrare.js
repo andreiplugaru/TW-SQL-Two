@@ -43,8 +43,7 @@ function onRegister(e) {
                 }
 
             } else {
-                errorTextElement.innerHTML = response;
-                //TODO: modify to response.message
+                errorTextElement.innerHTML = response.message;
             }
         }
     }
