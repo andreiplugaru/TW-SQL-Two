@@ -99,6 +99,7 @@ async function onSendSolution(e) {
 
 async function getNextProblem() {
 
+
     let problem;
     await sendJwtFetchRequestWithoutBody(NEXT_PROBLEM_ENDPOINT, 'GET', localStorage.getItem('jwt'))
         .then(response => response.json())
@@ -110,6 +111,7 @@ async function getNextProblem() {
         document.getElementById('next-problem-form').remove();
         document.getElementsByClassName('dropdown')[0].remove();
     }
+
 }
 
 function displayRequirement(data) {
@@ -198,9 +200,6 @@ function onNextProblemButtonClick(e) {
 const commentsContainerElement = document.getElementById('problem-comments');
 const publishCommForm = document.getElementById('publish-comm');
 publishCommForm.addEventListener('submit', onPublishComm);
-
-
-
 
 //AFISARE COMENTARII
 async function getAllComments() {
