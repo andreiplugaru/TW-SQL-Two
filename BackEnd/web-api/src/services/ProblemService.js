@@ -1,11 +1,14 @@
 const Problem = require("../entities/Problem.js");
 const ProblemNotFoundException = require("../exceptions/ProblemNotFoundException.js");
 const ProblemMarkedWrongException = require("../exceptions/ProblemMarkedWrongException.js");
+const UnknownDifficultyException = require("../exceptions/UnknownDifficultyException.js");
 class ProblemService {
     constructor({
-                    problemRepository
+                    problemRepository,
+                    categoryRepository
                 }) {
         this.problemRepository = problemRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     async findById(id) {
@@ -36,6 +39,14 @@ class ProblemService {
     async checkIfProblemIsMarkedAsWrong(studentId, problemId) {
         let response = await this.problemRepository.checkIfProblemIsMarkedAsWrong(studentId, problemId);
         return response.length > 0;
+    }
+
+    async markProblemDifficulty(studentId, problemId, difficulty) {
+        let category = await this.categoryRepository.findByName(difficulty)
+        if(category.length === 0)
+            throw new UnknownDifficultyException(difficulty)
+        let difficultyId = category[0].ID;
+        await this.problemRepository.markProblemDifficulty(studentId, problemId, difficultyId);
     }
 }
 
