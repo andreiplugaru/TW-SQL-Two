@@ -1,6 +1,6 @@
 import { STUDENT_RESOLVED_PROBLEMS_ENDPOINT, STUDENT_MARKED_PROBLEMS_ENDPOINT, STUDENT_SUGGESTED_PROBLEMS_ENDPOINT,
     STUDENT_PROFILE_INFO_ENDPOINT } from "./endpoints.js"
-import { sendJwtFetchRequest, sendJwtFetchRequestWithoutBody } from "./request/request_handler.js"
+import { sendJwtFetchRequestWithoutBody } from "./request/request_handler.js"
 
 function guard(){
     if (localStorage.getItem('jwt') === null || localStorage.getItem('role') !== 'STUDENT') {
@@ -20,7 +20,7 @@ const countSuggestedPbElement = document.getElementById('count-suggested-pb');
 async function getProfileInfo(){
 
     let info;
-    await sendJwtFetchRequestWithoutBody(NEXT_PROBLEM_ENDPOINT, 'GET', localStorage.getItem('jwt'))
+    await sendJwtFetchRequestWithoutBody(STUDENT_PROFILE_INFO_ENDPOINT, 'GET', localStorage.getItem('jwt'))
         .then(response => response.json())
         .then(data => { info = data });
     displayInfo(info);

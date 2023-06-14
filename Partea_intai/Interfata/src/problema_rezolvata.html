@@ -33,13 +33,13 @@
 
             <div class="container-item">
 
-                <div class="category">
+                <div class="category" id="problem-category">
                     <img src="../icons/label.svg" alt="Categorie" width="20" height="20">
                     JOIN
                 </div>
                 <form action="#">
 
-                    <div class="problem-requirement">
+                    <div class="problem-requirement" id = "problem-requirement">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eveniet vel ratione. Amet,
                         sunt nostrum repudiandae quam velit ipsum, ut, optio ullam blanditiis debitis dolores?
                         Aspernatur deleniti numquam odio. Aspernatur.
@@ -52,7 +52,7 @@
                     </div>
 
 
-                    <span class="textarea" role="textbox" spellcheck="false" autofocus>SELECT * FROM STUDENTI WHERE
+                    <span class="textarea" id="problem-solution" role="textbox" spellcheck="false" autofocus>SELECT * FROM STUDENTI WHERE
                         .....</span>
 
 
@@ -63,8 +63,8 @@
             <div class="container-item">
                 <div class="comments-title"> Comentarii</div>
                 <hr>
-                <div class="comments">
-                    <div class="post-comment">
+                <div class="comments" id="problem-comments">
+                    <!-- <div class="post-comment">
                         <div class="list">
                             <div class="user">
                                 <div class="user-meta">
@@ -92,11 +92,11 @@
                                 saepe minus at exercitationem iste nam amet.
                             </div>
                         </div>
-                    </div>
-                    <div class="comment-box">
+                    </div> -->
+                    <div class="comment-box" id="publish-comm">
                         <form action="#">
-                            <textarea name="comment" cols="30" placeholder="Your comment"></textarea>
-                            <button class="comment-submit">Comment</button>
+                            <textarea name="comment" id="comment-text" cols="30" placeholder="Your comment"></textarea>
+                            <button type="submit" class="comment-submit">Comment</button>
                         </form>
                     </div>
                 </div>
@@ -108,6 +108,11 @@
             </div>
         </footer>
     </div>
+
+    <script type="module" src="../js/delogare.js"></script>
+    <script type="module" src="../js/problema_rezolvata.js"></script>
+
+
 </body>
 
 </html>

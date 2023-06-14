@@ -203,7 +203,6 @@ async function getAllComments() {
         .then(data => { comments.push(...data) });
         
     return comments;
-
 }
 
 async function refreshComments() {
