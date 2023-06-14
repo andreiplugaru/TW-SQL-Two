@@ -8,3 +8,5 @@ export const NEXT_PROBLEM_ENDPOINT = 'https://opentdb.com/api.php?amount=1' //SC
 export const SEND_SOLUTION_ENDPOINT = ENV + "/mock";
 export const WRONG_PROBLEM_ENDPOINT = ENV + "/mock";
 export const DIFFICULTY_PROBLEM_ENDPOINT = ENV + "/mock";
+export const COMMENTS_PROBLEM_ENDPOINT = ENV + "/mock";
+export const PUBLISH_COMMENT_PROBLEM_ENDPOINT = ENV + "/mock";
