@@ -90,15 +90,23 @@ function onSendSolution(e){
 }
 
 async function getNextProblem(){
-    //server mock care functiona
-    //const result = await fetch(`${NEXT_PROBLEM_ENDPOINT}`); 
-    //const data = await result.json();
-    
 
-    const result = sendJwtFetchRequestWithoutBody(NEXT_PROBLEM_ENDPOINT,'GET', localStorage.getItem('jwt'));//PAYLOAD NULL?SAU METODA ASTA NOUA
-    const data = result.json(); //REZOLVA LA INTEGRARE
-    //console.log(data.results[0]);
-    displayRequirement(data.results[0]);
+    const request = sendJwtFetchRequestWithoutBody(NEXT_PROBLEM_ENDPOINT,'GET', localStorage.getItem('jwt'));
+    request.onreadystatechange = (e) => {
+        if (request.readyState === XMLHttpRequest.DONE) {
+            const status = request.status;
+            const result = JSON.parse(request.response);
+            if(status === 200){
+                console.log(result);
+                displayRequirement(data.results[0]);
+            }
+        }
+    }
+
+    //const result = await sendJwtFetchRequestWithoutBody(NEXT_PROBLEM_ENDPOINT,'GET', localStorage.getItem('jwt'));
+    //const data = result.json(); //REZOLVA LA INTEGRARE
+    // console.log(result);
+    // displayRequirement(data.results[0]);
 }
 
 function displayRequirement(data){

@@ -134,9 +134,11 @@ BEGIN
         return v_raspuns;
 END;
 /
+DROP FUNCTION problema_urmatoare; 
 
 CREATE OR REPLACE FUNCTION problema_urmatoare (p_id_stud IN students.id_user%type)
-RETURN problems.requirement%type AS
+RETURN problems.id%type
+AS
     
     v_nr_pb_propuse INTEGER;
     
@@ -309,9 +311,16 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('-------------------------------------------------------');
     DBMS_OUTPUT.PUT_LINE(problema_urmatoare(5));
     DBMS_OUTPUT.PUT_LINE('-------------------------------------------------------');
-
-
 END;
+
+
+DECLARE
+    v_pb_urm problems.id%type;
+BEGIN
+        problema_urmatoare(5, v_pb_urm);
+        DBMS_OUTPUT.PUT_LINE(v_pb_urm);
+END;
+
 
 
 --TESTARE GETIONARE_DINAMICA

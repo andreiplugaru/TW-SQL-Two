@@ -1,6 +1,7 @@
 const http = require('node:http')
 const dotenv = require('dotenv');
 dotenv.config();
+console.log(dotenv.config());
 var Handler = require('./handler')
 
 
