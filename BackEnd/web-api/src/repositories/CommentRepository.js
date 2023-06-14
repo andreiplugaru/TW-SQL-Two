@@ -3,12 +3,12 @@ const Comment = require('../entities/Comment.js')
 
 class CommentRepository {
     async findAllByProblemId(problemId) {
-        let query = `SELECT * FROM COMMENTS JOIN USERS ON USERS.ID = COMMENTS.ID_STUDENT WHERE ID_PROBLEM = :problemId`
+        let query = `SELECT * FROM COMMENTS JOIN USERS ON USERS.ID = COMMENTS.ID_STUDENT WHERE ID_PROBLEM = :problemId ORDER BY ADDED_DATE DESC`
         let bindParams = {
             problemId: problemId
         }
         let result = await db.executeQuery(query, bindParams)
-        result = result.map(comment => new Comment(comment.ID, comment.NAME, comment.MESSAGE, comment.ADDED_DATE, comment.ID_PROBLEM))
+        result = result.map(comment => new Comment(comment.ID, comment.USERNAME, comment.MESSAGE, comment.ADDED_DATE, comment.ID_PROBLEM))
         return result
     }
 

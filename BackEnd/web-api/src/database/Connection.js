@@ -83,7 +83,7 @@ async function executeQueryWithOutVar(query, binds) {
     try {
         connection = await oracledb.getConnection();
      //   const options =  { ret: {dir: oracledb.BIND_OUT,type: oracledb.STRING} };
-        const dbResult = await connection.execute(query, binds, {})
+        const dbResult = await connection.execute(query, binds)
         return dbResult.outBinds.problem_id
     } catch (err) {
         console.error(err);

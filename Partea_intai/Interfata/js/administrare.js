@@ -1,3 +1,4 @@
-if (sessionStorage.getItem('jwt') === null) {
+console.log(localStorage.getItem('jwt'));
+if (localStorage.getItem('jwt') === null) {
     window.open("login.html", "_self");
 }

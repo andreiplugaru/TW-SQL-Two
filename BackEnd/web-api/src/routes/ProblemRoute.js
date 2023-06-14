@@ -66,7 +66,7 @@ const routes = ({
         const parsedUrl = url.parse(request.url, true);
         try {
             let studentId = await AuthenticationUtil.checkToken(studentService, request)
-            const problemId = Object.values((await problemService.findNextProblem(studentId))[0])[0]
+            const problemId = await problemService.findNextProblem(studentId)
             const problem = await problemService.findById(problemId)
             response.writeHead(200, DEFAULT_HEADER)
             response.write(JSON.stringify(new ProblemResponseDto({
@@ -86,6 +86,7 @@ const routes = ({
             const parsed = url.parse(request.url);
             let problemId = querystring.parse(parsed.query).problemId
             await problemService.markProblemAsWrong(studentId, problemId)
+            response.writeHead(201, DEFAULT_HEADER)
         } catch (err) {
             response.writeHead(err.errorCode, DEFAULT_HEADER)
             response.write(JSON.stringify({'message': err.message}))

@@ -2,6 +2,7 @@ const DEFAULT_HEADER = require('../util/util.js');
 const url = require("url");
 const querystring = require("querystring");
 const Comment = require("../entities/Comment.js");
+const AuthenticationUtil = require("../util/AuthenticationUtil");
 const routes = ({
                     commentService
                 }) => ({
@@ -22,11 +23,13 @@ const routes = ({
     '/api/v1/comments:post': async (request, response) => {
         try {
             let body = [];
+            let studentId = await AuthenticationUtil.checkToken(studentService, request)
+
             request.on('data', (chunk) => {
                 body.push(chunk);
             }).on('end', async () => {
                 const requestBody = JSON.parse(body);
-                let comment = new Comment(null, requestBody.student_id, requestBody.message, new Date(), requestBody.problem_id)
+                let comment = new Comment(null, studentId, requestBody.message, new Date(), requestBody.problem_id)
                 await commentService.create(comment)
             })
             response.writeHead(201, DEFAULT_HEADER)
