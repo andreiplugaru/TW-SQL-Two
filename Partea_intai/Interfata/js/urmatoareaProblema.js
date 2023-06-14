@@ -53,7 +53,24 @@ function onSendSolution(e){
                     dropdownElement.appendChild(dropdownContentElement);
                     problemMarkingElement.appendChild(dropdownElement);
 
-                    manageDifficulty();                    
+                    manageDifficulty();
+                    
+                    //adaugare buton urmatoarea pb
+                    const problemForms = document.getElementById('problem-forms');
+                    const nextProblemForm = document.createElement('form');
+                    nextProblemForm.action = 'creare_problema.html';
+                    const nextProblemButton = document.createElement('button');
+                    nextProblemButton.className = 'next-problem';
+                    nextProblemButton.idName = 'next-problem-id'
+                    nextProblemButton.textContent = 'Problema urmatoare';
+                    nextProblemForm.appendChild(nextProblemButton);
+                    problemForms.appendChild(nextProblemForm);
+                    //adaugare event listener pt el
+                    nextProblemButton.addEventListener('click', onNextProblemButtonClick);
+
+
+
+
     
     // const request = sendJwtFetchRequest(SEND_SOLUTION_ENDPOINT, 'POST', payload, localStorage.getItem('jwt'));
     // request.onreadystatechange = (e) => {
@@ -198,6 +215,13 @@ function onDifficultySelected(e){
             }
         }
     }    
+}
+
+//adaugare event listener pt Problema urmatoare
+function onNextProblemButtonClick(e){
+    e.preventDefault();
+    getNextProblem();
+    console.log('Next problem button clicked!');
 }
 
 
