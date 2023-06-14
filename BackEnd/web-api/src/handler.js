@@ -10,7 +10,6 @@ const AuthenticationRoute = require('./routes/AuthenticationRoute.js')
 fs = require('fs');
 var path = require('path');
 const userService = userFactory.generateInstance()
-
 const solvedProblemService = solvedProblemFactory.generateInstance()
 const problemService = problemFactory.generateInstance()
 const studentService = studentFactory.generateInstance(userService)

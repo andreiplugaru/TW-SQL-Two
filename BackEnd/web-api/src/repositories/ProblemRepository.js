@@ -1,5 +1,4 @@
 const db = require('../database/Connection.js')
-const {selectByIdFromTable} = require("../database/Connection");
 const StudentExceededLimitException = require("../exceptions/StudentExceededLimitException.js");
 const StudentNotFoundException = require("../exceptions/StudentNotFoundException");
 
@@ -43,6 +42,16 @@ class ProblemRepository {
         }
         const result = await db.executeQuery(query, bindParams)
         return result
+    }
+
+    async markProblemDifficulty(studentId, problemId, difficulty) {
+        const query = `INSERT INTO marked_problems (ID_STUDENT, ID_PROBLEM, ID_DIFFICULTY) VALUES (:id_student, :id_problem, :difficulty)`
+        let bindParams = {
+            id_student: studentId,
+            id_problem: problemId,
+            difficulty: difficulty
+        }
+        const result = await db.insertInTable(query, bindParams)
     }
 }
 

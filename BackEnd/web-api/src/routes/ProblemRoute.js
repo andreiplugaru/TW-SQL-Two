@@ -93,6 +93,20 @@ const routes = ({
             response.write(JSON.stringify({'message': err.message}))
         }
         response.end()
+    },
+
+    '/api/v1/problems/difficulty/marker:post': async (request, response) => {
+        try {
+            let studentId = await AuthenticationUtil.checkToken(studentService, request)
+            const parsed = url.parse(request.url)
+            let problemId = querystring.parse(parsed.query).problemId
+            let difficulty = querystring.parse(parsed.query).difficulty
+            await problemService.markProblemDifficulty(studentId, problemId, difficulty)
+        } catch (err) {
+            response.writeHead(err.errorCode, DEFAULT_HEADER)
+            response.write(JSON.stringify({'message': err.message}))
+        }
+        response.end()
     }
 
 })
