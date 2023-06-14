@@ -61,7 +61,7 @@ async function executeQuery(query, binds) {
     let connection;
     try {
         connection = await oracledb.getConnection();
-        const options = {outFormat: oracledb.OUT_FORMAT_OBJECT};
+        const options = {outFormat: oracledb.OUT_FORMAT_OBJECT, autoCommit: true};
         const dbResult = await connection.execute(query, binds, options)
         return Object.values(dbResult.rows)
     } catch (err) {
@@ -78,7 +78,27 @@ async function executeQuery(query, binds) {
         }
     }
 }
-
+async function executeQueryWithOutVar(query, binds) {
+    let connection;
+    try {
+        connection = await oracledb.getConnection();
+     //   const options =  { ret: {dir: oracledb.BIND_OUT,type: oracledb.STRING} };
+        const dbResult = await connection.execute(query, binds, {})
+        return dbResult.outBinds.problem_id
+    } catch (err) {
+        console.error(err);
+        const {errorNum} = err;
+        return `-${errorNum}`;
+    } finally {
+        if (connection) {
+            try {
+                await connection.close();
+            } catch (err) {
+                console.error(err);
+            }
+        }
+    }
+}
 async function selectByIdFromTable(tableName, id) {
     let connection;
     try {
@@ -119,5 +139,6 @@ module.exports = {
     selectAllFromTable,
     insertInTable,
     executeQuery,
-    selectByIdFromTable
+    selectByIdFromTable,
+    executeQueryWithOutVar
 }

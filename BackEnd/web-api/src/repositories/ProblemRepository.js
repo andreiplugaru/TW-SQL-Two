@@ -1,6 +1,7 @@
 const db = require('../database/Connection.js')
 const StudentExceededLimitException = require("../exceptions/StudentExceededLimitException.js");
 const StudentNotFoundException = require("../exceptions/StudentNotFoundException");
+const oracledb = require('oracledb');
 
 const TABLE_NAME = 'problems'
 
@@ -15,8 +16,8 @@ class ProblemRepository {
     }
 
     async findNextProblem(studentId) {
-        const query = `SELECT problema_urmatoare(${studentId}) FROM DUAL`;
-        const result = await db.executeQuery(query, {})
+        const query = `DECLARE problem_id number; BEGIN :problem_id := problema_urmatoare(${studentId});  END;`;
+        const result = await db.executeQueryWithOutVar(query, { problem_id: {dir: oracledb.BIND_OUT,type: oracledb.STRING} })
         if (result === `-20001`) {
             throw new StudentExceededLimitException(studentId)
         } else if (result === `-20004`) {
