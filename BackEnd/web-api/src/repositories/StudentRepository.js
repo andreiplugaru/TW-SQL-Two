@@ -1,6 +1,5 @@
 const db = require('../database/Connection.js')
 
-
 const TABLE_NAME = 'students'
 
 class StudentRepository {
