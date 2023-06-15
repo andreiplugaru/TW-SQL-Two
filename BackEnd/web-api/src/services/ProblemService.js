@@ -2,6 +2,7 @@ const Problem = require("../entities/Problem.js");
 const ProblemNotFoundException = require("../exceptions/ProblemNotFoundException.js");
 const ProblemMarkedWrongException = require("../exceptions/ProblemMarkedWrongException.js");
 const UnknownDifficultyException = require("../exceptions/UnknownDifficultyException.js");
+const InvalidCategoryException = require("../exceptions/InvalidCategoryException.js");
 class ProblemService {
     constructor({
                     problemRepository,
@@ -31,7 +32,7 @@ class ProblemService {
 
     async markProblemAsWrong(studentId, problemId) {
         await this.findById(problemId)
-        if(await this.checkIfProblemIsMarkedAsWrong(studentId, problemId))
+        if (await this.checkIfProblemIsMarkedAsWrong(studentId, problemId))
             throw new ProblemMarkedWrongException()
         await this.problemRepository.markProblemAsWrong(studentId, problemId);
     }
@@ -43,11 +44,34 @@ class ProblemService {
 
     async markProblemDifficulty(studentId, problemId, difficulty) {
         let category = await this.categoryRepository.findByName(difficulty)
-        if(category.length === 0)
+        if (category.length === 0)
             throw new UnknownDifficultyException(difficulty)
         let difficultyId = category[0].ID;
         await this.problemRepository.markProblemDifficulty(studentId, problemId, difficultyId);
     }
+
+    async findMarkedDifficultyProblemsByStudentId(id) {
+        return await this.problemRepository.findMarkedDifficultyProblemsByStudentId(id)
+    }
+
+    async findProposedProblemsByStudentId(id) {
+        return await this.problemRepository.findProposedProblemsByStudentId(id)
+    }
+
+    async save(problem) {
+        let category = await this.categoryRepository.findByName(problem.category)
+        if(category.length === 0)
+            throw new InvalidCategoryException(problem.category)
+        problem.category = category[0].ID;
+        let problemId = (await this.problemRepository.save(problem))[0].ID
+
+        await this.problemRepository.saveToAdded(problemId, problem.studentId)
+    }
+
+    async getCategories() {
+        return await this.categoryRepository(name)
+    }
+
 }
 
 module.exports = ProblemService;

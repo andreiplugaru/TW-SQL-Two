@@ -1,3 +1,4 @@
+const SolutionNotCorrectException = require('../exceptions/SolutionNotCorrectException.js')
 class SolvedProblemService {
     constructor({
                     solvedProblemRepository,
@@ -14,17 +15,25 @@ class SolvedProblemService {
     }
 
     async save(solvedProblem) {
-        //TODO: check if the solution is correct
+        //TODO: INSERT in attempts
+        let problem = await this.problemService.findById(solvedProblem.idProblem)
         await this.studentService.findById(solvedProblem.idStudent)
-        await this.problemService.findById(solvedProblem.idProblem)
+        let result = (await this.solvedProblemRepository.checkIfProblemIsCorrect(solvedProblem.solution, problem.solution))[0].RESULT
+        if(result === 'false')
+            throw new SolutionNotCorrectException()
         await this.solvedProblemRepository.save(solvedProblem)
     }
 
     async findSolvedProblemsByStudentId(id) {
         await this.studentService.findById(id)
         return await this.solvedProblemRepository.findSolvedProblemsByStudentId(id)
-
     }
+
+    async checkIfProblemIsSolved(studentId, problemId) {
+        await this.problemService.findById(problemId)
+        return await this.solvedProblemRepository.checkIfProblemIsSolved(studentId, problemId)
+    }
+
 }
 
 module.exports = SolvedProblemService

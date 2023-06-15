@@ -10,6 +10,28 @@ class UserRepository {
             username: username
         }
         const result = await db.executeQuery(query, bindParams)
+        result[0].ROLE = await this.getRole(result[0].ID)
+        return result
+    }
+
+    async getRole(userId) {
+        let query = `SELECT * FROM students WHERE ID_USER = :id_user`
+        let bindParams = {
+            id_user: userId
+        }
+        const result = await db.executeQuery(query, bindParams)
+        if (result.length > 0) {
+            return 'STUDENT'
+        }
+        return 'ADMIN'
+    }
+
+    async findById(id) {
+        let query = `SELECT * FROM ` + TABLE_NAME + ` WHERE ID = :id`
+        let bindParams = {
+            id: id
+        }
+        const result = await db.executeQuery(query, bindParams)
         return result
     }
 

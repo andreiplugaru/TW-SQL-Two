@@ -13,7 +13,7 @@ async function checkToken(studentService, req) {
         if (err) throw new ForbiddenException()
         let studentFromDB = await studentService.findByUsername(user.username)
         if (studentFromDB === undefined || studentFromDB.length === 0) throw new ForbiddenException()
-        id = studentFromDB[0].ID_USER
+        id = studentFromDB[0].ID
         console.log(id)
     })
     return id

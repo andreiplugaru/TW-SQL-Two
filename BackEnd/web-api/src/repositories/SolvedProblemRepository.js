@@ -1,4 +1,5 @@
 const db = require('../database/Connection.js')
+const studentDb = require('../database/StudentConnection.js')
 const StudentAlreadySolvedProblemException = require('../exceptions/StudentAlreadySolvedProblemException.js')
 const NotRightProblemToInsertException = require('../exceptions/NotRightProblemToInsertException.js')
 const StudentExceededLimitException = require("../exceptions/StudentExceededLimitException.js");
@@ -37,12 +38,33 @@ class SolvedProblemRepository {
     }
 
     async findSolvedProblemsByStudentId(studentId) {
-        let query = `SELECT * FROM ` + TABLE_NAME + ` WHERE ID_STUDENT = :id_student`
+        //TODO: remove ununsed columns
+        let query = `SELECT * FROM ` + TABLE_NAME + ` JOIN PROBLEMS ON PROBLEMS.ID = ` + TABLE_NAME + `.ID_PROBLEM WHERE ID_STUDENT = :id_student `
         let bindParams = {
             id_student: studentId
         }
         const result = await db.executeQuery(query, bindParams)
         return result
+    }
+
+    async checkIfProblemIsCorrect(correctSolution, studentSolution) {
+        let query = `SELECT verificare_solutie(:correct_solution, :student_solution) AS RESULT FROM DUAL`
+        let bindParams = {
+            correct_solution: correctSolution,
+            student_solution: studentSolution
+        }
+        const result = await studentDb.executeQuery(query, bindParams)
+        return result
+    }
+
+    async checkIfProblemIsSolved(studentId,problemId) {
+        let query = `SELECT * FROM ` + TABLE_NAME + ` WHERE ID_STUDENT = :id_student AND ID_PROBLEM = :id_problem`
+        let bindParams = {
+            id_student: studentId,
+            id_problem: problemId
+        }
+        const result = await db.executeQuery(query, bindParams)
+        return result.length > 0
     }
 }
 

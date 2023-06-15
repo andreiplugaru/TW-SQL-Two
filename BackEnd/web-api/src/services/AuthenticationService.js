@@ -32,7 +32,7 @@ class AuthenticationService {
                 response = {
                     token: token,
                     username: user[0].USERNAME,
-                    role: 'STUDENT'
+                    role: user[0].ROLE
                 }
             } else
                 throw new UnauthorizedException()

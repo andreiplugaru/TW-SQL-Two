@@ -4,6 +4,7 @@ const querystring = require("querystring");
 const Comment = require("../entities/Comment.js");
 const AuthenticationUtil = require("../util/AuthenticationUtil");
 const routes = ({
+                    userService,
                     commentService
                 }) => ({
     '/api/v1/comments:get': async (request, response) => {
@@ -14,7 +15,7 @@ const routes = ({
             response.writeHead(200, DEFAULT_HEADER)
             response.write(JSON.stringify(comments))
         } catch (err) {
-            response.writeHead(err.errorCode, DEFAULT_HEADER)
+            response.writeHead(err?.errorCode, DEFAULT_HEADER)
             response.write(JSON.stringify({'message': err.message}))
         }
         response.end()
@@ -23,7 +24,7 @@ const routes = ({
     '/api/v1/comments:post': async (request, response) => {
         try {
             let body = [];
-            let studentId = await AuthenticationUtil.checkToken(studentService, request)
+            let studentId = await AuthenticationUtil.checkToken(userService, request)
 
             request.on('data', (chunk) => {
                 body.push(chunk);

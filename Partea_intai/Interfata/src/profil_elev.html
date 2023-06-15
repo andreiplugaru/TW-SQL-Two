@@ -23,6 +23,7 @@
             <ul class="links">
                 <li><a href="help.html">Help</a></li>
                 <li><a class="nav-visited" href="profil_elev.html">Profil</a></li>
+                <li><a href="elev_home.html">Acasa</a></li>
                 <li><a href="../index.html" id="logout-link">Delogare</a></li>
             </ul>
             <label for="nav-toggle" class="icon-burger">
@@ -34,30 +35,30 @@
 
 
         <div class="container">
-            <div class="container-item">
-                <h2>Popa Cristian</h2>
-                <h3>Utilizator: popa.cristian</h3>
-                <h3>E-mail: popa.cristian@gmail.com</h3>
+            <div class="container-item" id="profile-info">
+                <h2 id="name"></h2>
+                <h3 id="username">Utilizator: popa.cristian</h3>
+                <h3 id="email">E-mail: popa.cristian@gmail.com</h3>
 
                 <a href="setari_cont.html">Setari cont</a>
                 <hr>
-                <h3>Probleme rezolvate: 20</h3>
-                <h3>Probleme marcate: 20</h3>
-                <h3>Probleme propuse: 1</h3>
+                <h3 id="count-resolved-pb">Probleme rezolvate: 20</h3>
+                <h3 id="count-marked-pb">Probleme marcate: 20</h3>
+                <h3 id="count-suggested-pb">Probleme propuse: 1</h3>
                 <a href="statistici_elev.html">Statistici despre problemele propuse de catre tine</a>
             </div>
             <div class="container-item">
 
 
                 <div class="table-container">
-                    <table class="table">
+                    <table class="table" id="resolved-problems">
                         <thead>
                             <tr>
                                 <th>Probleme rezolvate</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
+                        <tbody id="resolved-problems-body">
+                            <!-- <tr>
                                 <td data-label="Probleme rezolvate">
                                     <a href="problema_rezolvata.html" class="pb">Parte enunt problema_1</a>
                                 </td>
@@ -77,19 +78,19 @@
                                     <a href="problema_rezolvata.html" class="pb">Parte enunt alte_probleme in
                                         continuare</a>
                                 </td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
                 <div class="table-container">
-                    <table class="table">
+                    <table class="table" id="marked-problems">
                         <thead>
                             <tr>
                                 <th>Probleme marcate</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
+                        <tbody id="marked-problems-body">
+                            <!-- <tr>
                                 <td data-label="Probleme marcate">
                                     <a href="problema_rezolvata.html" class="pb">Parte enunt problema_1_marcata</a>
                                 </td>
@@ -109,21 +110,21 @@
                                     <a href="problema_rezolvata.html" class="pb">Parte enunt alte_probleme_marcate in
                                         continuare</a>
                                 </td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
 
 
                 <div class="table-container">
-                    <table class="table">
+                    <table class="table"  id="suggested-problems">
                         <thead>
                             <tr>
                                 <th>Probleme propuse</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
+                        <tbody id="suggested-problems-body">
+                            <!-- <tr>
                                 <td data-label="Probleme propuse">
                                     <a href="problema_rezolvata.html" class="pb">Parte enunt problema_1_propusa</a>
                                 </td>
@@ -143,7 +144,7 @@
                                     <a href="problema_rezolvata.html" class="pb">Parte enunt alte_probleme_propuse in
                                         continuare</a>
                                 </td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
@@ -163,6 +164,7 @@
 </body>
 
 <script type="module" src="../js/delogare.js"></script>
+<script type="module" src="../js/profil_elev.js"></script>
 
 
 </html>
