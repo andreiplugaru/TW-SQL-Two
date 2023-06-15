@@ -5,6 +5,9 @@ const registerForm = document.getElementById('register-form');
 
 registerForm.addEventListener('submit', onRegister);
 
+const errorTextElement = document.getElementById('error-text');
+errorTextElement.innerHTML = '';
+
 function onRegister(e) {
 
     e.preventDefault();
@@ -13,14 +16,16 @@ function onRegister(e) {
 
     let payload = Object.fromEntries(new FormData(currentTarget));
     if (payload.password !== payload.repeatPassword) {
-        errorTextElement.innerHTML = "Parolele nu corespund";
+        errorTextElement.innerHTML = "Parolele nu coincid";
         return;
     }
-    let pairs = Object.entries(payload).filter(e => e[0] != 'repeatPassword')
-    payload = Object.fromEntries(pairs)
-    console.log(payload);
-    const errorTextElement = document.getElementById('error-text');
-    errorTextElement.innerHTML = '';
+
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+    if(!passwordRegex.test(payload.password)){
+        errorTextElement.innerHTML = 'Parola trebuie sa contina cel putin 8 caractere, dintre care: 1 cifra, 1 litera mare, 1 caracter special!';
+        return;
+    }
+    
 
     const request = sendRequest(REGISTER_ENDPOINT, "POST", payload);
 
@@ -31,17 +36,11 @@ function onRegister(e) {
 
             if (status === 201) {
                 //user creat
-                localStorage.setItem('jwt', response.token);
-                localStorage.setItem('role', response.role);
+                // localStorage.setItem('jwt', response.token);
+                // localStorage.setItem('role', response.role);
 
                 //gestiune redirectionare catre home in functie de rol
-                console.log(response);
-                if (response.role === 'student') {
-                    window.location("/elev_home");
-                } else {
-                    window.location("/administrare");
-                }
-
+                window.location.assign("../index.html");
             } else {
                 errorTextElement.innerHTML = response.message;
             }

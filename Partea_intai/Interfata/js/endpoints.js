@@ -17,4 +17,7 @@ export const STUDENT_SUGGESTED_PROBLEMS_ENDPOINT = ENV + "/api/v1/problems/propo
 export const RESOLVED_PROBLEM_ENDPOINT = ENV + "";
 export const CREATE_PROBLEM_ENDPOINT = ENV + "/api/v1/problems";
 export const CATEGORIES_PROBLEM_ENDPOINT = ENV + "/api/v1/categories";
+export const STUDENT_PROBLEMS_STATISTICS_ENDPOINT = ENV + "/api/v1/problems";
+export const STUDENT_SETTINGS_ENDPOINT = ENV + "/mock";
+
 

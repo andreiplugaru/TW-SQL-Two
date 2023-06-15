@@ -18,6 +18,9 @@ const problemIdElement = document.getElementById('problem-id');
 const errorTextElementSolution = document.getElementById('error-text-solution');
 const errorTextElement = document.getElementById('error-text');
 
+const problemSolutionElement = document.getElementById('problem-solution');
+
+
 const problemForm = document.getElementById('problem-form');
 problemForm.addEventListener('submit', onSendSolution);
 
@@ -97,6 +100,7 @@ async function onSendSolution(e) {
 async function getNextProblem() {
 
     errorTextElementSolution.innerHTML = '';
+    problemSolutionElement.value = '';
     let problem;
 
     const request = await sendJwtFetchRequestWithoutBody(NEXT_PROBLEM_ENDPOINT, 'GET', localStorage.getItem('jwt'));
