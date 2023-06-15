@@ -1,3 +1,4 @@
+const SolutionNotCorrectException = require('../exceptions/SolutionNotCorrectException.js')
 class SolvedProblemService {
     constructor({
                     solvedProblemRepository,
@@ -14,9 +15,11 @@ class SolvedProblemService {
     }
 
     async save(solvedProblem) {
-        //TODO: check if the solution is correct
+        let problem = await this.problemService.findById(solvedProblem.idProblem)
         await this.studentService.findById(solvedProblem.idStudent)
-        await this.problemService.findById(solvedProblem.idProblem)
+        let result = (await this.solvedProblemRepository.checkIfProblemIsCorrect(solvedProblem.solution, problem.solution))[0].RESULT
+        if(result === 'false')
+            throw new SolutionNotCorrectException()
         await this.solvedProblemRepository.save(solvedProblem)
     }
 

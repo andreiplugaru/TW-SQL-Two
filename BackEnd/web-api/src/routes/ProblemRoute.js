@@ -14,7 +14,7 @@ const routes = ({
                 }) => ({
     '/api/v1/problems/solved:get': async (request, response) => {
         try {
-            let studentId = await  AuthenticationUtil.checkToken(studentService, request)
+            let studentId = await AuthenticationUtil.checkToken(studentService, request)
             const solvedProblems = await solvedProblemService.findSolvedProblemsByStudentId(studentId)
             response.writeHead(200, DEFAULT_HEADER)
             response.write(JSON.stringify({problems: solvedProblems}))
@@ -30,10 +30,10 @@ const routes = ({
         request.on('data', (chunk) => {
             body.push(chunk);
         }).on('end', async () => {
-            let studentId = await AuthenticationUtil.checkToken(studentService, request)
-            const requestBody = JSON.parse(body); // Assuming the request body is in JSON format
-            const solvedProblemDto = new ProblemSolvedReceivedDto(studentId, requestBody.id_problem, requestBody.solution)
             try {
+                let studentId = await AuthenticationUtil.checkToken(studentService, request)
+                const requestBody = JSON.parse(body); // Assuming the request body is in JSON format
+                const solvedProblemDto = new ProblemSolvedReceivedDto(studentId, requestBody.id_problem, requestBody.solution)
                 await solvedProblemService.save(solvedProblemDto)
                 response.writeHead(201, DEFAULT_HEADER)
             } catch (err) {
