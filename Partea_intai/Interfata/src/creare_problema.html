@@ -34,17 +34,17 @@
             <div class="data">
                 <div class="form-title">Adaugare problema</div>
 
-                <form action="problema.html" method="post">
+                <form action="problema.html" id="create-pb-form" method="post">
 
                     <label><b>Cerinta</b></label>
-                    <textarea id="requirement" cols="30"></textarea>
+                    <textarea id="requirement" name="requirement" cols="30"></textarea>
 
                     <label><b>Rezolvare corecta</b></label>
-                    <span class="textarea" id="answer" role="textbox" spellcheck="false" contenteditable
+                    <span class="textarea" name="solution" id="answer" role="textbox" spellcheck="false" contenteditable
                         autofocus></span>
 
                     <label><b>Categorie</b></label>
-                    <select>
+                    <select id="category">
                         <option selected disabled>Selecteaza categoria</option>
                         <option>GROUP BY</option>
                         <option>JOIN</option>
@@ -63,6 +63,7 @@
                 <a href="about.html">About</a>
             </div>
         </footer>
+        <script type="module" src="../js/creare_problema.js"></script>
     </div>
 </body>
 

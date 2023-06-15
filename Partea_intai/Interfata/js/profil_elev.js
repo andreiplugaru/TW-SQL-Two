@@ -31,7 +31,7 @@ async function getProfileInfo() {
 }
 
 function displayInfo(data) {
-    //ATENTIE LA INTEGRARE
+
     let firstName = data.firstName;
     let lastName = data.lastName;
     let username = data.username;
@@ -51,9 +51,7 @@ function displayInfo(data) {
 
 
 
-
-
-//TABELE ???
+//TABELE
 //PB REZOLVATE
 async function getResolvedProblems() {
 
@@ -62,7 +60,6 @@ async function getResolvedProblems() {
     await sendJwtFetchRequestWithoutBody(STUDENT_RESOLVED_PROBLEMS_ENDPOINT, 'GET', localStorage.getItem('jwt'))
         .then(response => response.json())
         .then(data => { problems.push(...data) });
-    console.log(problems);
     const tableBody = document.getElementById('resolved-problems-body');
     for (var i = 0; i < problems.length; i++) {
 

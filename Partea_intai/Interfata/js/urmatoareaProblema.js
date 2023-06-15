@@ -98,16 +98,23 @@ async function getNextProblem() {
 
     errorTextElement.innerHTML = '';
     let problem;
-    await sendJwtFetchRequestWithoutBody(NEXT_PROBLEM_ENDPOINT, 'GET', localStorage.getItem('jwt'))
-        .then(response => response.json())
-        .then(data => { problem = data });
 
-
-    displayRequirement(problem);
-    let form = document.getElementById('next-problem-form')
-    if (form !== null) {
-        document.getElementById('next-problem-form').remove();
-        document.getElementsByClassName('dropdown')[0].remove();
+    const request = await sendJwtFetchRequestWithoutBody(NEXT_PROBLEM_ENDPOINT, 'GET', localStorage.getItem('jwt'));
+    let status = request.status;
+    const response = await request.json();
+    const message = response.message;
+    console.log("mesajj: " + message);
+    if( status === 201) {
+        displayRequirement(problem);
+        let form = document.getElementById('next-problem-form')
+        if (form !== null) {
+            document.getElementById('next-problem-form').remove();
+            document.getElementsByClassName('dropdown')[0].remove();
+        }
+    }else if( status === 400){
+        if( message === 'limit exceeded'){
+            window.location.assign("./creare_problema.html");
+        }
     }
 }
 

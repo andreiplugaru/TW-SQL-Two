@@ -17,7 +17,7 @@ function manageMenu(){
         createLink('login.html', 'Delogare');
     }else if(userRole === 'ADMIN'){
         //link-uri admin NU ESTE TESTAT
-        logoLink.href = 'administare.html';
+        logoLink.href = 'administrare.html';
         createLink('help.html', 'Help');
         createLink('administrare.html', 'Pagina de administrare');
         createLink('login.html', 'Delogare');
