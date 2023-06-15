@@ -33,7 +33,7 @@ function displayInfo(data) {
     let problemSolution = data.problemSolution;
 
     problemRequirmentElement.innerHTML = problemRequirment;
-    problemCategoryElement.innerText = problemCategory;
+    problemCategoryElement.innerText = '<img src="../icons/label.svg" alt="Categorie" width="20" height="20">' + problemCategory;
     problemSolutionElement.value = problemSolution;
 
 }

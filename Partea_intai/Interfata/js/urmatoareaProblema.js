@@ -116,8 +116,8 @@ function displayRequirement(data) {
     let problemCategory = data.category;
     let problemId = data.id;
 
-    problemRequirmentElement.innerHTML = problemRequirment;
-    problemCategoryElement.innerHTML = problemCategory;
+    problemRequirmentElement.innerHTML =  problemRequirment;
+    problemCategoryElement.innerHTML = '<img src="../icons/label.svg" alt="Categorie" width="20" height="20">' + problemCategory;
     problemIdElement.innerHTML = problemId;
 
     refreshComments();
