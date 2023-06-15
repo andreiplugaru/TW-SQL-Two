@@ -25,7 +25,7 @@ class ProblemRepository {
         })
         if (result === `-20001`) {
             throw new StudentExceededLimitException(studentId)
-        } else if (result === `-20004`) {
+        } else if (result === `20004`) {
             throw new StudentNotFoundException(studentId)
         }
         return result
