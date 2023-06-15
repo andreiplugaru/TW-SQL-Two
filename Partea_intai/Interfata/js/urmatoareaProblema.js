@@ -89,8 +89,8 @@ async function onSendSolution(e) {
     }
     else if (status === 400) {
         //verficare mesaj pentru a sti daca rezolvarea e corecta {"message":"rezolvarea nu e corecta"}
-        const response = JSON.parse(request.response);
-        errorTextElement.innerHTML = response.message;
+        // const response = JSON.parse(request.response);
+        // errorTextElement.innerHTML = response.message;
     }
 }
 
@@ -102,7 +102,7 @@ async function getNextProblem() {
         .then(response => response.json())
         .then(data => { problem = data });
 
-    
+
     displayRequirement(problem);
     let form = document.getElementById('next-problem-form')
     if (form !== null) {

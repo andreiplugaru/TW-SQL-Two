@@ -112,7 +112,7 @@ BEGIN
  DBMS_OUTPUT.PUT_LINE('v_dif_finala pt stud: ' || p_id_stud || ' : ' || v_dif_finala);
  DBMS_OUTPUT.PUT_LINE('!!!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@!!!');
 
-        --interogãrile ce vor fi propuse spre rezolvare vor fi mereu cele care au mai pu?ine încercãri``
+        --interogãrile ce vor fi propuse spre rezolvare vor fi mereu cele care au mai pu?ine încercãri && studentul nu a marcat ca gresita problema``
         SELECT id INTO v_id_pb_urm FROM
             ( SELECT pb.id, (SUM(NVL2(id_student,1,0))) AS nr_incercari    
                 FROM problems pb join map_problem_difficulty mpd on pb.id=mpd.id_problem
@@ -121,7 +121,8 @@ BEGIN
                 HAVING mpd.id_difficulty = v_dif_finala AND
                         pb.id NOT IN ( SELECT id_problem FROM solved_problems
                                                         WHERE id_student=p_id_stud
-                                                    )
+                                                    ) AND
+                        (p_id_stud, pb.id) NOT IN (SELECT id_student, id_problem FROM wrong_problems)
                 ORDER BY nr_incercari ASC
             )
         WHERE ROWNUM = 1;
@@ -134,7 +135,6 @@ BEGIN
         return v_raspuns;
 END;
 /
-DROP FUNCTION problema_urmatoare; 
 
 CREATE OR REPLACE FUNCTION problema_urmatoare (p_id_stud IN students.id_user%type)
 RETURN problems.id%type
@@ -309,9 +309,11 @@ BEGIN
 --    DBMS_OUTPUT.PUT_LINE('-------------------------------------------------------');
 --    DBMS_OUTPUT.PUT_LINE(problema_urmatoare(4));
     DBMS_OUTPUT.PUT_LINE('-------------------------------------------------------');
-    DBMS_OUTPUT.PUT_LINE(problema_urmatoare(5));
+    DBMS_OUTPUT.PUT_LINE(problema_urmatoare(8));
     DBMS_OUTPUT.PUT_LINE('-------------------------------------------------------');
 END;
+
+INSERT INTO WRONG_PROBLEMS VALUES (8,70,NULL);
 
 
 DECLARE
