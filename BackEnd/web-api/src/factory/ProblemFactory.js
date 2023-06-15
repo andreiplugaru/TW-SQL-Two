@@ -1,6 +1,6 @@
 const ProblemRepository = require('../repositories/ProblemRepository.js')
 const ProblemService = require('../services/ProblemService.js')
-const CategoryRepository = require('../repositories/DifficultyRepository.js')
+const CategoryRepository = require('../repositories/CategoryRepository.js')
 function generateInstance() {
     let problemRepository = new ProblemRepository();
     let categoryRepository = new CategoryRepository();

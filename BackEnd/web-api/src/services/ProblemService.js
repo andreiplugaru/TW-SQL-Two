@@ -45,7 +45,7 @@ class ProblemService {
     async markProblemDifficulty(studentId, problemId, difficulty) {
         let category = await this.categoryRepository.findByName(difficulty)
         if (category.length === 0)
-            throw new InvalidCategoryException(difficulty)
+            throw new UnknownDifficultyException(difficulty)
         let difficultyId = category[0].ID;
         await this.problemRepository.markProblemDifficulty(studentId, problemId, difficultyId);
     }
