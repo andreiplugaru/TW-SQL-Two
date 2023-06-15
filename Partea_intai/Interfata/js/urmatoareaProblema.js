@@ -6,9 +6,9 @@ import { sendJwtFetchRequest, sendJwtFetchRequestWithoutBody } from "./request/r
 
 
 function guard(){
-if (localStorage.getItem('jwt') === null || localStorage.getItem('role') !== 'STUDENT') {
-    window.open("login.html", "_self");
-}
+    if (localStorage.getItem('jwt') === null || localStorage.getItem('role') !== 'STUDENT') {
+        window.open("login.html", "_self");
+    }
 }
 
 const problemRequirmentElement = document.getElementById('problem-requirement');

@@ -1,6 +1,11 @@
 import { RESOLVED_PROBLEM_ENDPOINT } from "./endpoints.js"
-import { sendJwtFetchRequestWithoutBody } from "./request/request_handler.js"
+import { sendJwtFetchRequestWithoutBody, sendJwtFetchRequest } from "./request/request_handler.js"
 
+function guard(){
+    if (localStorage.getItem('jwt') === null || localStorage.getItem('role') !== 'STUDENT') {
+        window.open("login.html", "_self");
+    }
+}
 
 //PROBLEM INFOS
 const problemRequirmentElement = document.getElementById('problem-requirement');
@@ -122,6 +127,46 @@ async function onPublishComm(e) {
     }
 
 }
+
+
+//MANAGE MENU
+
+var menuLinks = document.getElementById('nav-links');
+menuLinks.innerHTML = ''; 
+var logoLink = document.querySelector('.logo a');
+
+function manageMenu(){
+
+    console.log('im in manageMenu')
+    var userRole = localStorage.getItem('role');
+
+    if(userRole === 'STUDENT'){
+        //link-uri pt student
+        logoLink.href = 'elev_home.html';
+        createLink('help.html', 'Help');
+        createLink('profil_elev.html', 'Profil');
+        createLink('elev_home.html', 'Acasa');
+        createLink('login.html', 'Delogare');
+    }else if(userRole === 'ADMIN'){
+        logoLink.href = 'administare.html';
+        //link-uri admin NU ESTE TESTAT
+        createLink('help.html', 'Help');
+        createLink('administrare.html', 'Pagina de administrare');
+        createLink('login.html', 'Delogare');
+    }
+}
+
+function createLink(href, text) {
+    var li = document.createElement('li');
+    var a = document.createElement('a');
+    a.href = href;
+    a.textContent = text;
+    li.appendChild(a);
+    menuLinks.appendChild(li);
+  }
+
+guard();
+manageMenu();
 
 
 await getProblemInfo();
