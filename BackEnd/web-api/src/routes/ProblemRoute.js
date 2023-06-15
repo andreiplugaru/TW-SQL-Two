@@ -17,7 +17,7 @@ const routes = ({
             let studentId = await AuthenticationUtil.checkToken(userService, request)
             const solvedProblems = await solvedProblemService.findSolvedProblemsByStudentId(studentId)
             response.writeHead(200, DEFAULT_HEADER)
-            response.write(JSON.stringify({problems: solvedProblems}))
+            response.write(JSON.stringify(solvedProblems))
         } catch (err) {
             response.writeHead(err.errorCode, DEFAULT_HEADER)
             response.write(JSON.stringify({'message': err.message}))
@@ -105,7 +105,7 @@ const routes = ({
             let studentId = await AuthenticationUtil.checkToken(userService, request)
             const markedProblems = await problemService.findMarkedDifficultyProblemsByStudentId(studentId)
             response.writeHead(200, DEFAULT_HEADER)
-            response.write(JSON.stringify({problems: markedProblems}))
+            response.write(JSON.stringify(markedProblems))
         } catch (err) {
             response.writeHead(err.errorCode, DEFAULT_HEADER)
             response.write(JSON.stringify({'message': err.message}))
@@ -116,7 +116,7 @@ const routes = ({
             let studentId = await AuthenticationUtil.checkToken(userService, request)
             const proposedProblems = await problemService.findProposedProblemsByStudentId(studentId)
             response.writeHead(200, DEFAULT_HEADER)
-            response.write(JSON.stringify({problems: proposedProblems}))
+            response.write(JSON.stringify(proposedProblems))
         } catch (err) {
             response.writeHead(err.errorCode, DEFAULT_HEADER)
             response.write(JSON.stringify({'message': err.message}))

@@ -38,7 +38,8 @@ class SolvedProblemRepository {
     }
 
     async findSolvedProblemsByStudentId(studentId) {
-        let query = `SELECT * FROM ` + TABLE_NAME + ` WHERE ID_STUDENT = :id_student`
+        //TODO: remove ununsed columns
+        let query = `SELECT * FROM ` + TABLE_NAME + ` JOIN PROBLEMS ON PROBLEMS.ID = ` + TABLE_NAME + `.ID_PROBLEM WHERE ID_STUDENT = :id_student `
         let bindParams = {
             id_student: studentId
         }

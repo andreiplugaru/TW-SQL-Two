@@ -5,7 +5,7 @@ import {
 import { sendJwtFetchRequest, sendJwtFetchRequestWithoutBody } from "./request/request_handler.js"
 
 
-function guard(){
+function guard() {
     if (localStorage.getItem('jwt') === null || localStorage.getItem('role') !== 'STUDENT') {
         window.open("login.html", "_self");
     }
@@ -15,6 +15,7 @@ const problemRequirmentElement = document.getElementById('problem-requirement');
 const problemCategoryElement = document.getElementById('problem-category');
 const problemIdElement = document.getElementById('problem-id');
 
+const errorTextElementSolution = document.getElementById('error-text-solution');
 const errorTextElement = document.getElementById('error-text');
 
 const problemForm = document.getElementById('problem-form');
@@ -32,13 +33,12 @@ async function onSendSolution(e) {
         solution: solutionValue,
         id_problem: problemId,
     };
-
     const request = await sendJwtFetchRequest(SEND_SOLUTION_ENDPOINT, 'POST', payload, localStorage.getItem('jwt'));
+
     let status = request.status;
-   
     if (status === 201) {
 
-        errorTextElement.innerHTML = '';
+        errorTextElementSolution.innerHTML = '';
         //solutie corecta => afisez butonul de selectare dificultate + problema urmatoare
         //construire buton dificultate
         const problemMarkingElement = document.querySelector('.problem-marking');
@@ -89,8 +89,8 @@ async function onSendSolution(e) {
     }
     else if (status === 400) {
         //verficare mesaj pentru a sti daca rezolvarea e corecta {"message":"rezolvarea nu e corecta"}
-        // const response = JSON.parse(request.response);
-        // errorTextElement.innerHTML = response.message;
+        const response = await request.json();
+        errorTextElementSolution.innerHTML = response.message;
     }
 }
 
@@ -116,7 +116,7 @@ function displayRequirement(data) {
     let problemCategory = data.category;
     let problemId = data.id;
 
-    problemRequirmentElement.innerHTML =  problemRequirment;
+    problemRequirmentElement.innerHTML = problemRequirment;
     problemCategoryElement.innerHTML = '<img src="../icons/label.svg" alt="Categorie" width="20" height="20">' + problemCategory;
     problemIdElement.innerHTML = problemId;
 
@@ -201,7 +201,7 @@ async function getAllComments() {
     await sendJwtFetchRequestWithoutBody(COMMENTS_PROBLEM_ENDPOINT + "?problemId=" + problemId, 'GET', localStorage.getItem('jwt'))
         .then(response => response.json())
         .then(data => { comments.push(...data) });
-        
+
     return comments;
 }
 

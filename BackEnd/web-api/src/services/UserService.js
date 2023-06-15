@@ -20,18 +20,19 @@ class UserService{
     async findUserInfoById(id) {
         let user = await this.userRepository.findById(id)
         let userInfo = new UserResponseDto()
-        userInfo.firstname = user[0].FIRSTNAME
-        userInfo.lastname = user[0].LASTNAME
+        userInfo.firstName = user[0].FIRSTNAME
+        userInfo.lastName = user[0].LASTNAME
         userInfo.email = user[0].EMAIL
+        userInfo.username = user[0].USERNAME
 
         let problems = await this.solvedProblemService.findSolvedProblemsByStudentId(id)
         userInfo.solvedProblems = problems.length
 
         let markedProblems = await this.problemService.findMarkedDifficultyProblemsByStudentId(id)
-        userInfo.problemMarked = markedProblems.length
+        userInfo.markedProblems = markedProblems.length
 
-        let proposedProblems = await this.problemService.findMarkedDifficultyProblemsByStudentId(id)
-        userInfo.problemProposed = proposedProblems.length
+        let proposedProblems = await this.problemService.findProposedProblemsByStudentId(id)
+        userInfo.proposedProblems = proposedProblems.length
         return userInfo;
     }
 }

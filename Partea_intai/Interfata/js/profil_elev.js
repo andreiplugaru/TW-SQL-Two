@@ -1,12 +1,14 @@
-import { STUDENT_RESOLVED_PROBLEMS_ENDPOINT, STUDENT_MARKED_PROBLEMS_ENDPOINT, STUDENT_SUGGESTED_PROBLEMS_ENDPOINT,
-    STUDENT_PROFILE_INFO_ENDPOINT } from "./endpoints.js"
+import {
+    STUDENT_RESOLVED_PROBLEMS_ENDPOINT, STUDENT_MARKED_PROBLEMS_ENDPOINT, STUDENT_SUGGESTED_PROBLEMS_ENDPOINT,
+    STUDENT_PROFILE_INFO_ENDPOINT
+} from "./endpoints.js"
 import { sendJwtFetchRequestWithoutBody } from "./request/request_handler.js"
 
-function guard(){
+function guard() {
     if (localStorage.getItem('jwt') === null || localStorage.getItem('role') !== 'STUDENT') {
         window.open("login.html", "_self");
     }
-    }
+}
 
 
 //INFOS PROFIL
@@ -17,7 +19,7 @@ const countResolvedPbElement = document.getElementById('count-resolved-pb');
 const countMarkedPbElement = document.getElementById('count-marked-pb');
 const countSuggestedPbElement = document.getElementById('count-suggested-pb');
 
-async function getProfileInfo(){
+async function getProfileInfo() {
 
     let info;
     await sendJwtFetchRequestWithoutBody(STUDENT_PROFILE_INFO_ENDPOINT, 'GET', localStorage.getItem('jwt'))
@@ -34,16 +36,16 @@ function displayInfo(data) {
     let lastName = data.lastName;
     let username = data.username;
     let email = data.email;
-    let countResolvedPb = data.resolvedProblems;
+    let countResolvedPb = data.solvedProblems;
     let countMarkedPb = data.markedProblems;
-    let countSuggestedPb = data.suggestedProblems;
+    let countSuggestedPb = data.proposedProblems;
 
     nameElement.innerHTML = firstName + " " + lastName;
     usernameElement.innerHTML = "Utilizator: " + username;
-    emailElement.innerHTML = "E-mail"+ email;
+    emailElement.innerHTML = "E-mail: " + email;
     countResolvedPbElement.innerHTML = "Probleme rezolvate: " + countResolvedPb;
-    countMarkedPbElement.innerHTML = "Probleme marcate: " +countMarkedPb;
-    countSuggestedPbElement.innerHTML = "Probleme propuse: " +countSuggestedPb;
+    countMarkedPbElement.innerHTML = "Probleme marcate: " + countMarkedPb;
+    countSuggestedPbElement.innerHTML = "Probleme propuse: " + countSuggestedPb;
 
 }
 
@@ -53,26 +55,26 @@ function displayInfo(data) {
 
 //TABELE ???
 //PB REZOLVATE
-async function getResolvedProblems(){
+async function getResolvedProblems() {
 
     //primesc id_pb + enunt_pb
     let problems = [];
     await sendJwtFetchRequestWithoutBody(STUDENT_RESOLVED_PROBLEMS_ENDPOINT, 'GET', localStorage.getItem('jwt'))
         .then(response => response.json())
         .then(data => { problems.push(...data) });
-
+    console.log(problems);
     const tableBody = document.getElementById('resolved-problems-body');
-    for(var i=0; i<problems.length; i++){
-        
+    for (var i = 0; i < problems.length; i++) {
+
         const row = document.createElement('tr');
         const cell = document.createElement('td');
         //imi formez ancora
         const anchor = document.createElement('a');
-        anchor.href = `problema_rezolvata.html?id=${problems[i].id_problem}`; //IDKKK, MAYBE: problema_rezolvata.html/${problemsId[i]}
-        let text = problems[i].substr(1, 30);
+        anchor.href = `problema_rezolvata.html?id=${problems[i].ID_PROBLEM}`; //IDKKK, MAYBE: problema_rezolvata.html/${problemsId[i]}
+        let text = problems[i].REQUIREMENT.substr(0, 30);
         anchor.textContent = text;
         anchor.classList.add('pb');
-        anchor.id='resolved_pb';
+        anchor.id = 'resolved_pb';
 
         //construire rand
         cell.dataset.label = 'Probleme rezolvate';
@@ -86,19 +88,19 @@ async function getResolvedProblems(){
     const links = document.querySelectorAll('#resolved_pb');
     links.forEach(link => {
         link.addEventListener('click', e => {
-          e.preventDefault();
-  
-          const url = link.getAttribute('href');
-          window.open(url);
+            e.preventDefault();
+
+            const url = link.getAttribute('href');
+            window.open(url);
         });
-      });
-    
+    });
+
 
 }
 
 
 //PB MARCATE
-async function getMarkedProblems(){
+async function getMarkedProblems() {
 
     //primesc id_pb + enunt_pb
     let problems = [];
@@ -107,17 +109,17 @@ async function getMarkedProblems(){
         .then(data => { problems.push(...data) });
 
     const tableBody = document.getElementById('marked-problems-body');
-    for(var i=0; i<problems.length; i++){
-        
+    for (var i = 0; i < problems.length; i++) {
+
         const row = document.createElement('tr');
         const cell = document.createElement('td');
         //imi formez ancora
         const anchor = document.createElement('a');
-        anchor.href = `problema_rezolvata.html?id=${problems[i].id_problem}`; //IDKKK, MAYBE: problema_rezolvata.html/${problemsId[i]}
-        let text = problems[i].substr(1, 30);
+        anchor.href = `problema_rezolvata.html?id=${problems[i].ID_PROBLEM}`; //IDKKK, MAYBE: problema_rezolvata.html/${problemsId[i]}
+        let text = problems[i].REQUIREMENT.substr(0, 30);
         anchor.textContent = text;
         anchor.classList.add('pb');
-        anchor.id='marked_pb';
+        anchor.id = 'marked_pb';
 
         //construire rand
         cell.dataset.label = 'Probleme marcate';
@@ -131,18 +133,18 @@ async function getMarkedProblems(){
     const links = document.querySelectorAll('#marked_pb');
     links.forEach(link => {
         link.addEventListener('click', e => {
-          e.preventDefault();
-  
-          const url = link.getAttribute('href');
-          window.open(url);
+            e.preventDefault();
+
+            const url = link.getAttribute('href');
+            window.open(url);
         });
-      });
-    
+    });
+
 
 }
 
 //PB PROPUSE
-async function getSuggestedProblems(){
+async function getSuggestedProblems() {
 
     //primesc id_pb + enunt_pb
     let problems = [];
@@ -151,17 +153,17 @@ async function getSuggestedProblems(){
         .then(data => { problems.push(...data) });
 
     const tableBody = document.getElementById('suggested-problems-body');
-    for(var i=0; i<problems.length; i++){
-        
+    for (var i = 0; i < problems.length; i++) {
+
         const row = document.createElement('tr');
         const cell = document.createElement('td');
         //imi formez ancora
         const anchor = document.createElement('a');
-        anchor.href = `problema_rezolvata.html?id=${problems[i].id_problem}`; //IDKKK, MAYBE: problema_rezolvata.html/${problemsId[i]}
-        let text = problems[i].substr(1, 30);
+        anchor.href = `problema_rezolvata.html?id=${problems[i].ID_PROBLEM}`; //IDKKK, MAYBE: problema_rezolvata.html/${problemsId[i]}
+        let text = problems[i].REQUIREMENT.substr(0, 30);
         anchor.textContent = text;
         anchor.classList.add('pb');
-        anchor.id='suggested_pb';
+        anchor.id = 'suggested_pb';
 
         //construire rand
         cell.dataset.label = 'Probleme propuse';
@@ -175,13 +177,13 @@ async function getSuggestedProblems(){
     const links = document.querySelectorAll('#suggested_pb');
     links.forEach(link => {
         link.addEventListener('click', e => {
-          e.preventDefault();
-  
-          const url = link.getAttribute('href');
-          window.open(url);
+            e.preventDefault();
+
+            const url = link.getAttribute('href');
+            window.open(url);
         });
-      });
-    
+    });
+
 
 }
 

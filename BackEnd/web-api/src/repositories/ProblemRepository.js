@@ -61,7 +61,7 @@ class ProblemRepository {
     }
 
     async findMarkedDifficultyProblemsByStudentId(studentId) {
-        const query = `SELECT * FROM marked_problems WHERE id_student = :id_student`
+        const query = `SELECT * FROM marked_problems JOIN PROBLEMS ON PROBLEMS.ID = marked_problems.ID_PROBLEM WHERE id_student = :id_student`
         let bindParams = {
             id_student: studentId
         }
@@ -70,7 +70,7 @@ class ProblemRepository {
     }
 
     async findProposedProblemsByStudentId(studentId) {
-        const query = `SELECT * FROM added_problems WHERE id_user = :id_student`
+        const query = `SELECT * FROM added_problems JOIN PROBLEMS ON PROBLEMS.ID = added_problems.ID_PROBLEM WHERE id_user = :id_student`
         let bindParams = {
             id_student: studentId
         }
