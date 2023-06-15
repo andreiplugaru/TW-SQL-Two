@@ -15,6 +15,7 @@ class SolvedProblemService {
     }
 
     async save(solvedProblem) {
+        //TODO: INSERT in attempts
         let problem = await this.problemService.findById(solvedProblem.idProblem)
         await this.studentService.findById(solvedProblem.idStudent)
         let result = (await this.solvedProblemRepository.checkIfProblemIsCorrect(solvedProblem.solution, problem.solution))[0].RESULT
@@ -26,7 +27,6 @@ class SolvedProblemService {
     async findSolvedProblemsByStudentId(id) {
         await this.studentService.findById(id)
         return await this.solvedProblemRepository.findSolvedProblemsByStudentId(id)
-
     }
 }
 

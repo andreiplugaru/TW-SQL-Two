@@ -7,7 +7,12 @@ async function init() {
         await oracledb.createPool({
             user: 'ADMIN',
             password: '1uJ$!ZRGo1Tazqka',
-            connectString: cs
+            connectString: cs,
+            poolMin: 1,
+            poolMax: 5,
+            poolTimeout: 300,
+            poolAlias: 'default'
+
         });
     } catch (err) {
     }
@@ -16,7 +21,7 @@ async function init() {
 async function selectAllFromTable(tableName) {
     let connection;
     try {
-        connection = await oracledb.getConnection();
+        connection = await oracledb.getConnection('default');
         const sql = `SELECT * FROM ` + tableName;
         const options = {outFormat: oracledb.OUT_FORMAT_OBJECT};
         const result = await connection.execute(sql, {}, options);
@@ -37,7 +42,7 @@ async function selectAllFromTable(tableName) {
 async function insertInTable(query, binds) {
     let connection;
     try {
-        connection = await oracledb.getConnection();
+        connection = await oracledb.getConnection('default');
         const options = {outFormat: oracledb.OUT_FORMAT_OBJECT, autoCommit: true};
         const result = await connection.execute(query, binds, options);
         connection.commit();
@@ -60,7 +65,7 @@ async function insertInTable(query, binds) {
 async function executeQuery(query, binds) {
     let connection;
     try {
-        connection = await oracledb.getConnection();
+        connection = await oracledb.getConnection('default');
         const options = {outFormat: oracledb.OUT_FORMAT_OBJECT, autoCommit: true};
         const dbResult = await connection.execute(query, binds, options)
         return Object.values(dbResult.rows)
@@ -81,7 +86,7 @@ async function executeQuery(query, binds) {
 async function executeQueryWithOutVar(query, binds) {
     let connection;
     try {
-        connection = await oracledb.getConnection();
+        connection = await oracledb.getConnection('default');
      //   const options =  { ret: {dir: oracledb.BIND_OUT,type: oracledb.STRING} };
         const dbResult = await connection.execute(query, binds)
         return dbResult.outBinds.problem_id
@@ -102,7 +107,7 @@ async function executeQueryWithOutVar(query, binds) {
 async function selectByIdFromTable(tableName, id) {
     let connection;
     try {
-        connection = await oracledb.getConnection();
+        connection = await oracledb.getConnection('default');
         const sql = `SELECT * FROM ` + tableName + ` WHERE id = ` + id;
         const options = {outFormat: oracledb.OUT_FORMAT_OBJECT};
         const result = await connection.execute(sql, {}, options);

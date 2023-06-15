@@ -13,6 +13,14 @@ class UserRepository {
         return result
     }
 
+    async findById(id) {
+        let query = `SELECT * FROM ` + TABLE_NAME + ` WHERE ID = :id`
+        let bindParams = {
+            id: id
+        }
+        const result = await db.executeQuery(query, bindParams)
+        return result
+    }
     async createUser(studentRegisterDto) {
         await this.checkIfUsernameExists(studentRegisterDto)
         await this.checkIfEmailExists(studentRegisterDto)

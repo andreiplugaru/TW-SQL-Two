@@ -9,22 +9,24 @@ const commentFactory = require('./factory/CommentFactory.js')
 const ProblemRoute = require('./routes/ProblemRoute.js')
 const AuthenticationRoute = require('./routes/AuthenticationRoute.js')
 const CommentRoute = require('./routes/CommentRoute.js')
+const UserRoute = require('./routes/UserRoute.js')
 fs = require('fs');
 var path = require('path');
-const userService = userFactory.generateInstance()
 const solvedProblemService = solvedProblemFactory.generateInstance()
 const problemService = problemFactory.generateInstance()
-const studentService = studentFactory.generateInstance(userService)
 const commentService = commentFactory.generateInstance(problemService)
+const userService = userFactory.generateInstance(problemService, solvedProblemService)
+const studentService = studentFactory.generateInstance(userService)
+
 const problemRoutes = ProblemRoute({
-    studentService,
+    userService,
     solvedProblemService,
     problemService
 })
-const commentRoutes = CommentRoute({commentService})
-
+const commentRoutes = CommentRoute({userService, commentService})
 const authenticationService = authenticationFactory.generateInstance(userService, studentService)
 const authenticationRoutes = AuthenticationRoute({authenticationService})
+const userRoutes = UserRoute({userService})
 
 const allRoutes = {
     '/dist:get': (request, response) => {
@@ -55,6 +57,7 @@ const allRoutes = {
             }
         });
     },
+    ...userRoutes,
     ...commentRoutes,
     ...problemRoutes,
     ...authenticationRoutes,

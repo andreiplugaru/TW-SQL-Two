@@ -48,6 +48,15 @@ class ProblemService {
         let difficultyId = category[0].ID;
         await this.problemRepository.markProblemDifficulty(studentId, problemId, difficultyId);
     }
+
+    async findMarkedDifficultyProblemsByStudentId(studentId) {
+        return await this.problemRepository.findMarkedDifficultyProblemsByStudentId(studentId);
+    }
+
+    async findProposedProblemsByStudentId(studentId) {
+        return await this.problemRepository.findProposedProblemsByStudentId(studentId);
+    }
+
 }
 
 module.exports = ProblemService;

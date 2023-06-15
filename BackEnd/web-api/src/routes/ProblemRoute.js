@@ -8,13 +8,13 @@ const querystring = require('querystring');
 
 
 const routes = ({
-                    studentService,
+                    userService,
                     solvedProblemService,
                     problemService
                 }) => ({
     '/api/v1/problems/solved:get': async (request, response) => {
         try {
-            let studentId = await AuthenticationUtil.checkToken(studentService, request)
+            let studentId = await AuthenticationUtil.checkToken(userService, request)
             const solvedProblems = await solvedProblemService.findSolvedProblemsByStudentId(studentId)
             response.writeHead(200, DEFAULT_HEADER)
             response.write(JSON.stringify({problems: solvedProblems}))
@@ -31,7 +31,7 @@ const routes = ({
             body.push(chunk);
         }).on('end', async () => {
             try {
-                let studentId = await AuthenticationUtil.checkToken(studentService, request)
+                let studentId = await AuthenticationUtil.checkToken(userService, request)
                 const requestBody = JSON.parse(body); // Assuming the request body is in JSON format
                 const solvedProblemDto = new ProblemSolvedReceivedDto(studentId, requestBody.id_problem, requestBody.solution)
                 await solvedProblemService.save(solvedProblemDto)
@@ -65,7 +65,7 @@ const routes = ({
     '/api/v1/problems/next:get': async (request, response) => {
         const parsedUrl = url.parse(request.url, true);
         try {
-            let studentId = await AuthenticationUtil.checkToken(studentService, request)
+            let studentId = await AuthenticationUtil.checkToken(userService, request)
             const problemId = await problemService.findNextProblem(studentId)
             const problem = await problemService.findById(problemId)
             response.writeHead(200, DEFAULT_HEADER)
@@ -82,7 +82,7 @@ const routes = ({
     },
     '/api/v1/problems/wrong:post': async (request, response) => {
         try {
-            let studentId = await AuthenticationUtil.checkToken(studentService, request)
+            let studentId = await AuthenticationUtil.checkToken(userService, request)
             const parsed = url.parse(request.url);
             let problemId = querystring.parse(parsed.query).problemId
             await problemService.markProblemAsWrong(studentId, problemId)
@@ -96,7 +96,7 @@ const routes = ({
 
     '/api/v1/problems/difficulty/marker:post': async (request, response) => {
         try {
-            let studentId = await AuthenticationUtil.checkToken(studentService, request)
+            let studentId = await AuthenticationUtil.checkToken(userService, request)
             const parsed = url.parse(request.url)
             let problemId = querystring.parse(parsed.query).problemId
             let difficulty = querystring.parse(parsed.query).difficulty

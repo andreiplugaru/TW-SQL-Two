@@ -54,6 +54,24 @@ class ProblemRepository {
         }
         const result = await db.insertInTable(query, bindParams)
     }
+
+    async findMarkedDifficultyProblemsByStudentId(studentId) {
+        const query = `SELECT * FROM marked_problems WHERE id_student = :id_student`
+        let bindParams = {
+            id_student: studentId
+        }
+        const result = await db.executeQuery(query, bindParams)
+        return result
+    }
+
+    async findProposedProblemsByStudentId(studentId) {
+        const query = `SELECT * FROM added_problems WHERE id_user = :id_student`
+        let bindParams = {
+            id_student: studentId
+        }
+        const result = await db.executeQuery(query, bindParams)
+        return result
+    }
 }
 
 module.exports = ProblemRepository;
