@@ -17,7 +17,12 @@ class ProblemRepository {
 
     async findNextProblem(studentId) {
         const query = `DECLARE problem_id number; BEGIN :problem_id := problema_urmatoare(${studentId});  END;`;
-        const result = await db.executeQueryWithOutVar(query, { problem_id: {dir: oracledb.BIND_OUT,type: oracledb.STRING} })
+        const result = await db.executeQueryWithOutVar(query, {
+            problem_id: {
+                dir: oracledb.BIND_OUT,
+                type: oracledb.STRING
+            }
+        })
         if (result === `-20001`) {
             throw new StudentExceededLimitException(studentId)
         } else if (result === `-20004`) {
@@ -68,6 +73,36 @@ class ProblemRepository {
         const query = `SELECT * FROM added_problems WHERE id_user = :id_student`
         let bindParams = {
             id_student: studentId
+        }
+        const result = await db.executeQuery(query, bindParams)
+        return result
+    }
+
+    async save(problem) {
+        const query = `INSERT INTO ` + TABLE_NAME + ` (REQUIREMENT, SOLUTION, ID_CATEGORY) VALUES (:requirement, :solution, :id_category)`
+        let bindParams = {
+            requirement: problem.requirement,
+            solution: problem.solution,
+            id_category: problem.category
+        }
+        const rowId = await db.insertInTable(query, bindParams)
+        return await this.findByRowId(rowId)
+    }
+
+    async findByRowId(rowId) {
+        let query = `SELECT * FROM ` + TABLE_NAME + ` t WHERE t.rowid = :problemrowid`
+        let bindParams = {
+            problemrowid: rowId
+        }
+        const result = await db.executeQuery(query, bindParams)
+        return result
+    }
+
+    async saveToAdded(problemId, studentId) {
+        const query = `INSERT INTO ADDED_PROBLEMS (ID_USER, ID_PROBLEM, AT_TIME) VALUES (:id_user, :id_problem, Date())`
+        let bindParams = {
+            id_user: studentId,
+            solution: problemId,
         }
         const result = await db.executeQuery(query, bindParams)
         return result

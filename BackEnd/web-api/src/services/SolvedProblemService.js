@@ -28,6 +28,11 @@ class SolvedProblemService {
         await this.studentService.findById(id)
         return await this.solvedProblemRepository.findSolvedProblemsByStudentId(id)
     }
+
+    async checkIfProblemIsSolved(studentId, problemId) {
+        return await this.solvedProblemRepository.checkIfProblemIsSolved(studentId, problemId)
+    }
+
 }
 
 module.exports = SolvedProblemService

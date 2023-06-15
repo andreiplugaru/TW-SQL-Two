@@ -6,10 +6,12 @@ const authenticationFactory = require('./factory/AuthenticationFactory.js')
 const userFactory = require('./factory/UserFactory.js')
 const studentFactory = require('./factory/StudentFactory.js')
 const commentFactory = require('./factory/CommentFactory.js')
+const categoryFactory = require('./factory/CategoryFactory.js')
 const ProblemRoute = require('./routes/ProblemRoute.js')
 const AuthenticationRoute = require('./routes/AuthenticationRoute.js')
 const CommentRoute = require('./routes/CommentRoute.js')
 const UserRoute = require('./routes/UserRoute.js')
+const CategoryRoute = require('./routes/CategoryRoute.js')
 fs = require('fs');
 var path = require('path');
 const solvedProblemService = solvedProblemFactory.generateInstance()
@@ -17,6 +19,7 @@ const problemService = problemFactory.generateInstance()
 const commentService = commentFactory.generateInstance(problemService)
 const userService = userFactory.generateInstance(problemService, solvedProblemService)
 const studentService = studentFactory.generateInstance(userService)
+const categoryService = categoryFactory.generateInstance()
 
 const problemRoutes = ProblemRoute({
     userService,
@@ -27,7 +30,7 @@ const commentRoutes = CommentRoute({userService, commentService})
 const authenticationService = authenticationFactory.generateInstance(userService, studentService)
 const authenticationRoutes = AuthenticationRoute({authenticationService})
 const userRoutes = UserRoute({userService})
-
+const categoryRoutes = CategoryRoute({categoryService})
 const allRoutes = {
     '/dist:get': (request, response) => {
         var filePath = '.' + request.url;
@@ -57,6 +60,7 @@ const allRoutes = {
             }
         });
     },
+    ...categoryRoutes,
     ...userRoutes,
     ...commentRoutes,
     ...problemRoutes,

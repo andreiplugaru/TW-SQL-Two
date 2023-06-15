@@ -55,6 +55,16 @@ class SolvedProblemRepository {
         const result = await studentDb.executeQuery(query, bindParams)
         return result
     }
+
+    async checkIfProblemIsSolved(studentId,problemId) {
+        let query = `SELECT * FROM ` + TABLE_NAME + ` WHERE ID_STUDENT = :id_student AND ID_PROBLEM = :id_problem`
+        let bindParams = {
+            id_student: studentId,
+            id_problem: problemId
+        }
+        const result = await db.executeQuery(query, bindParams)
+        return result.length > 0
+    }
 }
 
 module.exports = SolvedProblemRepository
