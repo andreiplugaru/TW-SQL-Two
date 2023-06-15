@@ -17,7 +17,6 @@ SELECT * FROM comments;
 SELECT COUNT(*) from problems where id_difficulty=1;
 SELECT SYSDATE FROM DUAL;
 
-
 CREATE OR REPLACE FUNCTION dificultate_disponibila(p_id_stud IN students.id_user%type, p_id_dif IN problem_difficulties.id%type)
 RETURN problem_difficulties.id%type AS
     v_nr_optiuni_medie INTEGER;

@@ -113,7 +113,6 @@ async function getNextProblem() {
         }
     }else if( status === 400){
         const message = response.message;
-        console.log(message);
         if( message === 'limit exceeded'){
             
             window.location.assign("./creare_problema.html");

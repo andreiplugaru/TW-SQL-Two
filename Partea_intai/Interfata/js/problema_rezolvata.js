@@ -16,7 +16,6 @@ async function getProblemInfo() {
 
     var urlParams = new URLSearchParams(window.location.search);
     var idProblem = urlParams.get('id');
-
     let problem;
     await sendJwtFetchRequestWithoutBody(RESOLVED_PROBLEM_ENDPOINT +  "?problemId=" + idProblem, 'GET', localStorage.getItem('jwt'))
         .then(response => response.json())
