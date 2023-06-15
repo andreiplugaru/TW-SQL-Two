@@ -35,7 +35,6 @@ function displayInfo(data) {
 
 
 //PROBLEM COMMENTS
-
 const commentsContainerElement = document.getElementById('problem-comments');
 const publishCommForm = document.getElementById('publish-comm');
 publishCommForm.addEventListener('submit', onPublishComm);
