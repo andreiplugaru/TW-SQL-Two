@@ -30,6 +30,7 @@ class SolvedProblemService {
     }
 
     async checkIfProblemIsSolved(studentId, problemId) {
+        await this.problemService.findById(problemId)
         return await this.solvedProblemRepository.checkIfProblemIsSolved(studentId, problemId)
     }
 

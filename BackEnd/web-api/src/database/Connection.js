@@ -72,6 +72,7 @@ async function executeQuery(query, binds) {
     } catch (err) {
       //  CONNECTION_STRING_STUDENTconsole.error(err);
         const {errorNum} = err;
+        console.log(err)
         return `-${errorNum}`;
     } finally {
         if (connection) {

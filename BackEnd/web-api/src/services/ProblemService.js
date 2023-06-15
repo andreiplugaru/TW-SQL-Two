@@ -61,7 +61,7 @@ class ProblemService {
     async save(problem) {
         let category = await this.categoryRepository.findByName(problem.category)
         problem.category = category[0].ID;
-        let problemId = await this.problemRepository.save(problem)
+        let problemId = (await this.problemRepository.save(problem))[0].ID
 
         await this.problemRepository.saveToAdded(problemId, problem.studentId)
     }

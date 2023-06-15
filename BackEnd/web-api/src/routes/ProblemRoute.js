@@ -7,7 +7,7 @@ const ProblemResponseDto = require("../dtos/ProblemResponseDto.js");
 const AuthenticationUtil = require("../util/AuthenticationUtil.js");
 const querystring = require('querystring');
 const HttpException = require("../exceptions/HttpException");
-
+const InvalidRequestBodyException = require("../exceptions/InvalidRequestBodyException");
 
 const routes = ({
                     userService, solvedProblemService, problemService
@@ -126,6 +126,8 @@ const routes = ({
         try {
             let studentId = await AuthenticationUtil.checkToken(userService, request)
             const parsed = url.parse(request.url);
+            if(!querystring.parse(parsed.query).problemId)
+                throw new InvalidRequestBodyException()
             let problemId = querystring.parse(parsed.query).problemId
             const solvedProblems = await solvedProblemService.checkIfProblemIsSolved(studentId, problemId)
             response.writeHead(200, DEFAULT_HEADER)
