@@ -5,7 +5,7 @@ async function executeQuery(query, binds) {
     let connection;
     try {
         connection = await oracledb.getConnection({
-            user: 'ADMIN',
+            user: 'APP_USER',
             password: '1uJ$!ZRGo1Tazqka',
             connectString: cs
         });

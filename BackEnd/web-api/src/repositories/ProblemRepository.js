@@ -7,7 +7,7 @@ const TABLE_NAME = 'problems'
 
 class ProblemRepository {
     async findById(id) {
-        const query = `SELECT ` + TABLE_NAME + `.id as ID, REQUIREMENT, problem_categories.NAME AS CATEGORY FROM ` + TABLE_NAME + ` JOIN problem_categories ON problem_categories.id = ` + TABLE_NAME + `.id_category WHERE ` + TABLE_NAME + `.id = :id`
+        const query = `SELECT ` + TABLE_NAME + `.id as ID, REQUIREMENT, SOLUTION, problem_categories.NAME AS CATEGORY FROM ` + TABLE_NAME + ` JOIN problem_categories ON problem_categories.id = ` + TABLE_NAME + `.id_category WHERE ` + TABLE_NAME + `.id = :id`
         let bindParams = {
             id: id
         }

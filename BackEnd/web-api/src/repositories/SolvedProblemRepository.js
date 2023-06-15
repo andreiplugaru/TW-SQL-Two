@@ -47,7 +47,7 @@ class SolvedProblemRepository {
     }
 
     async checkIfProblemIsCorrect(correctSolution, studentSolution) {
-        let query = `SELECT verificare_solutie(:correct_solution, :student_solution) FROM DUAL`
+        let query = `SELECT verificare_solutie(:correct_solution, :student_solution) AS RESULT FROM DUAL`
         let bindParams = {
             correct_solution: correctSolution,
             student_solution: studentSolution
