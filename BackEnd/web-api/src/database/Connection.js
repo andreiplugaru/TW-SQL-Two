@@ -65,7 +65,7 @@ async function executeQuery(query, binds) {
         const dbResult = await connection.execute(query, binds, options)
         return Object.values(dbResult.rows)
     } catch (err) {
-        console.error(err);
+      //  CONNECTION_STRING_STUDENTconsole.error(err);
         const {errorNum} = err;
         return `-${errorNum}`;
     } finally {

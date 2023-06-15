@@ -13,10 +13,11 @@ class SolvedProblemService {
         return await this.solvedProblemRepository.findAll()
     }
 
-    async save(solvedProblem) {
+    async save(solvedProblem, correctSolution) {
+        let problem = await this.problemService.findById(solvedProblem.idProblem)
+        await this.solvedProblemRepository.checkIfProblemIsCorrect(correctSolution, problem.solution)
         //TODO: check if the solution is correct
         await this.studentService.findById(solvedProblem.idStudent)
-        await this.problemService.findById(solvedProblem.idProblem)
         await this.solvedProblemRepository.save(solvedProblem)
     }
 

@@ -1,4 +1,5 @@
 const db = require('../database/Connection.js')
+const studentDb = require('../database/StudentConnection.js')
 const StudentAlreadySolvedProblemException = require('../exceptions/StudentAlreadySolvedProblemException.js')
 const NotRightProblemToInsertException = require('../exceptions/NotRightProblemToInsertException.js')
 const StudentExceededLimitException = require("../exceptions/StudentExceededLimitException.js");
@@ -42,6 +43,16 @@ class SolvedProblemRepository {
             id_student: studentId
         }
         const result = await db.executeQuery(query, bindParams)
+        return result
+    }
+
+    async checkIfProblemIsCorrect(correctSolution, studentSolution) {
+        let query = `SELECT verificare_solutie(:correct_solution, :student_solution) FROM DUAL`
+        let bindParams = {
+            correct_solution: correctSolution,
+            student_solution: studentSolution
+        }
+        const result = await studentDb.executeQuery(query, bindParams)
         return result
     }
 }
