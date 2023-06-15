@@ -100,11 +100,11 @@ async function getNextProblem() {
     let problem;
 
     const request = await sendJwtFetchRequestWithoutBody(NEXT_PROBLEM_ENDPOINT, 'GET', localStorage.getItem('jwt'));
-    let status = request.status;
     const response = await request.json();
-    const message = response.message;
-    console.log("mesajj: " + message);
-    if( status === 201) {
+
+    let status = request.status;
+    if( status === 200) {
+        problem = response;
         displayRequirement(problem);
         let form = document.getElementById('next-problem-form')
         if (form !== null) {
@@ -112,7 +112,10 @@ async function getNextProblem() {
             document.getElementsByClassName('dropdown')[0].remove();
         }
     }else if( status === 400){
+        const message = response.message;
+        console.log(message);
         if( message === 'limit exceeded'){
+            
             window.location.assign("./creare_problema.html");
         }
     }

@@ -61,7 +61,7 @@ class ProblemService {
     async save(problem) {
         let category = await this.categoryRepository.findByName(problem.category)
         if(category.length === 0)
-            throw new UnknownDifficultyException(problem.category)
+            throw new InvalidCategoryException(problem.category)
         problem.category = category[0].ID;
         let problemId = (await this.problemRepository.save(problem))[0].ID
 
