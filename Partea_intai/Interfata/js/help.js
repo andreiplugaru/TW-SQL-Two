@@ -26,9 +26,10 @@ function manageMenu(){
     }else{
         //link-uri help nelogat
         logoLink.href = '../index.html';
+        createLink('help.html', 'Help');
         createLink('login.html', 'Logare');
         createLink('inregistrare.html', 'Inregistrare');
-        createLink('../index.html', 'Pagina principala');
+        //createLink('../index.html', 'Pagina principala');
     }
 
 }
@@ -39,6 +40,9 @@ function createLink(href, text) {
     a.href = href;
     a.textContent = text;
     li.appendChild(a);
+    if(text === 'Help'){
+        a.classList.add('nav-visited');
+    }
     menuLinks.appendChild(li);
   }
 

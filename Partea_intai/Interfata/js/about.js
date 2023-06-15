@@ -24,9 +24,10 @@ function manageMenu(){
     }else{
         //link-uri help nelogat
         logoLink.href = '../index.html';
+        createLink('help.html', 'Help');
         createLink('login.html', 'Logare');
         createLink('inregistrare.html', 'Inregistrare');
-        createLink('../index.html', 'Pagina principala');
+        //createLink('../index.html', 'Pagina principala');
     }
 
 }

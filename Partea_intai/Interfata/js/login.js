@@ -33,9 +33,9 @@ function onLogin(e) {
 
                 //gestiune redirectionare catre home in functie de rol
                 if (response.role === 'STUDENT') {
-                    window.location.assign("/elev_home.html");
+                    window.location.assign("./elev_home.html");
                 } else {
-                    window.location.assign("/administrare.html");
+                    window.location.assign("./administrare.html");
                 }
             } else {
                 errorTextElement.innerHTML = response.message;
