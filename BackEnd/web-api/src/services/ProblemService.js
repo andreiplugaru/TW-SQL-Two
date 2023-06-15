@@ -2,7 +2,7 @@ const Problem = require("../entities/Problem.js");
 const ProblemNotFoundException = require("../exceptions/ProblemNotFoundException.js");
 const ProblemMarkedWrongException = require("../exceptions/ProblemMarkedWrongException.js");
 const UnknownDifficultyException = require("../exceptions/UnknownDifficultyException.js");
-
+const InvalidCategoryException = require("../exceptions/InvalidCategoryException.js");
 class ProblemService {
     constructor({
                     problemRepository,
@@ -45,7 +45,7 @@ class ProblemService {
     async markProblemDifficulty(studentId, problemId, difficulty) {
         let category = await this.categoryRepository.findByName(difficulty)
         if (category.length === 0)
-            throw new UnknownDifficultyException(difficulty)
+            throw new InvalidCategoryException(difficulty)
         let difficultyId = category[0].ID;
         await this.problemRepository.markProblemDifficulty(studentId, problemId, difficultyId);
     }
@@ -60,6 +60,8 @@ class ProblemService {
 
     async save(problem) {
         let category = await this.categoryRepository.findByName(problem.category)
+        if(category.length === 0)
+            throw new UnknownDifficultyException(problem.category)
         problem.category = category[0].ID;
         let problemId = (await this.problemRepository.save(problem))[0].ID
 
