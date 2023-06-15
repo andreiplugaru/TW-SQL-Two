@@ -96,7 +96,7 @@ async function onSendSolution(e) {
 
 async function getNextProblem() {
 
-    errorTextElement.innerHTML = '';
+    errorTextElementSolution.innerHTML = '';
     let problem;
 
     const request = await sendJwtFetchRequestWithoutBody(NEXT_PROBLEM_ENDPOINT, 'GET', localStorage.getItem('jwt'));
