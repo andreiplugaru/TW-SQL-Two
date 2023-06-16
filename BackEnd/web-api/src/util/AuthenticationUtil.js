@@ -1,4 +1,4 @@
-const DEFAULT_HEADER = require('../util/util.js');
+const {DEFAULT_HEADER} = require('../util/util.js');
 const ForbiddenException = require('../exceptions/ForbiddenException.js');
 const jwt = require('jsonwebtoken')
 
@@ -16,6 +16,7 @@ async function checkToken(studentService, req) {
         id = studentFromDB[0].ID
         console.log(id)
     })
+    if (!id) throw new ForbiddenException()
     return id
 }
 

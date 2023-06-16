@@ -14,6 +14,7 @@ async function init() {
             poolAlias: 'default'
 
         });
+        console.log('Connection pool started');
     } catch (err) {
     }
 }
@@ -139,6 +140,7 @@ async function closePoolAndExit() {
 process
     .once('SIGTERM', closePoolAndExit)
     .once('SIGINT', closePoolAndExit);
+
 init();
 
 module.exports = {

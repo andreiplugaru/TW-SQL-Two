@@ -1,5 +1,5 @@
 const Url = require('url')
-const DEFAULT_HEADER = require('./util/util.js')
+const {DEFAULT_HEADER} = require('./util/util.js')
 const solvedProblemFactory = require('./factory/SolvedProblemFactory.js')
 const problemFactory = require('./factory/ProblemFactory.js')
 const authenticationFactory = require('./factory/AuthenticationFactory.js')
@@ -31,7 +31,7 @@ const problemRoutes = ProblemRoute({
 const commentRoutes = CommentRoute({userService, commentService})
 const authenticationService = authenticationFactory.generateInstance(userService, studentService)
 const authenticationRoutes = AuthenticationRoute({authenticationService})
-const userRoutes = UserRoute({userService})
+const userRoutes = UserRoute({userService, studentService})
 const categoryRoutes = CategoryRoute({categoryService})
 const allRoutes = {
     '/dist:get': (request, response) => {
@@ -70,8 +70,7 @@ const allRoutes = {
     //404 route
     default: (requst, response) => {
         response.writeHead(200, DEFAULT_HEADER)
-        response.write('Not fouand')
-        //   db.dostuff()
+        response.write('Not found')
         response.end()
     }
 }

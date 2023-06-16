@@ -1,4 +1,4 @@
-const DEFAULT_HEADER = require('../util/util.js');
+const {DEFAULT_HEADER} = require('../util/util.js');
 const url = require("url");
 const querystring = require("querystring");
 const Comment = require("../entities/Comment.js");

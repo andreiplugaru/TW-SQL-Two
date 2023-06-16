@@ -1,4 +1,4 @@
-const DEFAULT_HEADER = require('../util/util.js');
+const {DEFAULT_HEADER} = require('../util/util.js');
 
 const routes = ({
                     categoryService
