@@ -107,6 +107,33 @@ class ProblemRepository {
         const result = await db.insertInTable(query, bindParams)
         return result
     }
+
+    async saveToAttempts(problemId, studentId) {
+        const query = `INSERT INTO ATTEMPTS (ID_STUDENT, ID_PROBLEM) VALUES (:id_student, :id_problem)`
+        let bindParams = {
+            id_student: studentId,
+            id_problem: problemId
+        }
+        return await db.insertInTable(query, bindParams)
+    }
+
+    async checkIfProblemIsProposed(problemId, studentId) {
+        const query = `SELECT * FROM added_problems WHERE id_user = :id_student AND id_problem = :id_problem`
+        let bindParams = {
+            id_student: studentId,
+            id_problem: problemId
+        }
+        return await db.executeQuery(query, bindParams)
+    }
+
+    async checkIfProblemIsMarked(problemId, studentId) {
+        const query = `SELECT * FROM marked_problems WHERE id_student = :id_student AND id_problem = :id_problem`
+        let bindParams = {
+            id_student: studentId,
+            id_problem: problemId
+        }
+        return await db.executeQuery(query, bindParams)
+    }
 }
 
 module.exports = ProblemRepository;

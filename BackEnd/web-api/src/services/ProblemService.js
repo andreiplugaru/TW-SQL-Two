@@ -68,8 +68,16 @@ class ProblemService {
         await this.problemRepository.saveToAdded(problemId, problem.studentId)
     }
 
-    async getCategories() {
-        return await this.categoryRepository(name)
+    async saveToAttempts(studentId, problemId) {
+        await this.problemRepository.saveToAttempts(studentId, problemId)
+    }
+
+    async checkIfProblemIsProposed(studentId, problemId) {
+        return await this.problemRepository.checkIfProblemIsProposed(studentId, problemId)
+    }
+
+    async checkIfProblemIsMarked(studentId, problemId) {
+        return await this.problemRepository.checkIfProblemIsMarked(studentId, problemId)
     }
 
 }

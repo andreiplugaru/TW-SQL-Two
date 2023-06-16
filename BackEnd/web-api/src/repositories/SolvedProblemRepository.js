@@ -66,6 +66,15 @@ class SolvedProblemRepository {
         const result = await db.executeQuery(query, bindParams)
         return result.length > 0
     }
+
+    async findProblemInfo(studentId) {
+        let query = `SELECT * FROM ` + TABLE_NAME + ` JOIN PROBLEMS ON PROBLEMS.ID = ` + TABLE_NAME + `.ID_PROBLEM WHERE ID_STUDENT = :id_student `
+        let bindParams = {
+            id_student: studentId
+        }
+        const result = await db.executeQuery(query, bindParams)
+        return result
+    }
 }
 
 module.exports = SolvedProblemRepository
