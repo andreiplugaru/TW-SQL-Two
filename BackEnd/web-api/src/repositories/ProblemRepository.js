@@ -99,10 +99,10 @@ class ProblemRepository {
     }
 
     async saveToAdded(problemId, studentId) {
-        const query = `INSERT INTO ADDED_PROBLEMS (ID_USER, ID_PROBLEM, AT_TIME) VALUES (:id_user, :id_problem, SYSDATE)`
+        const query = `INSERT INTO ADDED_PROBLEMS (ID_USER, ID_PROBLEM, AT_TIME) VALUES (:id_user, :id_problem, CURRENT_DATE)`
         let bindParams = {
             id_user: studentId,
-            id_problem: problemId,
+            id_problem: problemId
         }
         const result = await db.insertInTable(query, bindParams)
         return result

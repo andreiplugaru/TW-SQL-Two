@@ -13,12 +13,11 @@ class CommentRepository {
     }
 
     async create(comment) {
-        let query = `INSERT INTO COMMENTS (ID_STUDENT, MESSAGE, ID_PROBLEM, ADDED_DATE) VALUES (:id_student, :message, :id_problem, :added_date)`
+        let query = `INSERT INTO COMMENTS (ID_STUDENT, MESSAGE, ID_PROBLEM, ADDED_DATE) VALUES (:id_student, :message, :id_problem, CURRENT_DATE)`
         let bindParams = {
             id_student: comment.student,
             message: comment.message,
-            id_problem: comment.problemId,
-            added_date: comment.date
+            id_problem: comment.problemId
         }
         await db.insertInTable(query, bindParams)
     }

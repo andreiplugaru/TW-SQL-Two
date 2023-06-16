@@ -30,7 +30,7 @@ const routes = ({
                 body.push(chunk);
             }).on('end', async () => {
                 const requestBody = JSON.parse(body);
-                let comment = new Comment(null, studentId, requestBody.message, new Date(), requestBody.problem_id)
+                let comment = new Comment(null, studentId, requestBody.message, null, requestBody.problem_id)
                 await commentService.create(comment)
             })
             response.writeHead(201, DEFAULT_HEADER)
