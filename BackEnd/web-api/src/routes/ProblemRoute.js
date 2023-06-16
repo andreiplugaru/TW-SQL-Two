@@ -172,6 +172,17 @@ const routes = ({
             response.write(JSON.stringify({'message': err.message}))
         }
         response.end()
+    }, '/api/v1/problems/statistics:get': async (request, response) => {
+        try {
+            let studentId = await AuthenticationUtil.checkToken(userService, request)
+            const statistics = await problemService.getStatisticsAboutProposedProblems(studentId)
+            response.writeHead(200, DEFAULT_HEADER)
+            response.write(JSON.stringify(statistics))
+        } catch (err) {
+            response.writeHead(err.errorCode, DEFAULT_HEADER)
+            response.write(JSON.stringify({'message': err.message}))
+        }
+        response.end()
     }
 
 })

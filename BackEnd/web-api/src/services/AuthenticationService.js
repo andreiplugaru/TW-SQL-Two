@@ -46,8 +46,7 @@ class AuthenticationService {
         }
         delete studentRegisterDto.repeatPassword;
 
-        let encryptedPassword = await bcrypt.hash(studentRegisterDto.password, 10);
-        studentRegisterDto.password = encryptedPassword;
+        studentRegisterDto.password = await bcrypt.hash(studentRegisterDto.password, 10);
         await this.studentService.createStudent(studentRegisterDto)
     }
 

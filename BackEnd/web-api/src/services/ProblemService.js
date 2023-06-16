@@ -80,6 +80,10 @@ class ProblemService {
         return await this.problemRepository.checkIfProblemIsMarked(studentId, problemId)
     }
 
+    async getStatisticsAboutProposedProblems(studentId) {
+        return await this.problemRepository.getStatisticsAboutProposedProblems(studentId)
+    }
+
 }
 
 module.exports = ProblemService;

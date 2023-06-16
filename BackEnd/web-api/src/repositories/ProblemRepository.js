@@ -134,6 +134,17 @@ class ProblemRepository {
         }
         return await db.executeQuery(query, bindParams)
     }
+
+    async getStatisticsAboutProposedProblems(studentId) {
+        const query = `SELECT  a_p.id_problem, p.REQUIREMENT AS REQUIREMENT, COUNT(a.id) AS ATTEMPTS, COUNT(s_p.at_time) AS SOLVED FROM added_problems a_p LEFT JOIN problems p ON p.id = a_p.id_problem 
+LEFT JOIN solved_problems s_p ON s_p.id_problem = a_p.id_problem 
+LEFT JOIN  attempts a ON a.id_problem = a_p.id_problem
+WHERE a_p.id_user = :id_user group by a_p.id_problem, p.REQUIREMENT`
+        let bindParams = {
+            id_user: studentId
+        }
+        return await db.executeQuery(query, bindParams)
+    }
 }
 
 module.exports = ProblemRepository;

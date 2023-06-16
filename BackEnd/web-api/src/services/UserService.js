@@ -1,4 +1,5 @@
 const UserResponseDto = require('../dtos/UserResponseDto.js');
+const bcrypt = require("bcryptjs");
 class UserService{
     constructor(userRepository, problemService, solvedProblemService) {
         this.userRepository = userRepository
@@ -34,6 +35,11 @@ class UserService{
         let proposedProblems = await this.problemService.findProposedProblemsByStudentId(id)
         userInfo.proposedProblems = proposedProblems.length
         return userInfo;
+    }
+
+    async updateUser(userId, user) {
+        user.password = await bcrypt.hash(user.password, 10);
+        return await this.userRepository.updateUser(userId, user)
     }
 }
 
