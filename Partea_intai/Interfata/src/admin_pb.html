@@ -54,14 +54,14 @@
             <div class="container-item">
                 <div class="table_container">
 
-                    <table class="table">
+                    <table class="table" id="pb-table">
                         <tr>
                             <th>Problema</th>
                             <th>Actiune</th>
                         </tr>
 
-                        <tbody>
-                            <tr>
+                        <tbody id="pb-table-body">
+                            <!-- <tr>
                                 <td data-label="Problema"><a href="problema_rezolvata.html"
                                         class="pb">parte_cerinta_pb1</a></td>
                                 <td data-label="Actiune"><a href="#" class="btn">Sterge</a></td>
@@ -80,7 +80,7 @@
                                 <td data-label="Problema"><a href="problema_rezolvata.html"
                                         class="pb">parte_cerinta_etc</a></td>
                                 <td data-label="Actiune"><a href="#" class="btn">Sterge</a></td>
-                            </tr>
+                            </tr> -->
                         </tbody>
 
                     </table>
@@ -90,7 +90,7 @@
                 <h1>Gestionarea problemelor marcate drept <i>Gresite</i></h1>
                 <div class="table_container">
 
-                    <table class="table">
+                    <table class="table" id="wrong-pb-table">
 
                         <tr>
                             <th>Problema</th>
@@ -98,8 +98,8 @@
                             <th>Respinge</th>
                         </tr>
 
-                        <tbody>
-                            <tr>
+                        <tbody id="wrong-pb-table-body">
+                            <!-- <tr>
                                 <td data-label="Problema"><a href="problema_rezolvata.html"
                                         class="pb">parte_cerinta_pb1</a></td>
                                 <td data-label="Accepta"><button class="btn1"></button></td>
@@ -122,7 +122,7 @@
                                         class="pb">parte_cerinta_pb_etc</a></td>
                                 <td data-label="Accepta"><button class="btn1"></button></td>
                                 <td data-label="Respinge"><button class="btn2"></button></td>
-                            </tr>
+                            </tr> -->
                         </tbody>
 
                     </table>
@@ -143,6 +143,9 @@
 
         </footer>
     </div>
+    <script type="module" src="../js/delogare.js"></script>
+    <script type="module" src="../js/admin_pb.js"></script>
+
 </body>
 
 
