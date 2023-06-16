@@ -19,5 +19,16 @@ export const CREATE_PROBLEM_ENDPOINT = ENV + "/api/v1/problems";
 export const CATEGORIES_PROBLEM_ENDPOINT = ENV + "/api/v1/categories";
 export const STUDENT_PROBLEMS_STATISTICS_ENDPOINT = ENV + "/api/v1/problems";
 export const STUDENT_SETTINGS_ENDPOINT = ENV + "/mock";
+export const ADMIN_ACCOUNTS_ENDPOINT = ENV + "/mock";
+export const ADMIN_REMOVE_ACCOUNTS_ENDPOINT = ENV + "/mock";
+export const ADMIN_PROBLEMS_ENDPOINT = ENV + "/mock";
+export const ADMIN_REMOVE_PROBLEMS_ENDPOINT = ENV + "/mock";
+export const ADMIN_WRONG_PROBLEMS_ENDPOINT = ENV + "/mock";
+export const ADMIN_ACCEPT_WRONG_PROBLEMS_ENDPOINT = ENV + "/mock";
+export const ADMIN_REJECT_WRONG_PROBLEMS_ENDPOINT = ENV + "/mock";
+
+
+
+
 
 

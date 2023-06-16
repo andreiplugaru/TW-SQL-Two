@@ -32,6 +32,8 @@ function displayTableInfo(data){
         let text = data[i].REQUIREMENT.substr(0, 30);
         anchor.textContent = text;
         anchor.classList.add('pb');
+        anchor.id = 'statistics_pb';
+
         linkCell.appendChild(anchor);
         linkCell.dataset.label='Problema';
 
@@ -49,6 +51,17 @@ function displayTableInfo(data){
         tableBody.appendChild(row);
 
     }
+
+    const links = document.querySelectorAll('#statistics_pb');
+    links.forEach(link => {
+        link.addEventListener('click', e => {
+            e.preventDefault();
+
+            const url = link.getAttribute('href');
+            window.open(url);
+        });
+    });
+
 }
 
 guard();
