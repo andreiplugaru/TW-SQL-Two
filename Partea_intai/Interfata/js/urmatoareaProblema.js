@@ -107,7 +107,7 @@ async function getNextProblem() {
     const response = await request.json();
 
     let status = request.status;
-    if( status === 200) {
+    if (status === 200) {
         problem = response;
         displayRequirement(problem);
         let form = document.getElementById('next-problem-form')
@@ -115,10 +115,10 @@ async function getNextProblem() {
             document.getElementById('next-problem-form').remove();
             document.getElementsByClassName('dropdown')[0].remove();
         }
-    }else if( status === 400){
+    } else if (status === 400) {
         const message = response.message;
-        if( message === 'limit exceeded'){
-            
+        if (message === 'limit exceeded') {
+
             window.location.assign("./creare_problema.html");
         }
     }
@@ -249,7 +249,7 @@ async function refreshComments() {
 
         //MODIFICARE LA INTEGRARE
         userName.innerHTML = allComments[i].student;
-        commData.innerHTML = allComments[i].date;
+        commData.innerHTML = new Date(allComments[i].date).toLocaleString();
         commentPost.innerHTML = allComments[i].message;
 
         userMetaComment.appendChild(userName);
