@@ -1,4 +1,4 @@
-import { STUDENT_SETTINGS_ENDPOINT, STUDENT_PROFILE_INFO_ENDPOINT } from "./endpoints.js"
+import { USER_SETTINGS_ENDPOINT, USER_PROFILE_INFO_ENDPOINT } from "./endpoints.js"
 import { sendJwtFetchRequest, sendJwtFetchRequestWithoutBody } from "./request/request_handler.js"
 
 
@@ -8,7 +8,8 @@ function guard(){
     }
 }
 
-///SETARI CONT LA ADMIN????
+//TO DO: ADMIN NU ARE SETTINGS
+
 var menuLinks = document.getElementById('nav-links');
 menuLinks.innerHTML = ''; 
 var logoLink = document.querySelector('.logo a');
@@ -67,16 +68,15 @@ async function onUpdate(e){
         errorTextElement.innerHTML = 'Parola trebuie sa contina cel putin 8 caractere, dintre care: 1 cifra, 1 litera mare, 1 caracter special!';
         return;
     }
- 
-    //??IMI DA STATUS 200 NUS DE CEEE
-    const request = await sendJwtFetchRequest(STUDENT_SETTINGS_ENDPOINT, "POST", payload, localStorage.getItem('jwt'));
+     const request = await sendJwtFetchRequest(USER_SETTINGS_ENDPOINT, "PATCH", payload, localStorage.getItem('jwt'));
     let status = request.status;
-    if (status === 200) {
+    if (status === 204) {
         //gestiune redirectionare catre home in functie de rol
         if (localStorage.getItem('role') === 'STUDENT') {
-            window.location.assign("./elev_home.html");
+            //window.location.assign("./elev_home.html");
+            console.log('am reusit');
         } else {
-            window.location.assign("./administrare.html");
+            //window.location.assign("./administrare.html");
         }
     } else {
         const response = await request.json();
@@ -90,10 +90,14 @@ async function getUsername(){
     
     errorTextElement.innerHTML = '';
     let info;
-    await sendJwtFetchRequestWithoutBody(STUDENT_PROFILE_INFO_ENDPOINT, 'GET', localStorage.getItem('jwt'))
+    await sendJwtFetchRequestWithoutBody(USER_PROFILE_INFO_ENDPOINT, 'GET', localStorage.getItem('jwt'))
         .then(response => response.json())
         .then(data => { info = data 
-                        document.getElementById('username').value = info.username;    
+                        document.getElementById('username').value = info.username;
+                        document.getElementById('first-name').value = info.firstName;
+                        document.getElementById('last-name').value = info.lastName;    
+    
+   
                     });
 }
 

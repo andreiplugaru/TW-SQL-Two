@@ -191,8 +191,6 @@ async function onDifficultySelected(e) {
 //event listener pt Problema urmatoare
 function onNextProblemButtonClick(e) {
     e.preventDefault();
-    //console.log('click pe Pb urmatoare')
-    //TREBUIE VAZUT CAND AFISAM ADAUGA_PB
     document.getElementById("problem-solution").textContent = "";
     getNextProblem();
 }
