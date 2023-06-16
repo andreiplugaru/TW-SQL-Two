@@ -57,7 +57,7 @@ async function onUpdate(e){
 
     const currentTarget = e.currentTarget;
     const payload = Object.fromEntries(new FormData(currentTarget));
-
+    console.log(payload);
     //validari parole
     if (passwordInput.value !== passwordRepeatInput.value) {
         errorTextElement.innerHTML = 'Parolele nu coincid!';
@@ -73,10 +73,10 @@ async function onUpdate(e){
     if (status === 204) {
         //gestiune redirectionare catre home in functie de rol
         if (localStorage.getItem('role') === 'STUDENT') {
-            //window.location.assign("./elev_home.html");
-            console.log('am reusit');
+            window.location.assign("./elev_home.html");
+            //console.log('am reusit');
         } else {
-            //window.location.assign("./administrare.html");
+            window.location.assign("./administrare.html");
         }
     } else {
         const response = await request.json();
@@ -96,7 +96,8 @@ async function getUsername(){
                         document.getElementById('username').value = info.username;
                         document.getElementById('first-name').value = info.firstName;
                         document.getElementById('last-name').value = info.lastName;    
-    
+                        document.getElementById('email').value = info.email;    
+
    
                     });
 }

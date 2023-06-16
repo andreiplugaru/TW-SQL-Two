@@ -67,7 +67,7 @@ async function getResolvedProblems() {
         const cell = document.createElement('td');
         //imi formez ancora
         const anchor = document.createElement('a');
-        anchor.href = `problema_rezolvata.html?id=${problems[i].ID_PROBLEM}`; //IDKKK, MAYBE: problema_rezolvata.html/${problemsId[i]}
+        anchor.href = `problema_rezolvata.html?id=${problems[i].ID_PROBLEM}`;
         let text = problems[i].REQUIREMENT.substr(0, 30);
         anchor.textContent = text;
         anchor.classList.add('pb');

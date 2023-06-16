@@ -54,15 +54,15 @@
             </div>
             <div class="container-item">
                 <div class="table_container">
-                    <table class="table">
+                    <table class="table" id="statistics-users">
                         <tr>
                             <th>Utilizator</th>
                             <th>Probleme rezolvate</th>
                             <th>Nr mediu de incercari</th>
                         </tr>
 
-                        <tbody>
-                            <tr>
+                        <tbody id="statistics-users-body">
+                            <!-- <tr>
                                 <td data-label="Utilizator">user_1</td>
                                 <td data-label="Probleme rezolvate">10</td>
                                 <td data-label="Nr mediu de incercari">3</td>
@@ -82,22 +82,22 @@
                                 <td data-label="Utilizator">user_etc</td>
                                 <td data-label="Probleme rezolvate">10</td>
                                 <td data-label="Nr mediu de incercari">3</td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
 
                 <div class="table_container">
 
-                    <table class="table">
+                    <table class="table" id="statistics-problems">
                         <tr>
                             <th>Problema</th>
                             <th>Incercari reusite</th>
                             <th>Nr mediu de incercari</th>
                         </tr>
 
-                        <tbody>
-                            <tr>
+                        <tbody id="statistics-problems-body">
+                            <!-- <tr>
                                 <td data-label="Problema"><a href="problema_rezolvata.html" class="pb">parte_cerinta_pb1</a></td>
                                 <td data-label="Incercari reusite">10</td>
                                 <td data-label="Nr mediu de incercari">3</td>
@@ -117,7 +117,7 @@
                                 <td data-label="Problema"><a href="problema_rezolvata.html" class="pb">parte_cerinta_pb_etc</a></td>
                                 <td data-label="Incercari reusite">10</td>
                                 <td data-label="Nr mediu de incercari">3</td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
@@ -132,6 +132,9 @@
 
         </footer>
     </div>
+    <script type="module" src="../js/delogare.js"></script>
+    <script type="module" src="../js/admin_statistici.js"></script>
+
 
 </body>
 
