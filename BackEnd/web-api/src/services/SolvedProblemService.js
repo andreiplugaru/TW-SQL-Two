@@ -1,4 +1,6 @@
 const SolutionNotCorrectException = require('../exceptions/SolutionNotCorrectException.js')
+const ForbiddenException = require('../exceptions/ForbiddenException.js')
+
 class SolvedProblemService {
     constructor({
                     solvedProblemRepository,
@@ -18,8 +20,9 @@ class SolvedProblemService {
         //TODO: INSERT in attempts
         let problem = await this.problemService.findById(solvedProblem.idProblem)
         await this.studentService.findById(solvedProblem.idStudent)
+        await this.problemService.saveToAttempts(solvedProblem.idProblem, solvedProblem.idStudent)
         let result = (await this.solvedProblemRepository.checkIfProblemIsCorrect(solvedProblem.solution, problem.solution))[0].RESULT
-        if(result === 'false')
+        if (result === 'false')
             throw new SolutionNotCorrectException()
         await this.solvedProblemRepository.save(solvedProblem)
     }
@@ -34,6 +37,12 @@ class SolvedProblemService {
         return await this.solvedProblemRepository.checkIfProblemIsSolved(studentId, problemId)
     }
 
+    async getInfoAboutProblem(studentId, problemId) {
+        if (await this.solvedProblemRepository.checkIfProblemIsSolved(studentId, problemId) !== true && await this.problemService.checkIfProblemIsProposed(problemId, studentId) !== true && await this.problemService.checkIfProblemIsMarked(problemId, studentId) !== true)
+            throw new ForbiddenException()
+        return await this.problemService.findById(problemId)
+
+    }
 }
 
 module.exports = SolvedProblemService

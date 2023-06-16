@@ -10,7 +10,6 @@ class UserRepository {
             username: username
         }
         const result = await db.executeQuery(query, bindParams)
-        result[0].ROLE = await this.getRole(result[0].ID)
         return result
     }
 
@@ -73,8 +72,15 @@ class UserRepository {
         return result
     }
 
-    async test() {
-        return
+    async updateUser(userId, userUpdateDto) {
+        let query = `UPDATE ` + TABLE_NAME + ` SET email = :email, password = :password WHERE id = :id`
+        let bindParams = {
+            id: userId,
+            email: userUpdateDto.email,
+            password: userUpdateDto.password
+        }
+        const result = await db.insertInTable(query, bindParams)
+        return result
     }
 }
 

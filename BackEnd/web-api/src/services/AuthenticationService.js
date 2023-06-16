@@ -18,6 +18,7 @@ class AuthenticationService {
         if (user === undefined || user.length === 0) {
             throw new UnauthorizedException()
         }
+        user[0].ROLE = await this.userService.getRole(user[0].ID)
 
         await bcrypt.compare(password, user[0].PASSWORD).then(function (result) {
             //  return result
@@ -44,8 +45,9 @@ class AuthenticationService {
         if (studentRegisterDto.username === undefined || studentRegisterDto.username === null || studentRegisterDto.username === '' || studentRegisterDto.password === undefined || studentRegisterDto.password === null || studentRegisterDto.password === '') {
             throw new UnauthorizedException()
         }
-        let encryptedPassword = await bcrypt.hash(studentRegisterDto.password, 10);
-        studentRegisterDto.password = encryptedPassword;
+        delete studentRegisterDto.repeatPassword;
+
+        studentRegisterDto.password = await bcrypt.hash(studentRegisterDto.password, 10);
         await this.studentService.createStudent(studentRegisterDto)
     }
 

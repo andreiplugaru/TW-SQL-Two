@@ -10,7 +10,7 @@ const HttpException = require("../exceptions/HttpException");
 const InvalidRequestBodyException = require("../exceptions/InvalidRequestBodyException");
 
 const routes = ({
-                    userService, solvedProblemService, problemService
+                    userService, solvedProblemService, problemService,
                 }) => ({
     '/api/v1/problems/solved:get': async (request, response) => {
         try {
@@ -157,6 +157,32 @@ const routes = ({
             }
             response.end()
         });
+    }, '/api/v1/problems/student/solved/info:get': async (request, response) => {
+        try {
+            let studentId = await AuthenticationUtil.checkToken(userService, request)
+            const parsed = url.parse(request.url);
+            if(!querystring.parse(parsed.query).problemId)
+                throw new InvalidRequestBodyException()
+            let problemId = querystring.parse(parsed.query).problemId
+            const problemInfo = await solvedProblemService.getInfoAboutProblem(studentId, problemId)
+            response.writeHead(200, DEFAULT_HEADER)
+            response.write(JSON.stringify(problemInfo))
+        } catch (err) {
+            response.writeHead(err.errorCode, DEFAULT_HEADER)
+            response.write(JSON.stringify({'message': err.message}))
+        }
+        response.end()
+    }, '/api/v1/problems/statistics:get': async (request, response) => {
+        try {
+            let studentId = await AuthenticationUtil.checkToken(userService, request)
+            const statistics = await problemService.getStatisticsAboutProposedProblems(studentId)
+            response.writeHead(200, DEFAULT_HEADER)
+            response.write(JSON.stringify(statistics))
+        } catch (err) {
+            response.writeHead(err.errorCode, DEFAULT_HEADER)
+            response.write(JSON.stringify({'message': err.message}))
+        }
+        response.end()
     }
 
 })

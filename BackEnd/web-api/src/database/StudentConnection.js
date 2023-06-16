@@ -26,21 +26,6 @@ async function executeQuery(query, binds) {
         }
     }
 }
-
-async function closePoolAndExit() {
-    console.log('\nTerminating');
-    try {
-        await oracledb.getPool().close();
-    } catch (err) {
-        console.error(err.message);
-        process.exit(1);
-    }
-}
-
-process
-    .once('SIGTERM', closePoolAndExit)
-    .once('SIGINT', closePoolAndExit);
-
 module.exports = {
     executeQuery
 }

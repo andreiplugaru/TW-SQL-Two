@@ -1,8 +1,8 @@
-import { RESOLVED_PROBLEM_ENDPOINT } from "./endpoints.js"
+import { RESOLVED_PROBLEM_ENDPOINT, COMMENTS_PROBLEM_ENDPOINT , PUBLISH_COMMENT_PROBLEM_ENDPOINT} from "./endpoints.js"
 import { sendJwtFetchRequestWithoutBody, sendJwtFetchRequest } from "./request/request_handler.js"
 
 function guard(){
-    if (localStorage.getItem('jwt') === null || localStorage.getItem('role') !== 'STUDENT') {
+    if (localStorage.getItem('jwt') === null) {
         window.open("login.html", "_self");
     }
 }
@@ -29,11 +29,11 @@ function displayInfo(data) {
     //ATENTIE LA INTEGRARE
     let problemRequirment = data.requirement;
     let problemCategory = data.category;
-    let problemSolution = data.problemSolution;
+    let problemSolution = data.solution;
 
     problemRequirmentElement.innerHTML = problemRequirment;
-    problemCategoryElement.innerText = '<img src="../icons/label.svg" alt="Categorie" width="20" height="20">' + problemCategory;
-    problemSolutionElement.value = problemSolution;
+    problemCategoryElement.innerHTML = '<img src="../icons/label.svg" alt="Categorie" width="20" height="20">' + problemCategory;
+    problemSolutionElement.innerHTML = problemSolution;
 
 }
 
@@ -136,7 +136,6 @@ var logoLink = document.querySelector('.logo a');
 
 function manageMenu(){
 
-    console.log('im in manageMenu')
     var userRole = localStorage.getItem('role');
 
     if(userRole === 'STUDENT'){
@@ -147,7 +146,8 @@ function manageMenu(){
         createLink('elev_home.html', 'Acasa');
         createLink('login.html', 'Delogare');
     }else if(userRole === 'ADMIN'){
-        logoLink.href = 'administare.html';
+        logoLink.href = 'administrare.html';
+        console.log("vtm");
         //link-uri admin NU ESTE TESTAT
         createLink('help.html', 'Help');
         createLink('administrare.html', 'Pagina de administrare');

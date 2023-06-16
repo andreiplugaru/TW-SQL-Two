@@ -15,7 +15,7 @@ function onLogin(e) {
     const currentTarget = e.currentTarget;
 
     const payload = Object.fromEntries(new FormData(currentTarget));
-    console.log(payload);
+    //console.log(payload);
     const errorTextElement = document.getElementById('error-text');
     errorTextElement.innerHTML = '';
 

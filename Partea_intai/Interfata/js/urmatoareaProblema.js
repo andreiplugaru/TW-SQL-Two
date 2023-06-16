@@ -18,6 +18,9 @@ const problemIdElement = document.getElementById('problem-id');
 const errorTextElementSolution = document.getElementById('error-text-solution');
 const errorTextElement = document.getElementById('error-text');
 
+const problemSolutionElement = document.getElementById('problem-solution');
+
+
 const problemForm = document.getElementById('problem-form');
 problemForm.addEventListener('submit', onSendSolution);
 
@@ -97,13 +100,14 @@ async function onSendSolution(e) {
 async function getNextProblem() {
 
     errorTextElementSolution.innerHTML = '';
+    problemSolutionElement.value = '';
     let problem;
 
     const request = await sendJwtFetchRequestWithoutBody(NEXT_PROBLEM_ENDPOINT, 'GET', localStorage.getItem('jwt'));
     const response = await request.json();
 
     let status = request.status;
-    if( status === 200) {
+    if (status === 200) {
         problem = response;
         displayRequirement(problem);
         let form = document.getElementById('next-problem-form')
@@ -111,10 +115,10 @@ async function getNextProblem() {
             document.getElementById('next-problem-form').remove();
             document.getElementsByClassName('dropdown')[0].remove();
         }
-    }else if( status === 400){
+    } else if (status === 400) {
         const message = response.message;
-        if( message === 'limit exceeded'){
-            
+        if (message === 'limit exceeded') {
+
             window.location.assign("./creare_problema.html");
         }
     }
@@ -187,8 +191,6 @@ async function onDifficultySelected(e) {
 //event listener pt Problema urmatoare
 function onNextProblemButtonClick(e) {
     e.preventDefault();
-    //console.log('click pe Pb urmatoare')
-    //TREBUIE VAZUT CAND AFISAM ADAUGA_PB
     document.getElementById("problem-solution").textContent = "";
     getNextProblem();
 }
@@ -245,7 +247,7 @@ async function refreshComments() {
 
         //MODIFICARE LA INTEGRARE
         userName.innerHTML = allComments[i].student;
-        commData.innerHTML = allComments[i].date;
+        commData.innerHTML = new Date(allComments[i].date).toLocaleString();
         commentPost.innerHTML = allComments[i].message;
 
         userMetaComment.appendChild(userName);

@@ -99,13 +99,54 @@ class ProblemRepository {
     }
 
     async saveToAdded(problemId, studentId) {
-        const query = `INSERT INTO ADDED_PROBLEMS (ID_USER, ID_PROBLEM, AT_TIME) VALUES (:id_user, :id_problem, SYSDATE)`
+        const query = `INSERT INTO ADDED_PROBLEMS (ID_USER, ID_PROBLEM, AT_TIME) VALUES (:id_user, :id_problem, CURRENT_DATE)`
         let bindParams = {
             id_user: studentId,
-            id_problem: problemId,
+            id_problem: problemId
         }
         const result = await db.insertInTable(query, bindParams)
         return result
+    }
+
+    async saveToAttempts(problemId, studentId) {
+        const query = `INSERT INTO ATTEMPTS (ID_STUDENT, ID_PROBLEM) VALUES (:id_student, :id_problem)`
+        let bindParams = {
+            id_student: studentId,
+            id_problem: problemId
+        }
+        return await db.insertInTable(query, bindParams)
+    }
+
+    async checkIfProblemIsProposed(problemId, studentId) {
+        const query = `SELECT * FROM added_problems WHERE id_user = :id_student AND id_problem = :id_problem`
+        let bindParams = {
+            id_student: studentId,
+            id_problem: problemId
+        }
+        const result = await db.executeQuery(query, bindParams)
+        return result.length > 0
+    }
+
+    async checkIfProblemIsMarked(problemId, studentId) {
+        const query = `SELECT * FROM marked_problems WHERE id_student = :id_student AND id_problem = :id_problem`
+        let bindParams = {
+            id_student: studentId,
+            id_problem: problemId
+        }
+        const result = await db.executeQuery(query, bindParams)
+        return result.length > 0
+
+    }
+
+    async getStatisticsAboutProposedProblems(studentId) {
+        const query = `SELECT  a_p.id_problem, p.REQUIREMENT AS REQUIREMENT, COUNT(a.id) AS ATTEMPTS, COUNT(s_p.at_time) AS SOLVED FROM added_problems a_p LEFT JOIN problems p ON p.id = a_p.id_problem 
+LEFT JOIN solved_problems s_p ON s_p.id_problem = a_p.id_problem 
+LEFT JOIN  attempts a ON a.id_problem = a_p.id_problem
+WHERE a_p.id_user = :id_user group by a_p.id_problem, p.REQUIREMENT`
+        let bindParams = {
+            id_user: studentId
+        }
+        return await db.executeQuery(query, bindParams)
     }
 }
 

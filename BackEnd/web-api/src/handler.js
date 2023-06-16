@@ -7,6 +7,7 @@ const userFactory = require('./factory/UserFactory.js')
 const studentFactory = require('./factory/StudentFactory.js')
 const commentFactory = require('./factory/CommentFactory.js')
 const categoryFactory = require('./factory/CategoryFactory.js')
+const difficultyFactory = require('./factory/DifficultyFactory.js')
 const ProblemRoute = require('./routes/ProblemRoute.js')
 const AuthenticationRoute = require('./routes/AuthenticationRoute.js')
 const CommentRoute = require('./routes/CommentRoute.js')
@@ -15,12 +16,13 @@ const CategoryRoute = require('./routes/CategoryRoute.js')
 fs = require('fs');
 var path = require('path');
 const solvedProblemService = solvedProblemFactory.generateInstance()
-const problemService = problemFactory.generateInstance()
+const difficultyService = difficultyFactory.generateInstance()
+
+const problemService = problemFactory.generateInstance(difficultyService)
 const commentService = commentFactory.generateInstance(problemService)
 const userService = userFactory.generateInstance(problemService, solvedProblemService)
 const studentService = studentFactory.generateInstance(userService)
 const categoryService = categoryFactory.generateInstance()
-
 const problemRoutes = ProblemRoute({
     userService,
     solvedProblemService,

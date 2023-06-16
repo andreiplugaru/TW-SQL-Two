@@ -61,3 +61,5 @@ export async function sendJwtFetchRequestWithoutBody(URL, METHOD, jwt) {
   };
   return await fetch(URL, options);
 }
+
+
