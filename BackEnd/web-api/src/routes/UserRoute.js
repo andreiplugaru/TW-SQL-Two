@@ -25,7 +25,7 @@ const routes = ({
             let body = [];
             let userId = await AuthenticationUtil.checkToken(userService, request)
             let user;
-            request.on('data', (chunk) => {
+           await request.on('data', (chunk) => {
                 body.push(chunk);
             }).on('end', async () => {
                 const requestBody = JSON.parse(body);

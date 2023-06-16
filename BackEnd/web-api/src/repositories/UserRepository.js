@@ -73,11 +73,13 @@ class UserRepository {
     }
 
     async updateUser(userId, userUpdateDto) {
-        let query = `UPDATE ` + TABLE_NAME + ` SET email = :email, password = :password WHERE id = :id`
+        let query = `UPDATE ` + TABLE_NAME + ` SET email = :email, firstName = :firstName, lastName = :lastName, password = :password WHERE id = :id`
         let bindParams = {
             id: userId,
             email: userUpdateDto.email,
-            password: userUpdateDto.password
+            password: userUpdateDto.password,
+            firstName: userUpdateDto.firstname,
+            lastName: userUpdateDto.lastname
         }
         const result = await db.insertInTable(query, bindParams)
         return result
