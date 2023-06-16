@@ -18,6 +18,7 @@ class AuthenticationService {
         if (user === undefined || user.length === 0) {
             throw new UnauthorizedException()
         }
+        user[0].ROLE = await this.userService.getRole(user[0].ID)
 
         await bcrypt.compare(password, user[0].PASSWORD).then(function (result) {
             //  return result

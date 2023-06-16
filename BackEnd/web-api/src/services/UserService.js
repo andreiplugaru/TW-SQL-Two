@@ -41,6 +41,10 @@ class UserService{
         user.password = await bcrypt.hash(user.password, 10);
         return await this.userRepository.updateUser(userId, user)
     }
+
+    async getRole(userId) {
+        return await this.userRepository.getRole(userId)
+    }
 }
 
 module.exports = UserService;

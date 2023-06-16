@@ -123,7 +123,8 @@ class ProblemRepository {
             id_student: studentId,
             id_problem: problemId
         }
-        return await db.executeQuery(query, bindParams)
+        const result = await db.executeQuery(query, bindParams)
+        return result.length > 0
     }
 
     async checkIfProblemIsMarked(problemId, studentId) {
@@ -132,7 +133,9 @@ class ProblemRepository {
             id_student: studentId,
             id_problem: problemId
         }
-        return await db.executeQuery(query, bindParams)
+        const result = await db.executeQuery(query, bindParams)
+        return result.length > 0
+
     }
 
     async getStatisticsAboutProposedProblems(studentId) {

@@ -10,7 +10,6 @@ class UserRepository {
             username: username
         }
         const result = await db.executeQuery(query, bindParams)
-        result[0].ROLE = await this.getRole(result[0].ID)
         return result
     }
 
