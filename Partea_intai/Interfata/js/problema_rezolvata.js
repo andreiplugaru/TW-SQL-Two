@@ -1,4 +1,4 @@
-import { RESOLVED_PROBLEM_ENDPOINT } from "./endpoints.js"
+import { RESOLVED_PROBLEM_ENDPOINT, COMMENTS_PROBLEM_ENDPOINT , PUBLISH_COMMENT_PROBLEM_ENDPOINT} from "./endpoints.js"
 import { sendJwtFetchRequestWithoutBody, sendJwtFetchRequest } from "./request/request_handler.js"
 
 function guard(){
@@ -29,11 +29,11 @@ function displayInfo(data) {
     //ATENTIE LA INTEGRARE
     let problemRequirment = data.requirement;
     let problemCategory = data.category;
-    let problemSolution = data.problemSolution;
+    let problemSolution = data.solution;
 
     problemRequirmentElement.innerHTML = problemRequirment;
-    problemCategoryElement.innerText = '<img src="../icons/label.svg" alt="Categorie" width="20" height="20">' + problemCategory;
-    problemSolutionElement.value = problemSolution;
+    problemCategoryElement.innerHTML = '<img src="../icons/label.svg" alt="Categorie" width="20" height="20">' + problemCategory;
+    problemSolutionElement.innerHTML = problemSolution;
 
 }
 
