@@ -30,7 +30,7 @@ const routes = ({
             }).on('end', async () => {
                 const requestBody = JSON.parse(body);
 
-                if (!requestBody.password || !requestBody.email || !requestBody.firstName || !requestBody.lastName)
+                if (!requestBody.password || !requestBody.email)
                     throw new InvalidRequestBodyException()
                 user = new StudentRegisterDto('', requestBody.firstName, requestBody.lastName, requestBody.email, requestBody.password)
 

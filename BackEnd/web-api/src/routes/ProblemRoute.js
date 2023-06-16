@@ -10,7 +10,7 @@ const HttpException = require("../exceptions/HttpException");
 const InvalidRequestBodyException = require("../exceptions/InvalidRequestBodyException");
 
 const routes = ({
-                    userService, solvedProblemService, problemService
+                    userService, solvedProblemService, problemService,
                 }) => ({
     '/api/v1/problems/solved:get': async (request, response) => {
         try {

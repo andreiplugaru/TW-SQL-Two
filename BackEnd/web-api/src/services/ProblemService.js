@@ -6,10 +6,12 @@ const InvalidCategoryException = require("../exceptions/InvalidCategoryException
 class ProblemService {
     constructor({
                     problemRepository,
-                    categoryRepository
+                    categoryRepository,
+                    difficultyService
                 }) {
         this.problemRepository = problemRepository;
         this.categoryRepository = categoryRepository;
+        this.difficultyService = difficultyService;
     }
 
     async findById(id) {
@@ -43,7 +45,7 @@ class ProblemService {
     }
 
     async markProblemDifficulty(studentId, problemId, difficulty) {
-        let category = await this.categoryRepository.findByName(difficulty)
+        let category = await this.difficultyService.findByName(difficulty)
         if (category.length === 0)
             throw new UnknownDifficultyException(difficulty)
         let difficultyId = category[0].ID;
