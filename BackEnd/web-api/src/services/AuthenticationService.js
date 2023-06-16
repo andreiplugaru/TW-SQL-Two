@@ -44,6 +44,8 @@ class AuthenticationService {
         if (studentRegisterDto.username === undefined || studentRegisterDto.username === null || studentRegisterDto.username === '' || studentRegisterDto.password === undefined || studentRegisterDto.password === null || studentRegisterDto.password === '') {
             throw new UnauthorizedException()
         }
+        delete studentRegisterDto.repeatPassword;
+
         let encryptedPassword = await bcrypt.hash(studentRegisterDto.password, 10);
         studentRegisterDto.password = encryptedPassword;
         await this.studentService.createStudent(studentRegisterDto)
