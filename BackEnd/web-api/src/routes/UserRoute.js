@@ -32,7 +32,7 @@ const routes = ({
 
                 if (!requestBody.password || !requestBody.email)
                     throw new InvalidRequestBodyException()
-                user = new StudentRegisterDto('', requestBody.firstName, requestBody.lastName, requestBody.email, requestBody.password)
+                user = new StudentRegisterDto(requestBody.username, requestBody.firstName, requestBody.lastName, requestBody.email, requestBody.password)
 
                 await userService.updateUser(userId, user)
             })
