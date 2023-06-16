@@ -45,8 +45,8 @@ async function onSendSolution(e) {
         //dezactivare buton submit-btn
         const submitButton = document.querySelector('.btn-submit');
         submitButton.disabled = true;
-        
-        
+
+
         //solutie corecta => afisez butonul de selectare dificultate + problema urmatoare
         //construire buton dificultate
         divMessageElement.removeAttribute('hidden');
@@ -83,7 +83,7 @@ async function onSendSolution(e) {
 
         manageDifficulty();
 
-    
+
         //adaugare buton urmatoarea pb
         const problemForms = document.getElementById('problem-forms');
         const nextProblemForm = document.createElement('form');
@@ -109,7 +109,7 @@ async function onSendSolution(e) {
 
 async function getNextProblem() {
 
-    divMessageElement.setAttribute('hidden','hidden');
+    divMessageElement.setAttribute('hidden', 'hidden');
     const submitButton = document.querySelector('.btn-submit');
     submitButton.disabled = false;
     messageTextElementSolution.innerHTML = '';
@@ -303,4 +303,4 @@ async function onPublishComm(e) {
 
 guard();
 await getNextProblem();
-refreshComments();
+await refreshComments();

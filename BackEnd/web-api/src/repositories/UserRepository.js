@@ -96,6 +96,20 @@ class UserRepository {
         }
         return await db.insertInTable(query, bindParams)
     }
+
+    async getAllUsers() {
+        let query = `SELECT * FROM ` + TABLE_NAME
+        const result = await db.executeQuery(query, {})
+        return result
+    }
+
+    async deleteUser(userId) {
+        let query = `DELETE FROM ` + TABLE_NAME + ` WHERE id = :id`
+        let bindParams = {
+            id: userId
+        }
+        return await db.insertInTable(query, bindParams)
+    }
 }
 
 module.exports = UserRepository;

@@ -5,6 +5,7 @@ const StudentRegisterDto = require("../dtos/StudentRegisterDto");
 const querystring = require("querystring");
 const InvalidRequestBodyException = require("../exceptions/InvalidRequestBodyException");
 const {errorHandler} = require("../util/util.js");
+const ForbiddenException = require("../exceptions/ForbiddenException");
 const routes = ({
                     userService,
                     studentService
@@ -50,6 +51,35 @@ const routes = ({
             const user = await userService.findUserInfoById(userId)
             response.writeHead(200, DEFAULT_HEADER)
             response.write(JSON.stringify(user))
+        } catch (err) {
+            response.writeHead(err.errorCode, DEFAULT_HEADER)
+            response.write(JSON.stringify({'message': err.message}))
+        }
+        response.end()
+    },
+    '/api/v1/users/all:get': async (request, response) => {
+        try {
+            let userId = await AuthenticationUtil.checkToken(userService, request)
+            let role = await userService.getRole(userId)
+            if (role !== 'ADMIN') throw new ForbiddenException()
+            const users = await userService.getAllUsers(userId)
+            response.writeHead(200, DEFAULT_HEADER)
+            response.write(JSON.stringify(users))
+        } catch (err) {
+            response.writeHead(err.errorCode, DEFAULT_HEADER)
+            response.write(JSON.stringify({'message': err.message}))
+        }
+        response.end()
+    },
+    '/api/v1/users:delete': async (request, response) => {
+        try {
+            let currentUserId = await AuthenticationUtil.checkToken(userService, request)
+            const parsed = url.parse(request.url)
+            let userId = querystring.parse(parsed.query).userId
+            let role = await userService.getRole(currentUserId)
+            if (role !== 'ADMIN') throw new ForbiddenException()
+            await userService.deleteUser(userId)
+            response.writeHead(204, DEFAULT_HEADER)
         } catch (err) {
             response.writeHead(err.errorCode, DEFAULT_HEADER)
             response.write(JSON.stringify({'message': err.message}))
