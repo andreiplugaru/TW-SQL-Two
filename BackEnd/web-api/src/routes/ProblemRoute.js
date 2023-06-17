@@ -44,25 +44,25 @@ const routes = ({
             }
             response.end()
         });
-    // }, '/api/v1/problems:get': async (request, response) => {
-    //     const parsedUrl = url.parse(request.url, true);
-    //     const {pathname, query} = parsedUrl;
-    //     if ('problemId' in query) {
-    //         try {
-    //             const id = query.problemId
-    //             const problem = await problemService.findById(id)
-    //             response.writeHead(200, DEFAULT_HEADER)
-    //             response.write(JSON.stringify({problem: problem}))
-    //
-    //         } catch (err) {
-    //             response.writeHead(err.errorCode, DEFAULT_HEADER)
-    //             response.write(JSON.stringify({'message': err.message}))
-    //         }
-    //     } else {
-    //         response.writeHead(404, DEFAULT_HEADER)
-    //     }
-    //     response.end()
-     }, '/api/v1/problems/next:get': async (request, response) => {
+        // }, '/api/v1/problems:get': async (request, response) => {
+        //     const parsedUrl = url.parse(request.url, true);
+        //     const {pathname, query} = parsedUrl;
+        //     if ('problemId' in query) {
+        //         try {
+        //             const id = query.problemId
+        //             const problem = await problemService.findById(id)
+        //             response.writeHead(200, DEFAULT_HEADER)
+        //             response.write(JSON.stringify({problem: problem}))
+        //
+        //         } catch (err) {
+        //             response.writeHead(err.errorCode, DEFAULT_HEADER)
+        //             response.write(JSON.stringify({'message': err.message}))
+        //         }
+        //     } else {
+        //         response.writeHead(404, DEFAULT_HEADER)
+        //     }
+        //     response.end()
+    }, '/api/v1/problems/next:get': async (request, response) => {
         const parsedUrl = url.parse(request.url, true);
         try {
             let studentId = await AuthenticationUtil.checkToken(userService, request)
@@ -290,6 +290,24 @@ const routes = ({
             errorHandler(err, response)
         }
         response.end()
+    },
+    '/api/v1/problems/interesting:get': async (request, response) => {
+        try {
+            const parsed = url.parse(request.url);
+            if (!querystring.parse(parsed.query).category || !querystring.parse(parsed.query).count)
+                throw new InvalidRequestBodyException()
+            let category = querystring.parse(parsed.query).category
+            let count = querystring.parse(parsed.query).count
+            if(count <=0)
+                throw new InvalidRequestBodyException()
+            const problems = await problemService.getInterestingProblems(category, count)
+            response.writeHead(200, DEFAULT_HEADER)
+            response.write(JSON.stringify(problems))
+            response.end()
+        } catch (err) {
+            errorHandler(err, response)
+            response.end()
+        }
     }
 
 })

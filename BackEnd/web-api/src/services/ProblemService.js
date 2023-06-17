@@ -6,6 +6,7 @@ const InvalidCategoryException = require("../exceptions/InvalidCategoryException
 const ProblemWrongNotFoundException = require("../exceptions/ProblemWrongNotFoundException.js");
 const InvalidUploadFileException = require("../exceptions/InvalidUploadFileException.js");
 const TooManyWrongProblemException = require("../exceptions/TooManyWrongProblemExcpetion.js");
+
 class ProblemService {
     constructor({
                     problemRepository,
@@ -40,7 +41,7 @@ class ProblemService {
         if (await this.checkIfProblemIsMarkedAsWrong(studentId, problemId))
             throw new ProblemMarkedWrongException()
         let wrongProblems = await this.getNumberOfWrongProblemsMarkedByStudent(studentId)
-        if(wrongProblems[0]["NUMBER_OF_WRONG_PROBLEMS"] >= 5){
+        if (wrongProblems[0]["NUMBER_OF_WRONG_PROBLEMS"] >= 5) {
             throw new TooManyWrongProblemException()
         }
         await this.problemRepository.markProblemAsWrong(studentId, problemId);
@@ -54,6 +55,7 @@ class ProblemService {
     async getNumberOfWrongProblemsMarkedByStudent(studentId) {
         return await this.problemRepository.getNumberOfWrongProblemsMarkedByStudent(studentId);
     }
+
     async markProblemDifficulty(studentId, problemId, difficulty) {
         let category = await this.difficultyService.findByName(difficulty)
         if (category.length === 0)
@@ -134,6 +136,23 @@ class ProblemService {
 
     async findAllInfo() {
         return await this.problemRepository.findAllInfo()
+    }
+
+    async getInterestingProblems(category, count) {
+        let categoryFromDB = await this.categoryRepository.findByName(category)
+        if (categoryFromDB.length === 0)
+            throw new InvalidCategoryException(category)
+        let problemIds = await this.problemRepository.getInterestingProblems(categoryFromDB[0].ID, count)
+        let problems = await this.problemRepository.getInterestingProblemsInfo(problemIds)
+        const groupById =  problems.reduce((group, problem) => {
+            const REQUIREMENT = problem.REQUIREMENT;
+            group[REQUIREMENT] = group[REQUIREMENT] ?? [];
+            delete problem.REQUIREMENT
+            delete problem.ID
+            group[REQUIREMENT].push(problem);
+            return group;
+        }, {});
+        return groupById
     }
 
 }

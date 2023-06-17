@@ -214,6 +214,25 @@ WHERE a_p.id_user = :id_user group by a_p.id_problem, p.REQUIREMENT`
         }
         return await db.executeQuery(query, bindParams)
     }
+    async getInterestingProblems(categoryId, count) {
+        const query = `select * from( SELECT c.id_problem AS ID FROM comments c where c.id_problem in (select id from problems where id_category = :id_category) GROUP BY c.id_problem ORDER BY COUNT(c.id_student) DESC) where ROWNUM <= :count`
+        let bindParams = {
+            id_category: categoryId,
+            count: count
+        }
+        return await db.executeQuery(query, bindParams)
+    }
+    async getInterestingProblemsInfo(problemIds) {
+        let bindParams = {}
+        let query = `SELECT p.id as ID, p.requirement AS REQUIREMENT, c.message AS MESSAGE, u.username AS USERNAME FROM problems p JOIN comments c ON c.id_problem = p.id JOIN users u ON u.id = c.id_student WHERE p.id IN (`
+        for (let i = 0; i < problemIds.length; i++) {
+            query += `:id_` + i + `,`
+            bindParams[`id_` + i] = problemIds[i].ID
+        }
+        query = query.substring(0, query.length - 1)
+        query += `)`
+        return await db.executeQuery(query, bindParams)
+    }
 }
 
 module.exports = ProblemRepository;
