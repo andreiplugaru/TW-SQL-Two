@@ -158,10 +158,12 @@ const routes = ({
         try {
             let studentId = await AuthenticationUtil.checkToken(userService, request)
             const parsed = url.parse(request.url);
+            let role = await userService.getRole(studentId)
+
             if (!querystring.parse(parsed.query).problemId)
                 throw new InvalidRequestBodyException()
             let problemId = querystring.parse(parsed.query).problemId
-            const problemInfo = await solvedProblemService.getInfoAboutProblem(studentId, problemId)
+            const problemInfo = await solvedProblemService.getInfoAboutProblem(studentId, problemId, role === 'ADMIN')
             response.writeHead(200, DEFAULT_HEADER)
             response.write(JSON.stringify(problemInfo))
         } catch (err) {

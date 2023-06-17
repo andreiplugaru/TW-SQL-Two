@@ -37,9 +37,10 @@ class SolvedProblemService {
         return await this.solvedProblemRepository.checkIfProblemIsSolved(studentId, problemId)
     }
 
-    async getInfoAboutProblem(studentId, problemId) {
-        if (await this.solvedProblemRepository.checkIfProblemIsSolved(studentId, problemId) !== true && await this.problemService.checkIfProblemIsProposed(problemId, studentId) !== true && await this.problemService.checkIfProblemIsMarked(problemId, studentId) !== true)
-            throw new ForbiddenException()
+    async getInfoAboutProblem(studentId, problemId, isAdmin) {
+        if(!isAdmin)
+            if (await this.solvedProblemRepository.checkIfProblemIsSolved(studentId, problemId) !== true && await this.problemService.checkIfProblemIsProposed(problemId, studentId) !== true && await this.problemService.checkIfProblemIsMarked(problemId, studentId) !== true)
+                throw new ForbiddenException()
         return await this.problemService.findById(problemId)
 
     }
