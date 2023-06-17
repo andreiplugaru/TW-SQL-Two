@@ -10,6 +10,7 @@ const HttpException = require("../exceptions/HttpException");
 const InvalidRequestBodyException = require("../exceptions/InvalidRequestBodyException");
 const ForbiddenException = require("../exceptions/ForbiddenException");
 const {parseRequestBody, getBoundary} = require("../util/FileUploadUtil.js")
+const {createWriteStream} = require("fs");
 
 const routes = ({
                     userService, solvedProblemService, problemService,
@@ -237,7 +238,9 @@ const routes = ({
     },
     '/api/v1/problems/import:post': async (request, response) => {
         let body = [];
-
+        let userId = await AuthenticationUtil.checkToken(userService, request)
+        let role = await userService.getRole(userId)
+        if (role !== 'ADMIN') throw new ForbiddenException()
         await request.on('data', chunk => {
             body.push(chunk);
         });
@@ -256,24 +259,13 @@ const routes = ({
         });
     },
     '/api/v1/problems/export:get': async (request, response) => {
-        let body = [];
-
-        await request.on('data', chunk => {
-            body.push(chunk);
-        });
-        await request.on('end', async () => {
-            let boundary = getBoundary(request);
-            const stringBody = Buffer.concat(body).toString();
-            const multipartData = parseRequestBody(stringBody, boundary);
-            await problemService.saveProblems(multipartData.fileBody)
-            response.writeHead(201, DEFAULT_HEADER)
-            response.end()
-        });
-        await request.on('error', err => {
-            errorHandler(err, response)
-            response.end()
-
-        });
+        let userId = await AuthenticationUtil.checkToken(userService, request)
+        let role = await userService.getRole(userId)
+        if (role !== 'ADMIN') throw new ForbiddenException()
+        const problems = await problemService.getAllProblems()
+        response.setHeader('Content-disposition', 'attachment; filename=problems.json');
+        response.write(JSON.stringify(problems))
+        response.end()
     }
 
 })
