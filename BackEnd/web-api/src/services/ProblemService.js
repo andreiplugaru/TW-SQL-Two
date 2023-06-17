@@ -5,7 +5,7 @@ const UnknownDifficultyException = require("../exceptions/UnknownDifficultyExcep
 const InvalidCategoryException = require("../exceptions/InvalidCategoryException.js");
 const ProblemWrongNotFoundException = require("../exceptions/ProblemWrongNotFoundException.js");
 const InvalidUploadFileException = require("../exceptions/InvalidUploadFileException.js");
-
+const TooManyWrongProblemException = require("../exceptions/TooManyWrongProblemExcpetion.js");
 class ProblemService {
     constructor({
                     problemRepository,
@@ -39,6 +39,10 @@ class ProblemService {
         await this.findById(problemId)
         if (await this.checkIfProblemIsMarkedAsWrong(studentId, problemId))
             throw new ProblemMarkedWrongException()
+        let wrongProblems = await this.getNumberOfWrongProblemsMarkedByStudent(studentId)
+        if(wrongProblems[0]["NUMBER_OF_WRONG_PROBLEMS"] >= 5){
+            throw new TooManyWrongProblemException()
+        }
         await this.problemRepository.markProblemAsWrong(studentId, problemId);
     }
 
@@ -47,6 +51,9 @@ class ProblemService {
         return response.length > 0;
     }
 
+    async getNumberOfWrongProblemsMarkedByStudent(studentId) {
+        return await this.problemRepository.getNumberOfWrongProblemsMarkedByStudent(studentId);
+    }
     async markProblemDifficulty(studentId, problemId, difficulty) {
         let category = await this.difficultyService.findByName(difficulty)
         if (category.length === 0)
