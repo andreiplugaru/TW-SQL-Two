@@ -259,23 +259,41 @@ importLink.addEventListener('click', async e => {
     }
 });
 
-//EXPORT
-const exportLink = document.getElementById('export_link');
-exportLink.addEventListener('click', async e => {
+//EXPORT JSON
+const exportLinkJSON = document.getElementById('export_link_json');
+exportLinkJSON.addEventListener('click', async e => {
     e.preventDefault();
   
-    await sendJwtFetchRequestWithoutBody(ADMIN_EXPORT_PROBLEMS_ENDPOINT, 'GET', localStorage.getItem('jwt'))
+    var payload = { format: 'json' }
+
+    await sendJwtFetchRequest(ADMIN_EXPORT_PROBLEMS_ENDPOINT, 'GET',payload, localStorage.getItem('jwt'))
         .then(response => response.blob())
         .then( data => {
             var a = document.createElement("a");
             a.href = window.URL.createObjectURL(data);
-            a.download = "problems.json";
+            a.download = "probleme.json";
             a.click();
         })
 
 });
 
+//EXPORT XML
+const exportLinkXML = document.getElementById('export_link_xml');
+exportLinkXML.addEventListener('click', async e => {
+    e.preventDefault();
+    
+    var payload = { format: 'xml' }
 
+    await sendJwtFetchRequest(ADMIN_EXPORT_PROBLEMS_ENDPOINT, 'GET',payload, localStorage.getItem('jwt'))
+        .then(response => response.blob())
+        .then( data => {
+            var a = document.createElement("a");
+            a.href = window.URL.createObjectURL(data);
+            a.download = "probleme.xml";
+            a.click();
+        })
+
+});
 
 
 guard();
