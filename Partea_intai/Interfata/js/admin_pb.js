@@ -238,7 +238,7 @@ importLink.addEventListener('click', async e => {
             {
                 description: "Files",
                 accept: {
-                    "file/*": [".json"],
+                    "file/*": [".json", ".xml"],
                 },
             },
         ],
@@ -250,14 +250,15 @@ importLink.addEventListener('click', async e => {
     [fileHandle] = await window.showOpenFilePicker(pickerOpts);
     const file = await fileHandle.getFile();
     const content = await file.text();
-
-    const request = await sendJwtFetchRequestSendFile(ADMIN_IMPORT_PROBLEMS_ENDPOINT, 'POST', content, localStorage.getItem('jwt'));
+    const request = await sendJwtFetchRequestSendFile(ADMIN_IMPORT_PROBLEMS_ENDPOINT + "?format=" + file.name.split('.')[1], 'POST', JSON.stringify(content), localStorage.getItem('jwt'));
     const status = request.status;
     if (status == 201) {
         console.log('am importat');
+        alert('Problemele au fost importate cu succes!');
     } else {
+        let response = await request.json();
+        alert(response.message);
         console.log('NU am importat');
-
     }
 });
 
@@ -268,7 +269,7 @@ exportLinkJSON.addEventListener('click', async e => {
 
     var payload = { format: 'json' }
 
-    await sendJwtFetchRequest(ADMIN_EXPORT_PROBLEMS_ENDPOINT, 'GET', payload, localStorage.getItem('jwt'))
+    await sendJwtFetchRequestWithoutBody(ADMIN_EXPORT_PROBLEMS_ENDPOINT + "?format=json", 'GET', localStorage.getItem('jwt'))
         .then(response => response.blob())
         .then(data => {
             var a = document.createElement("a");
@@ -284,9 +285,7 @@ const exportLinkXML = document.getElementById('export_link_xml');
 exportLinkXML.addEventListener('click', async e => {
     e.preventDefault();
 
-    var payload = { format: 'xml' }
-
-    await sendJwtFetchRequest(ADMIN_EXPORT_PROBLEMS_ENDPOINT, 'GET', payload, localStorage.getItem('jwt'))
+    await sendJwtFetchRequestWithoutBody(ADMIN_EXPORT_PROBLEMS_ENDPOINT + "?format=xml", 'GET', localStorage.getItem('jwt'))
         .then(response => response.blob())
         .then(data => {
             var a = document.createElement("a");

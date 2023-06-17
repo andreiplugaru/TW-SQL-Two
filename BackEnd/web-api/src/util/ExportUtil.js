@@ -1,6 +1,6 @@
-const {XMLBuilder} =  require('fast-xml-parser');
-
+const xml2js = require('xml2js');
 const UnknownFormatException = require('../exceptions/UnknownFormatException.js')
+const {js2xml} = require("xml-js");
 
 function exportProblems(problems, format) {
     if (format === 'json') return exportToJSON(problems)
@@ -9,14 +9,8 @@ function exportProblems(problems, format) {
 }
 
 function exportToXML(problems) {
-    const builder = new XMLBuilder({
-        arrayNodeName: "problem"
-    });
-    const xmlContent = `<?xml version="1.0"?>
-<problems>
-  ${builder.build(problems)}
-</problems>`
-    return xmlContent
+    const builder = new xml2js.Builder();
+    return builder.buildObject({root: {problem: problems}});
 }
 
 function exportToJSON(problems) {

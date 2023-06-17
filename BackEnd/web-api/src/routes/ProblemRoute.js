@@ -251,9 +251,15 @@ const routes = ({
                 body.push(chunk);
             });
             await request.on('end', async () => {
-                await problemService.saveProblems(convertToJson(body, format))
-                response.writeHead(201, DEFAULT_HEADER)
-                response.end()
+                try {
+                    const data = Buffer.concat(body).toString();
+                    await problemService.saveProblems(convertToJson(data, format))
+                    response.writeHead(201, DEFAULT_HEADER)
+                    response.end()
+                } catch (err) {
+                    errorHandler(err, response)
+                    response.end()
+                }
             });
             await request.on('error', err => {
                 errorHandler(err, response)
