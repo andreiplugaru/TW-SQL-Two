@@ -44,25 +44,25 @@ const routes = ({
             }
             response.end()
         });
-    }, '/api/v1/problems:get': async (request, response) => {
-        const parsedUrl = url.parse(request.url, true);
-        const {pathname, query} = parsedUrl;
-        if ('problemId' in query) {
-            try {
-                const id = query.problemId
-                const problem = await problemService.findById(id)
-                response.writeHead(200, DEFAULT_HEADER)
-                response.write(JSON.stringify({problem: problem}))
-
-            } catch (err) {
-                response.writeHead(err.errorCode, DEFAULT_HEADER)
-                response.write(JSON.stringify({'message': err.message}))
-            }
-        } else {
-            response.writeHead(404, DEFAULT_HEADER)
-        }
-        response.end()
-    }, '/api/v1/problems/next:get': async (request, response) => {
+    // }, '/api/v1/problems:get': async (request, response) => {
+    //     const parsedUrl = url.parse(request.url, true);
+    //     const {pathname, query} = parsedUrl;
+    //     if ('problemId' in query) {
+    //         try {
+    //             const id = query.problemId
+    //             const problem = await problemService.findById(id)
+    //             response.writeHead(200, DEFAULT_HEADER)
+    //             response.write(JSON.stringify({problem: problem}))
+    //
+    //         } catch (err) {
+    //             response.writeHead(err.errorCode, DEFAULT_HEADER)
+    //             response.write(JSON.stringify({'message': err.message}))
+    //         }
+    //     } else {
+    //         response.writeHead(404, DEFAULT_HEADER)
+    //     }
+    //     response.end()
+     }, '/api/v1/problems/next:get': async (request, response) => {
         const parsedUrl = url.parse(request.url, true);
         try {
             let studentId = await AuthenticationUtil.checkToken(userService, request)
@@ -96,6 +96,7 @@ const routes = ({
             let problemId = querystring.parse(parsed.query).problemId
             let difficulty = querystring.parse(parsed.query).difficulty
             await problemService.markProblemDifficulty(studentId, problemId, difficulty)
+            response.writeHead(200, DEFAULT_HEADER)
         } catch (err) {
             errorHandler(err, response)
         }

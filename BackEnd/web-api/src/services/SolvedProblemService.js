@@ -29,7 +29,11 @@ class SolvedProblemService {
 
     async findSolvedProblemsByStudentId(id) {
         await this.studentService.findById(id)
-        return await this.solvedProblemRepository.findSolvedProblemsByStudentId(id)
+        let problems = await this.solvedProblemRepository.findSolvedProblemsByStudentId(id)
+        for(let problem of problems){
+            delete problem.SOLUTION
+        }
+        return problems
     }
 
     async checkIfProblemIsSolved(studentId, problemId) {
