@@ -27,10 +27,10 @@ export const ADMIN_REMOVE_PROBLEMS_ENDPOINT = ENV + "/api/v1/problems";
 export const ADMIN_WRONG_PROBLEMS_ENDPOINT = ENV + "/api/v1/problems/wrong";
 export const ADMIN_ACCEPT_WRONG_PROBLEMS_ENDPOINT = ENV + "/api/v1/problems";
 export const ADMIN_REJECT_WRONG_PROBLEMS_ENDPOINT = ENV + "/api/v1/problems/wrong";
-export const ADMIN_STATISTICS_USERS_ENDPOINT = ENV + "/mock";
-export const ADMIN_STATISTICS_PROBLEMS_ENDPOINT = ENV + "/mock";
+export const ADMIN_STATISTICS_USERS_ENDPOINT = ENV + "/api/v1/admin/users";
+export const ADMIN_STATISTICS_PROBLEMS_ENDPOINT = ENV + "/api/v1/admin/problems";
 export const ADMIN_IMPORT_PROBLEMS_ENDPOINT = ENV + "/api/v1/problems/import";
-export const ADMIN_EXPORT_PROBLEMS_ENDPOINT = ENV + "/mock";
+export const ADMIN_EXPORT_PROBLEMS_ENDPOINT = ENV + "/api/v1/problems/export";
 
 
 

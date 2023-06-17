@@ -1,7 +1,7 @@
 import { ADMIN_PROBLEMS_ENDPOINT, ADMIN_REMOVE_PROBLEMS_ENDPOINT, ADMIN_WRONG_PROBLEMS_ENDPOINT,
     ADMIN_ACCEPT_WRONG_PROBLEMS_ENDPOINT, ADMIN_REJECT_WRONG_PROBLEMS_ENDPOINT, 
     ADMIN_IMPORT_PROBLEMS_ENDPOINT, ADMIN_EXPORT_PROBLEMS_ENDPOINT } from "./endpoints.js";
-import { sendJwtFetchRequest, sendJwtFetchRequestWithoutBody } from "./request/request_handler.js"
+import { sendJwtFetchRequest, sendJwtFetchRequestSendFile, sendJwtFetchRequestWithoutBody } from "./request/request_handler.js"
 
 
 function guard() {
@@ -246,16 +246,17 @@ importLink.addEventListener('click', async e => {
 
     let fileHandle;
     [fileHandle] = await window.showOpenFilePicker(pickerOpts);
+    const file = await fileHandle.getFile();
+    const content = await file.text();
     
-    //const request = await sendJwtFetchRequest(ADMIN_IMPORT_PROBLEMS_ENDPOINT, 'POST', [fileHandle], localStorage.getItem('jwt'));
-    console.log(fileHandle);
-    // const status = request.status;
-    // if( status == 201){
-    //     console.log('am importat');
-    // }else{
-    //     console.log('NU am importat');
+    const request = await sendJwtFetchRequestSendFile(ADMIN_IMPORT_PROBLEMS_ENDPOINT, 'POST', content, localStorage.getItem('jwt'));
+    const status = request.status;
+    if( status == 201){
+        console.log('am importat');
+    }else{
+        console.log('NU am importat');
 
-    // }
+    }
 });
 
 //EXPORT
@@ -268,9 +269,8 @@ exportLink.addEventListener('click', async e => {
         .then( data => {
             var a = document.createElement("a");
             a.href = window.URL.createObjectURL(data);
-            a.download = "problems.xml";
+            a.download = "problems.json";
             a.click();
-            URL.revokeObjectURL(url);
         })
 
 });
