@@ -162,7 +162,6 @@ function displayRequirement(data) {
 document.getElementById('mark-wrong-link').addEventListener('click', async function (event) {
     
     event.preventDefault(); // Prevent the default behavior of the link
-    divMessageElementWrongLimit.removeAttribute('hidden'); 
     const problemId = problemIdElement.innerHTML;
     const request = await sendJwtFetchRequestWithoutBody(WRONG_PROBLEM_ENDPOINT + "?problemId=" + problemId, 'POST', localStorage.getItem('jwt'))
     let status = request.status;
@@ -172,8 +171,7 @@ document.getElementById('mark-wrong-link').addEventListener('click', async funct
         await getNextProblem();
     } else {
         //afisez ca nu mai poate marca probleme drept gredite
-        //const errorTextElement = document.getElementById('error-text');
-        messageTextElement.innerHTML = 'Nu mai poti marca probleme drept gresite, ai depasit limita. Vei putea marca, dupa ce primesti drepturi de la admin.';
+        divMessageElementWrongLimit.removeAttribute('hidden');         
     }
 
 });
