@@ -1,0 +1,13 @@
+----------------------------156709708724733639199786
+Content-Disposition: form-data; name="file"; filename="problems.txt"
+Content-Type: text/plain
+
+[
+	{"requirement":"requirement1 din fisier",
+	"solution":"solutie1 din fisier"
+	},
+	{"requirement":"requirement2 din fisier",
+	"solution":"solutie2 din fisier"
+	}
+]
+----------------------------156709708724733639199786--

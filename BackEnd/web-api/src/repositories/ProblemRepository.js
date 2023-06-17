@@ -182,6 +182,25 @@ WHERE a_p.id_user = :id_user group by a_p.id_problem, p.REQUIREMENT`
         }
         return await db.executeQuery(query, bindParams)
     }
+
+    async saveProblems(problems) {
+        const query = `INSERT INTO ` + TABLE_NAME + ` (REQUIREMENT, SOLUTION, ID_CATEGORY) VALUES (:requirement, :solution, :id_category)`
+        let bindParams = []
+        const binds = [
+            { a: 1, b: "One" },
+            { a: 2, b: "Two" },
+            { a: 3, b: "Three" }
+        ];
+        for(let i = 0; i < problems.length; i++) {
+            let param = {}
+            param[`requirement`] = problems[i].requirement
+            param[`solution`] = problems[i].solution
+            param[`id_category`] = problems[i].category
+            bindParams[i] = param
+        }
+       // query = query.substring(0, query.length - 1)
+        return await db.insertManyInTable(query, bindParams)
+    }
 }
 
 module.exports = ProblemRepository;

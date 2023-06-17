@@ -4,6 +4,7 @@ const ProblemMarkedWrongException = require("../exceptions/ProblemMarkedWrongExc
 const UnknownDifficultyException = require("../exceptions/UnknownDifficultyException.js");
 const InvalidCategoryException = require("../exceptions/InvalidCategoryException.js");
 const ProblemWrongNotFoundException = require("../exceptions/ProblemWrongNotFoundException.js");
+const InvalidUploadFileException = require("../exceptions/InvalidUploadFileException.js");
 
 class ProblemService {
     constructor({
@@ -64,7 +65,7 @@ class ProblemService {
 
     async save(problem) {
         let category = await this.categoryRepository.findByName(problem.category)
-        if(category.length === 0)
+        if (category.length === 0)
             throw new InvalidCategoryException(problem.category)
         problem.category = category[0].ID;
         let problemId = (await this.problemRepository.save(problem))[0].ID
@@ -102,9 +103,26 @@ class ProblemService {
     }
 
     async rejectWrongProblem(problemId) {
-        if((await this.problemRepository.getWrongProblemById(problemId)).length === 0)
+        if ((await this.problemRepository.getWrongProblemById(problemId)).length === 0)
             throw new ProblemWrongNotFoundException(problemId)
         await this.problemRepository.rejectWrongProblem(problemId);
+    }
+
+    async saveProblems(problems) {
+        problems = JSON.parse(problems)
+        let categories = await this.categoryRepository.findAll()
+        problems = problems.map(problem => {
+            let category = categories.find(category => category.NAME === problem.category)
+            if (category === undefined)
+                throw new InvalidCategoryException(problem.category)
+            problem.category = category.ID
+            return problem
+        })
+        for (let problem of problems) {
+            if (problem.requirement === undefined || problem.solution === undefined || problem.category === undefined)
+                throw new InvalidUploadFileException()
+        }
+        await this.problemRepository.saveProblems(problems);
     }
 
 }

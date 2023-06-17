@@ -9,6 +9,7 @@ const querystring = require('querystring');
 const HttpException = require("../exceptions/HttpException");
 const InvalidRequestBodyException = require("../exceptions/InvalidRequestBodyException");
 const ForbiddenException = require("../exceptions/ForbiddenException");
+const {parseRequestBody, getBoundary} = require("../util/FileUploadUtil.js")
 
 const routes = ({
                     userService, solvedProblemService, problemService,
@@ -20,7 +21,7 @@ const routes = ({
             response.writeHead(200, DEFAULT_HEADER)
             response.write(JSON.stringify(solvedProblems))
         } catch (err) {
-           errorHandler(err, response)
+            errorHandler(err, response)
         }
         response.end()
 
@@ -70,7 +71,7 @@ const routes = ({
                 id: problem.id, requirement: problem.requirement, category: problem.category,
             })))
         } catch (err) {
-           errorHandler(err, response)
+            errorHandler(err, response)
         }
         response.end()
     }, '/api/v1/problems/wrong:post': async (request, response) => {
@@ -81,7 +82,7 @@ const routes = ({
             await problemService.markProblemAsWrong(studentId, problemId)
             response.writeHead(201, DEFAULT_HEADER)
         } catch (err) {
-           errorHandler(err, response)
+            errorHandler(err, response)
         }
         response.end()
     },
@@ -94,7 +95,7 @@ const routes = ({
             let difficulty = querystring.parse(parsed.query).difficulty
             await problemService.markProblemDifficulty(studentId, problemId, difficulty)
         } catch (err) {
-           errorHandler(err, response)
+            errorHandler(err, response)
         }
         response.end()
     }, '/api/v1/problems/marked:get': async (request, response) => {
@@ -104,7 +105,7 @@ const routes = ({
             response.writeHead(200, DEFAULT_HEADER)
             response.write(JSON.stringify(markedProblems))
         } catch (err) {
-           errorHandler(err, response)
+            errorHandler(err, response)
         }
         response.end()
     }, '/api/v1/problems/proposed:get': async (request, response) => {
@@ -114,7 +115,7 @@ const routes = ({
             response.writeHead(200, DEFAULT_HEADER)
             response.write(JSON.stringify(proposedProblems))
         } catch (err) {
-           errorHandler(err, response)
+            errorHandler(err, response)
         }
         response.end()
     }, '/api/v1/problems/student/solved:get': async (request, response) => {
@@ -128,7 +129,7 @@ const routes = ({
             response.writeHead(200, DEFAULT_HEADER)
             response.write(JSON.stringify({problems: solvedProblems}))
         } catch (err) {
-           errorHandler(err, response)
+            errorHandler(err, response)
         }
         response.end()
     }, '/api/v1/problems:post': async (request, response) => {
@@ -162,7 +163,7 @@ const routes = ({
             response.writeHead(200, DEFAULT_HEADER)
             response.write(JSON.stringify(problemInfo))
         } catch (err) {
-           errorHandler(err, response)
+            errorHandler(err, response)
         }
         response.end()
     }, '/api/v1/problems/statistics:get': async (request, response) => {
@@ -172,7 +173,7 @@ const routes = ({
             response.writeHead(200, DEFAULT_HEADER)
             response.write(JSON.stringify(statistics))
         } catch (err) {
-           errorHandler(err, response)
+            errorHandler(err, response)
         }
         response.end()
     },
@@ -185,7 +186,7 @@ const routes = ({
             response.writeHead(200, DEFAULT_HEADER)
             response.write(JSON.stringify(problems))
         } catch (err) {
-           errorHandler(err, response)
+            errorHandler(err, response)
         }
         response.end()
     },
@@ -198,7 +199,7 @@ const routes = ({
             response.writeHead(200, DEFAULT_HEADER)
             response.write(JSON.stringify(problems))
         } catch (err) {
-           errorHandler(err, response)
+            errorHandler(err, response)
         }
         response.end()
     },
@@ -214,7 +215,7 @@ const routes = ({
             await problemService.deleteById(problemId)
             response.writeHead(204, DEFAULT_HEADER)
         } catch (err) {
-           errorHandler(err, response)
+            errorHandler(err, response)
         }
         response.end()
     },
@@ -230,9 +231,49 @@ const routes = ({
             await problemService.rejectWrongProblem(problemId)
             response.writeHead(204, DEFAULT_HEADER)
         } catch (err) {
-           errorHandler(err, response)
+            errorHandler(err, response)
         }
         response.end()
+    },
+    '/api/v1/problems/import:post': async (request, response) => {
+        let body = [];
+
+        await request.on('data', chunk => {
+            body.push(chunk);
+        });
+        await request.on('end', async () => {
+            let boundary = getBoundary(request);
+            const stringBody = Buffer.concat(body).toString();
+            const multipartData = parseRequestBody(stringBody, boundary);
+            await problemService.saveProblems(multipartData.fileBody)
+            response.writeHead(201, DEFAULT_HEADER)
+            response.end()
+        });
+        await request.on('error', err => {
+            errorHandler(err, response)
+            response.end()
+
+        });
+    },
+    '/api/v1/problems/export:get': async (request, response) => {
+        let body = [];
+
+        await request.on('data', chunk => {
+            body.push(chunk);
+        });
+        await request.on('end', async () => {
+            let boundary = getBoundary(request);
+            const stringBody = Buffer.concat(body).toString();
+            const multipartData = parseRequestBody(stringBody, boundary);
+            await problemService.saveProblems(multipartData.fileBody)
+            response.writeHead(201, DEFAULT_HEADER)
+            response.end()
+        });
+        await request.on('error', err => {
+            errorHandler(err, response)
+            response.end()
+
+        });
     }
 
 })
