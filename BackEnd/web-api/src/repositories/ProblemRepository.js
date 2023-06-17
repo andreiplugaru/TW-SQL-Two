@@ -203,7 +203,7 @@ WHERE a_p.id_user = :id_user group by a_p.id_problem, p.REQUIREMENT`
     }
 
     async findAllInfo() {
-        const query = `SELECT p.REQUIREMENT AS REQUIREMENT, count(s_p.id_student) AS SOLVED, count(a.id) AS ATTEMPTS FROM problems p JOIN solved_problems s_p ON s_p.id_problem = p.id JOIN users ON users.id = s_p.id_student join attempts a on a.id_problem = p.id group by p.REQUIREMENT `
+        const query = `SELECT p.ID AS ID, p.REQUIREMENT AS REQUIREMENT, count(s_p.id_student) AS SOLVED, count(a.id) AS ATTEMPTS FROM problems p JOIN solved_problems s_p ON s_p.id_problem = p.id JOIN users ON users.id = s_p.id_student join attempts a on a.id_problem = p.id group by p.REQUIREMENT, p.ID `
         return await db.executeQuery(query, {})
     }
 }
