@@ -10,7 +10,7 @@ const HttpException = require("../exceptions/HttpException");
 const InvalidRequestBodyException = require("../exceptions/InvalidRequestBodyException");
 const ForbiddenException = require("../exceptions/ForbiddenException");
 const {parseRequestBody, getBoundary} = require("../util/FileUploadUtil.js")
-const {createWriteStream} = require("fs");
+const {exportProblems} = require("../util/ExportUtil.js")
 
 const routes = ({
                     userService, solvedProblemService, problemService,
@@ -262,10 +262,14 @@ const routes = ({
         try {
             let userId = await AuthenticationUtil.checkToken(userService, request)
             let role = await userService.getRole(userId)
+            const parsed = url.parse(request.url);
+            if (!querystring.parse(parsed.query).format)
+                throw new InvalidRequestBodyException()
+            let format = querystring.parse(parsed.query).format
             if (role !== 'ADMIN') throw new ForbiddenException()
             const problems = await problemService.getAllProblems()
-            response.setHeader('Content-disposition', 'attachment; filename=problems.json');
-            response.write(JSON.stringify(problems))
+            response.setHeader('Content-disposition', 'attachment; filename=problems.' + format);
+            response.write(exportProblems(problems, format))
         } catch (err) {
             errorHandler(err, response)
         }
