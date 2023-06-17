@@ -127,13 +127,39 @@ form .btn-submit {
     height: 100%;
 }
 
-#message-text-for-solution{
-    font-size: 18px;
-    color: #09073a;
-    margin-top: 10px;
-    margin-bottom: 10px;
+
+#message{
+    
     align-items: center;
-    background-color: #fff;
+    border-radius: 5px;
+} 
+
+#message-text-for-solution{
+
+    padding: 7px;
+    font-size: 18px;
+    color: #fafafb;
+}
+
+.wrong-limit{
+    
+    align-items: center;
+}
+
+#wrong-limit-message-wrapper{
+
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 10px;}
+
+#wrong-limit-message{
+
+    padding: 7px;
+    font-size: 15px;
+    color: #fafafb;
+    background-color: #e12b2b;
+    border-radius: 5px;
 }
 
 .text {

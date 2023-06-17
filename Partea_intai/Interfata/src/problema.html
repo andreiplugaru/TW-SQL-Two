@@ -38,10 +38,12 @@
                             <div class="overlay">
                                 <div class="text">Marcare problema gresita</div>
                             </div>
-                            <div class="error-text centered" id="error-text"></div>
                         </div>
                     </a>
-                    <!-- <div class="dropdown">
+                    <div class="wrong-limit" id="wrong-limit">
+                        <div id="wrong-limit-message-wrapper"><div id="wrong-limit-message"> Nu mai poti marca probleme drept gresite, ai depasit limita. Vei putea marca, dupa ce primesti drepturi de la admin.</div></div>
+                    </div>
+                        <!-- <div class="dropdown">
                         <button class="dropbtn">Selectare dificultate</button>
                         <div class="dropdown-content">
                             <a href="#">Usoara</a>
@@ -52,8 +54,10 @@
                 </div>
             </div>
             
-            <div class="container-item" id="message" ><div id="message-text-for-solution"></div></div>
-
+            <div  id="message" >
+                    <div id="message-text-for-solution"></div>
+            </div>
+            
             <div class="container-item" id="problem-forms">
 
                 <div class="category" id="problem-category">
@@ -66,7 +70,6 @@
 
                     <span class="textarea" id="problem-solution" role="textbox" spellcheck="false" contenteditable
                         autofocus></span>
-                    <!-- <div class="error-text centered" id="error-text-solution"></div> -->
                     <input type="submit" class="btn-submit" value="Trimite solutia">
 
 

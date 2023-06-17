@@ -18,6 +18,7 @@ const problemIdElement = document.getElementById('problem-id');
 
 const messageTextElementSolution = document.getElementById('message-text-for-solution');
 const divMessageElement = document.getElementById('message');
+const divMessageElementWrongLimit = document.getElementById('wrong-limit');
 
 const problemSolutionElement = document.getElementById('problem-solution');
 
@@ -46,11 +47,14 @@ async function onSendSolution(e) {
         const submitButton = document.querySelector('.btn-submit');
         submitButton.disabled = true;
 
+        divMessageElementWrongLimit.setAttribute('hidden','hidden'); 
 
         //solutie corecta => afisez butonul de selectare dificultate + problema urmatoare
         //construire buton dificultate
         divMessageElement.removeAttribute('hidden');
+        divMessageElement.style.background = "#009cff";
         messageTextElementSolution.innerHTML = 'Felicitari, ai rezolvat corect problema!';
+
         const problemMarkingElement = document.querySelector('.problem-marking');
         const dropdownElement = document.createElement('div');
         dropdownElement.className = 'dropdown';
@@ -100,7 +104,9 @@ async function onSendSolution(e) {
     }
     else if (status === 400) {
         //verficare mesaj pentru a sti daca rezolvarea e corecta {"message":"rezolvarea nu e corecta"}
+        divMessageElementWrongLimit.setAttribute('hidden','hidden'); 
         divMessageElement.removeAttribute('hidden');
+        divMessageElement.style.background = "#e12b2b";
         const response = await request.json();
         messageTextElementSolution.innerHTML = '';
         messageTextElementSolution.innerHTML = response.message;
@@ -110,6 +116,7 @@ async function onSendSolution(e) {
 async function getNextProblem() {
 
     divMessageElement.setAttribute('hidden', 'hidden');
+    divMessageElementWrongLimit.setAttribute('hidden','hidden'); 
     const submitButton = document.querySelector('.btn-submit');
     submitButton.disabled = false;
     messageTextElementSolution.innerHTML = '';
@@ -151,9 +158,11 @@ function displayRequirement(data) {
 }
 
 //marcare problema gresita
-document.getElementById('mark-wrong-link').addEventListener('click', async function (event) {
-    event.preventDefault(); // Prevent the default behavior of the link
 
+document.getElementById('mark-wrong-link').addEventListener('click', async function (event) {
+    
+    event.preventDefault(); // Prevent the default behavior of the link
+    divMessageElementWrongLimit.removeAttribute('hidden'); 
     const problemId = problemIdElement.innerHTML;
     const request = await sendJwtFetchRequestWithoutBody(WRONG_PROBLEM_ENDPOINT + "?problemId=" + problemId, 'POST', localStorage.getItem('jwt'))
     let status = request.status;
@@ -166,6 +175,7 @@ document.getElementById('mark-wrong-link').addEventListener('click', async funct
         //const errorTextElement = document.getElementById('error-text');
         messageTextElement.innerHTML = 'Nu mai poti marca probleme drept gresite, ai depasit limita. Vei putea marca, dupa ce primesti drepturi de la admin.';
     }
+
 });
 
 
@@ -193,7 +203,8 @@ async function onDifficultySelected(e) {
     let status = request.status;
 
     if (status === 200) {
-        //cerere aprobata
+        messageTextElementSolution.innerHTML = '';
+        messageTextElementSolution.innerHTML = 'Ai marcat problema ca fiind: ' + selectedDifficulty;
         console.log('S-a marcat problema');
     } else {
         //cerere respinsa
