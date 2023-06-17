@@ -33,7 +33,6 @@ async function onSendSolution(e) {
     const solutionValue = solution.textContent;
     const problemId = problemIdElement.innerHTML;
 
-
     var payload = {
         solution: solutionValue,
         id_problem: problemId,
@@ -47,7 +46,7 @@ async function onSendSolution(e) {
         const submitButton = document.querySelector('.btn-submit');
         submitButton.disabled = true;
 
-        divMessageElementWrongLimit.setAttribute('hidden','hidden'); 
+        divMessageElementWrongLimit.setAttribute('hidden', 'hidden');
 
         //solutie corecta => afisez butonul de selectare dificultate + problema urmatoare
         //construire buton dificultate
@@ -104,7 +103,7 @@ async function onSendSolution(e) {
     }
     else if (status === 400) {
         //verficare mesaj pentru a sti daca rezolvarea e corecta {"message":"rezolvarea nu e corecta"}
-        divMessageElementWrongLimit.setAttribute('hidden','hidden'); 
+        divMessageElementWrongLimit.setAttribute('hidden', 'hidden');
         divMessageElement.removeAttribute('hidden');
         divMessageElement.style.background = "#e12b2b";
         const response = await request.json();
@@ -116,7 +115,7 @@ async function onSendSolution(e) {
 async function getNextProblem() {
 
     divMessageElement.setAttribute('hidden', 'hidden');
-    divMessageElementWrongLimit.setAttribute('hidden','hidden'); 
+    divMessageElementWrongLimit.setAttribute('hidden', 'hidden');
     const submitButton = document.querySelector('.btn-submit');
     submitButton.disabled = false;
     messageTextElementSolution.innerHTML = '';
@@ -160,7 +159,7 @@ function displayRequirement(data) {
 //marcare problema gresita
 
 document.getElementById('mark-wrong-link').addEventListener('click', async function (event) {
-    
+
     event.preventDefault(); // Prevent the default behavior of the link
     const problemId = problemIdElement.innerHTML;
     const request = await sendJwtFetchRequestWithoutBody(WRONG_PROBLEM_ENDPOINT + "?problemId=" + problemId, 'POST', localStorage.getItem('jwt'))
@@ -171,7 +170,7 @@ document.getElementById('mark-wrong-link').addEventListener('click', async funct
         await getNextProblem();
     } else {
         //afisez ca nu mai poate marca probleme drept gredite
-        divMessageElementWrongLimit.removeAttribute('hidden');         
+        divMessageElementWrongLimit.removeAttribute('hidden');
     }
 
 });

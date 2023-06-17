@@ -5,9 +5,14 @@ const DEFAULT_HEADER = {
     'Access-Control-Allow-Methods': '*'
 }
 
-function errorHandler (error, response)  {
-    response.writeHead(error.errorCode, DEFAULT_HEADER)
-    response.write(JSON.stringify({'message': error.message}))
+function errorHandler(error, response) {
+    try {
+        response.writeHead(error.errorCode, DEFAULT_HEADER)
+        response.write(JSON.stringify({'message': error.message}))
+    } catch (err) {
+        response.writeHead(500, DEFAULT_HEADER)
+        console.log(err)
+    }
 }
 
 module.exports = {DEFAULT_HEADER, errorHandler}

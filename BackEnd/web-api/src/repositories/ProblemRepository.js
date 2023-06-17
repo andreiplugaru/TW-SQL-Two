@@ -148,6 +148,40 @@ WHERE a_p.id_user = :id_user group by a_p.id_problem, p.REQUIREMENT`
         }
         return await db.executeQuery(query, bindParams)
     }
+
+    async getAllProblems() {
+        const query = `SELECT * FROM problems`
+        return await db.executeQuery(query, {})
+    }
+
+    async getWrongProblems() {
+        const query = `SELECT PROBLEMS.ID AS ID, PROBLEMS.REQUIREMENT AS REQUIREMENT FROM wrong_problems JOIN PROBLEMS ON PROBLEMS.ID = wrong_problems.ID_PROBLEM`
+        return await db.executeQuery(query, {})
+    }
+
+    async deleteById(problemId) {
+        const query = `DELETE FROM problems WHERE id = :id_problem`
+        let bindParams = {
+            id_problem: problemId
+        }
+        return await db.insertInTable(query, bindParams)
+    }
+
+    async rejectWrongProblem(problemId) {
+        const query = `DELETE FROM wrong_problems WHERE id_problem = :id_problem`
+        let bindParams = {
+            id_problem: problemId
+        }
+        return await db.insertInTable(query, bindParams)
+    }
+
+    async getWrongProblemById(problemId) {
+        const query = `SELECT * FROM wrong_problems WHERE id_problem = :id_problem`
+        let bindParams = {
+            id_problem: problemId
+        }
+        return await db.executeQuery(query, bindParams)
+    }
 }
 
 module.exports = ProblemRepository;

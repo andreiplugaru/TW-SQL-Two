@@ -1,4 +1,4 @@
-const {DEFAULT_HEADER} = require('../util/util.js');
+const {DEFAULT_HEADER, errorHandler} = require('../util/util.js');
 
 const routes = ({
                     categoryService
@@ -9,8 +9,7 @@ const routes = ({
             response.writeHead(200, DEFAULT_HEADER)
             response.write(JSON.stringify(categories))
         } catch (err) {
-            response.writeHead(err.errorCode, DEFAULT_HEADER)
-            response.write(JSON.stringify({'message': err.message}))
+          errorHandler(err, response)
         }
         response.end()
     }

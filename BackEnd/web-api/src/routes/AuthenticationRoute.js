@@ -1,4 +1,4 @@
-const {DEFAULT_HEADER} = require('../util/util.js');
+const {DEFAULT_HEADER, errorHandler} = require('../util/util.js');
 const StudentRegisterDto = require("../dtos/StudentRegisterDto.js");
 
 const routes = ({authenticationService}) => ({

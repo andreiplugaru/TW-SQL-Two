@@ -3,6 +3,8 @@ const ProblemNotFoundException = require("../exceptions/ProblemNotFoundException
 const ProblemMarkedWrongException = require("../exceptions/ProblemMarkedWrongException.js");
 const UnknownDifficultyException = require("../exceptions/UnknownDifficultyException.js");
 const InvalidCategoryException = require("../exceptions/InvalidCategoryException.js");
+const ProblemWrongNotFoundException = require("../exceptions/ProblemWrongNotFoundException.js");
+
 class ProblemService {
     constructor({
                     problemRepository,
@@ -84,6 +86,25 @@ class ProblemService {
 
     async getStatisticsAboutProposedProblems(studentId) {
         return await this.problemRepository.getStatisticsAboutProposedProblems(studentId)
+    }
+
+    async getAllProblems() {
+        return await this.problemRepository.getAllProblems()
+    }
+
+    async getWrongProblems() {
+        return await this.problemRepository.getWrongProblems()
+    }
+
+    async deleteById(id) {
+        await this.findById(id);
+        await this.problemRepository.deleteById(id);
+    }
+
+    async rejectWrongProblem(problemId) {
+        if((await this.problemRepository.getWrongProblemById(problemId)).length === 0)
+            throw new ProblemWrongNotFoundException(problemId)
+        await this.problemRepository.rejectWrongProblem(problemId);
     }
 
 }

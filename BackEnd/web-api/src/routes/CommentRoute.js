@@ -1,4 +1,4 @@
-const {DEFAULT_HEADER} = require('../util/util.js');
+const {DEFAULT_HEADER, errorHandler} = require('../util/util.js');
 const url = require("url");
 const querystring = require("querystring");
 const Comment = require("../entities/Comment.js");
@@ -36,8 +36,7 @@ const routes = ({
             response.writeHead(201, DEFAULT_HEADER)
 
         } catch (err) {
-            //   response.writeHead(err.errorCode, DEFAULT_HEADER)
-            response.write(JSON.stringify({'message': err.message}))
+            // errorHandler(err, response)
         }
         response.end()
     }

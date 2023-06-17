@@ -17,8 +17,7 @@ const routes = ({
             response.writeHead(200, DEFAULT_HEADER)
             response.write(JSON.stringify(user))
         } catch (err) {
-            response.writeHead(err.errorCode, DEFAULT_HEADER)
-            response.write(JSON.stringify({'message': err.message}))
+          errorHandler(err, response)
         }
         response.end()
     },
@@ -52,8 +51,7 @@ const routes = ({
             response.writeHead(200, DEFAULT_HEADER)
             response.write(JSON.stringify(user))
         } catch (err) {
-            response.writeHead(err.errorCode, DEFAULT_HEADER)
-            response.write(JSON.stringify({'message': err.message}))
+          errorHandler(err, response)
         }
         response.end()
     },
@@ -66,8 +64,7 @@ const routes = ({
             response.writeHead(200, DEFAULT_HEADER)
             response.write(JSON.stringify(users))
         } catch (err) {
-            response.writeHead(err.errorCode, DEFAULT_HEADER)
-            response.write(JSON.stringify({'message': err.message}))
+          errorHandler(err, response)
         }
         response.end()
     },
@@ -81,8 +78,7 @@ const routes = ({
             await userService.deleteUser(userId)
             response.writeHead(204, DEFAULT_HEADER)
         } catch (err) {
-            response.writeHead(err.errorCode, DEFAULT_HEADER)
-            response.write(JSON.stringify({'message': err.message}))
+          errorHandler(err, response)
         }
         response.end()
     }
