@@ -11,7 +11,8 @@ const InvalidRequestBodyException = require("../exceptions/InvalidRequestBodyExc
 const ForbiddenException = require("../exceptions/ForbiddenException");
 const {parseRequestBody, getBoundary} = require("../util/FileUploadUtil.js")
 const {exportProblems} = require("../util/ExportUtil.js")
-
+const {importProblems} = require("../util/ImportUtil.js")
+const {convertToJson} = require("../util/ImportUtil");
 const routes = ({
                     userService, solvedProblemService, problemService,
                 }) => ({
@@ -237,26 +238,32 @@ const routes = ({
         response.end()
     },
     '/api/v1/problems/import:post': async (request, response) => {
-        let body = [];
-        let userId = await AuthenticationUtil.checkToken(userService, request)
-        let role = await userService.getRole(userId)
-        if (role !== 'ADMIN') throw new ForbiddenException()
-        await request.on('data', chunk => {
-            body.push(chunk);
-        });
-        await request.on('end', async () => {
-            let boundary = getBoundary(request);
-            const stringBody = Buffer.concat(body).toString();
-            const multipartData = parseRequestBody(stringBody, boundary);
-            await problemService.saveProblems(multipartData.fileBody)
-            response.writeHead(201, DEFAULT_HEADER)
-            response.end()
-        });
-        await request.on('error', err => {
+        try {
+            let body = [];
+            let userId = await AuthenticationUtil.checkToken(userService, request)
+            let role = await userService.getRole(userId)
+            if (role !== 'ADMIN') throw new ForbiddenException()
+            const parsed = url.parse(request.url);
+            if (!querystring.parse(parsed.query).format)
+                throw new InvalidRequestBodyException()
+            let format = querystring.parse(parsed.query).format
+            await request.on('data', chunk => {
+                body.push(chunk);
+            });
+            await request.on('end', async () => {
+                await problemService.saveProblems(convertToJson(body, format))
+                response.writeHead(201, DEFAULT_HEADER)
+                response.end()
+            });
+            await request.on('error', err => {
+                errorHandler(err, response)
+                response.end()
+
+            });
+        } catch (err) {
             errorHandler(err, response)
             response.end()
-
-        });
+        }
     },
     '/api/v1/problems/export:get': async (request, response) => {
         try {
