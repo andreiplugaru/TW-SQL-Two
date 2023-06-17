@@ -150,7 +150,7 @@ WHERE a_p.id_user = :id_user group by a_p.id_problem, p.REQUIREMENT`
     }
 
     async getAllProblems() {
-        const query = `SELECT * FROM problems`
+        const query = `SELECT p.ID as ID, REQUIREMENT, p_c.NAME as CATEGORY  FROM problems p JOIN problem_categories p_c ON p.id_category = p_c.id`
         return await db.executeQuery(query, {})
     }
 
@@ -187,19 +187,24 @@ WHERE a_p.id_user = :id_user group by a_p.id_problem, p.REQUIREMENT`
         const query = `INSERT INTO ` + TABLE_NAME + ` (REQUIREMENT, SOLUTION, ID_CATEGORY) VALUES (:requirement, :solution, :id_category)`
         let bindParams = []
         const binds = [
-            { a: 1, b: "One" },
-            { a: 2, b: "Two" },
-            { a: 3, b: "Three" }
+            {a: 1, b: "One"},
+            {a: 2, b: "Two"},
+            {a: 3, b: "Three"}
         ];
-        for(let i = 0; i < problems.length; i++) {
+        for (let i = 0; i < problems.length; i++) {
             let param = {}
             param[`requirement`] = problems[i].requirement
             param[`solution`] = problems[i].solution
             param[`id_category`] = problems[i].category
             bindParams[i] = param
         }
-       // query = query.substring(0, query.length - 1)
+        // query = query.substring(0, query.length - 1)
         return await db.insertManyInTable(query, bindParams)
+    }
+
+    async findAllInfo() {
+        const query = `SELECT p.REQUIREMENT AS REQUIREMENT, count(s_p.id_student) AS SOLVED, count(a.id) AS ATTEMPTS FROM problems p JOIN solved_problems s_p ON s_p.id_problem = p.id JOIN users ON users.id = s_p.id_student join attempts a on a.id_problem = p.id group by p.REQUIREMENT `
+        return await db.executeQuery(query, {})
     }
 }
 

@@ -125,6 +125,10 @@ class ProblemService {
         await this.problemRepository.saveProblems(problems);
     }
 
+    async findAllInfo() {
+        return await this.problemRepository.findAllInfo()
+    }
+
 }
 
 module.exports = ProblemService;

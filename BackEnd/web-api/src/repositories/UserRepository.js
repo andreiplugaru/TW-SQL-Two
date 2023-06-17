@@ -110,6 +110,12 @@ class UserRepository {
         }
         return await db.insertInTable(query, bindParams)
     }
+
+    async findAllInfo() {
+        const query = `SELECT u.USERNAME as USERNAME, COUNT(a.id) as ATTEMPTS, COUNT(sp.id_student) as SOLVED  FROM students JOIN users u ON students.id_user = u.id LEFT JOIN SOLVED_PROBLEMS sp ON students.id_user = sp.id_student LEFT JOIN ATTEMPTS a ON a.id_student = students.id_user GROUP BY u.USERNAME ORDER BY SOLVED DESC`
+        return await db.executeQuery(query, {})
+    }
+
 }
 
 module.exports = UserRepository;

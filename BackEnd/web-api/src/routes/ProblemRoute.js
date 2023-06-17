@@ -259,12 +259,16 @@ const routes = ({
         });
     },
     '/api/v1/problems/export:get': async (request, response) => {
-        let userId = await AuthenticationUtil.checkToken(userService, request)
-        let role = await userService.getRole(userId)
-        if (role !== 'ADMIN') throw new ForbiddenException()
-        const problems = await problemService.getAllProblems()
-        response.setHeader('Content-disposition', 'attachment; filename=problems.json');
-        response.write(JSON.stringify(problems))
+        try {
+            let userId = await AuthenticationUtil.checkToken(userService, request)
+            let role = await userService.getRole(userId)
+            if (role !== 'ADMIN') throw new ForbiddenException()
+            const problems = await problemService.getAllProblems()
+            response.setHeader('Content-disposition', 'attachment; filename=problems.json');
+            response.write(JSON.stringify(problems))
+        } catch (err) {
+            errorHandler(err, response)
+        }
         response.end()
     }
 

@@ -13,6 +13,7 @@ const AuthenticationRoute = require('./routes/AuthenticationRoute.js')
 const CommentRoute = require('./routes/CommentRoute.js')
 const UserRoute = require('./routes/UserRoute.js')
 const CategoryRoute = require('./routes/CategoryRoute.js')
+const AdminRoute = require('./routes/AdminRoute.js')
 fs = require('fs');
 var path = require('path');
 const solvedProblemService = solvedProblemFactory.generateInstance()
@@ -33,6 +34,7 @@ const authenticationService = authenticationFactory.generateInstance(userService
 const authenticationRoutes = AuthenticationRoute({authenticationService})
 const userRoutes = UserRoute({userService, studentService})
 const categoryRoutes = CategoryRoute({categoryService})
+const adminRoutes = AdminRoute({userService, problemService})
 const allRoutes = {
     '/dist:get': (request, response) => {
         var filePath = '.' + request.url;
@@ -62,6 +64,7 @@ const allRoutes = {
             }
         });
     },
+    ...adminRoutes,
     ...categoryRoutes,
     ...userRoutes,
     ...commentRoutes,

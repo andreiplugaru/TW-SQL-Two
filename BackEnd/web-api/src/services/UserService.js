@@ -27,7 +27,7 @@ class UserService {
 
     async findUserInfoById(id) {
         let user = await this.userRepository.findById(id)
-        if(user === undefined || user === null || user.length === 0) {
+        if (user === undefined || user === null || user.length === 0) {
             throw new UserNotFoundException(id)
         }
         let userInfo = new UserResponseDto()
@@ -66,6 +66,10 @@ class UserService {
         let user = await this.findUserInfoById(userId)
 
         return await this.userRepository.deleteUser(userId)
+    }
+
+    async findUsersInfo() {
+        return await this.userRepository.findAllInfo();
     }
 }
 
