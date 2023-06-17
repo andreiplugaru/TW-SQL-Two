@@ -38,11 +38,11 @@ function displayTableInfo(data){
         linkCell.dataset.label='Problema';
 
         const cellSucceded = document.createElement('td');
-        cellSucceded.innerHTML = data[i].ATTEMPTS;
+        cellSucceded.innerText = data[i].ATTEMPTS;
         cellSucceded.dataset.label = 'Incercari reusite';
 
         const cellMedium = document.createElement('td');
-        cellMedium.innerHTML = data[i].SOLVED;
+        cellMedium.innerText = data[i].SOLVED;
         cellMedium.dataset.label = 'Nr de incercari';
 
         row.appendChild(linkCell);

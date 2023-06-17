@@ -11,7 +11,7 @@ function guard(){
 //TO DO: ADMIN NU ARE SETTINGS
 
 var menuLinks = document.getElementById('nav-links');
-menuLinks.innerHTML = ''; 
+menuLinks.innerText = ''; 
 var logoLink = document.querySelector('.logo a');
 
 function manageMenu(){
@@ -60,14 +60,16 @@ async function onUpdate(e){
     console.log(payload);
     //validari parole
     if (passwordInput.value !== passwordRepeatInput.value) {
-        errorTextElement.innerHTML = 'Parolele nu coincid!';
+        errorTextElement.innerText = 'Parolele nu coincid!';
         return;
     }
     const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
     if(!passwordRegex.test(passwordInput.value)){
-        errorTextElement.innerHTML = 'Parola trebuie sa contina cel putin 8 caractere, dintre care: 1 cifra, 1 litera mare, 1 caracter special!';
+        errorTextElement.innerText = 'Parola trebuie sa contina cel putin 8 caractere, dintre care: 1 cifra, 1 litera mare, 1 caracter special!';
         return;
     }
+
+
      const request = await sendJwtFetchRequest(USER_SETTINGS_ENDPOINT, "PATCH", payload, localStorage.getItem('jwt'));
     let status = request.status;
     if (status === 204) {
@@ -80,7 +82,7 @@ async function onUpdate(e){
         }
     } else {
         const response = await request.json();
-        errorTextElement.innerHTML = response.message;
+        errorTextElement.innerText = response.message;
     }
 
 }
@@ -88,7 +90,7 @@ async function onUpdate(e){
 
 async function getUsername(){
     
-    errorTextElement.innerHTML = '';
+    errorTextElement.innerText = '';
     let info;
     await sendJwtFetchRequestWithoutBody(USER_PROFILE_INFO_ENDPOINT, 'GET', localStorage.getItem('jwt'))
         .then(response => response.json())

@@ -48,7 +48,7 @@ function displayPbTableInfo(data) {
 
         const buttonCell = document.createElement('td');
         const deleteButton = document.createElement('button');
-        deleteButton.innerHTML = 'STERGE';
+        deleteButton.innerText = 'STERGE';
         deleteButton.classList.add('btn');
         deleteButton.style.border = 'none';
         deleteButton.style.borderRadius = '8px';

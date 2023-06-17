@@ -31,9 +31,9 @@ function displayInfo(data) {
     let problemCategory = data.category;
     let problemSolution = data.solution;
 
-    problemRequirmentElement.innerHTML = problemRequirment;
+    problemRequirmentElement.innerText = problemRequirment;
     problemCategoryElement.innerHTML = '<img src="../icons/label.svg" alt="Categorie" width="20" height="20">' + problemCategory;
-    problemSolutionElement.innerHTML = problemSolution;
+    problemSolutionElement.innerText = problemSolution;
 
 }
 
@@ -84,9 +84,9 @@ async function displayComments(){
         const commentPost = document.createElement('div');
         commentPost.className = 'comment-post';
 
-        userName.innerHTML = allComments[i].student;
-        commData.innerHTML = allComments[i].date;
-        commentPost.innerHTML = allComments[i].message;
+        userName.innerText = allComments[i].student;
+        commData.innerText = allComments[i].date;
+        commentPost.innerText = allComments[i].message;
 
         userMetaComment.appendChild(userName);
         userMetaComment.appendChild(commData);
@@ -131,7 +131,7 @@ async function onPublishComm(e) {
 //MANAGE MENU
 
 var menuLinks = document.getElementById('nav-links');
-menuLinks.innerHTML = ''; 
+menuLinks.innerText = ''; 
 var logoLink = document.querySelector('.logo a');
 
 function manageMenu(){

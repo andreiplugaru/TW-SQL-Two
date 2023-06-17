@@ -40,12 +40,12 @@ function displayInfo(data) {
     let countMarkedPb = data.markedProblems;
     let countSuggestedPb = data.proposedProblems;
 
-    nameElement.innerHTML = firstName + " " + lastName;
-    usernameElement.innerHTML = "Utilizator: " + username;
-    emailElement.innerHTML = "E-mail: " + email;
-    countResolvedPbElement.innerHTML = "Probleme rezolvate: " + countResolvedPb;
-    countMarkedPbElement.innerHTML = "Probleme marcate: " + countMarkedPb;
-    countSuggestedPbElement.innerHTML = "Probleme propuse: " + countSuggestedPb;
+    nameElement.innerText = firstName + " " + lastName;
+    usernameElement.innerText = "Utilizator: " + username;
+    emailElement.innerText = "E-mail: " + email;
+    countResolvedPbElement.innerText = "Probleme rezolvate: " + countResolvedPb;
+    countMarkedPbElement.innerText = "Probleme marcate: " + countMarkedPb;
+    countSuggestedPbElement.innerText = "Probleme propuse: " + countSuggestedPb;
 
 }
 

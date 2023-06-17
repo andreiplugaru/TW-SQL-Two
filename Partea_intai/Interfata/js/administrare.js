@@ -31,16 +31,16 @@ function displayAccounts(data){
         const row = document.createElement('tr');
         
         const userCell = document.createElement('td');
-        userCell.innerHTML = data[i].username;
+        userCell.innerText = data[i].username;
         userCell.dataset.label='Utilizator';
 
         const emailCell = document.createElement('td');
-        emailCell.innerHTML = data[i].email;
+        emailCell.innerText = data[i].email;
         emailCell.dataset.label = 'E-mail';
 
         const buttonCell = document.createElement('td');
         const deleteButton = document.createElement('button');
-        deleteButton.innerHTML = 'STERGE';
+        deleteButton.innerText = 'STERGE';
         deleteButton.classList.add('btn');
         deleteButton.style.border = 'none';
         deleteButton.style.borderRadius = '8px';

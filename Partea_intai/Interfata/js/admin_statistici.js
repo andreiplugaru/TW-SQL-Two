@@ -29,15 +29,15 @@ function displayUsersTableInfo(data){
         const row = document.createElement('tr');
        
         const userCell = document.createElement('td');
-        userCell.innerHTML = data[i].USERNAME;
+        userCell.innerText = data[i].USERNAME;
         userCell.dataset.label='Utilizator';
     
         const problemsCell = document.createElement('td');
-        problemsCell.innerHTML = data[i].SOLVED;
+        problemsCell.innerText = data[i].SOLVED;
         problemsCell.dataset.label = 'Probleme rezolvate';
 
         const attemptsCell = document.createElement('td');
-        attemptsCell.innerHTML = data[i].ATTEMPTS;
+        attemptsCell.innerText = data[i].ATTEMPTS;
         attemptsCell.dataset.label = 'Nr mediu de incercari';
 
         row.appendChild(userCell);
@@ -83,11 +83,11 @@ function displayPbTableInfo(data){
         linkCell.dataset.label='Problema';
     
         const succededCell = document.createElement('td');
-        succededCell.innerHTML = data[i].SOLVED;
+        succededCell.innerText = data[i].SOLVED;
         succededCell.dataset.label = 'Incercari reusite';
 
         const attemptsCell = document.createElement('td');
-        attemptsCell.innerHTML = data[i].ATTEMPTS;
+        attemptsCell.innerText = data[i].ATTEMPTS;
         attemptsCell.dataset.label = 'Nr mediu de incercari';
 
         row.appendChild(linkCell);

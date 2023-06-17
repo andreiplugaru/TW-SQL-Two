@@ -38,7 +38,7 @@ async function getCategories(){
     for(var i=0; i<response.length; i++){
         
         const optionElement = document.createElement('option');
-        optionElement.innerHTML = response[i].NAME;
+        optionElement.innerText = response[i].NAME;
 
         categoryDropdown.appendChild(optionElement);
     }

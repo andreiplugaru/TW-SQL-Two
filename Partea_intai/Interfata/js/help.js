@@ -3,7 +3,7 @@
 
 var menuLinks = document.getElementById('nav-links');
 var logoLink = document.querySelector('.logo a');
-menuLinks.innerHTML = ''; 
+menuLinks.innerText = ''; 
 
 function manageMenu(){
 

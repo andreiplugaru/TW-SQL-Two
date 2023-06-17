@@ -31,12 +31,14 @@ async function onSendSolution(e) {
     e.preventDefault();
     const solution = document.getElementById('problem-solution');
     const solutionValue = solution.textContent;
-    const problemId = problemIdElement.innerHTML;
+    const problemId = problemIdElement.innerText;
 
     var payload = {
         solution: solutionValue,
         id_problem: problemId,
     };
+
+
     const request = await sendJwtFetchRequest(SEND_SOLUTION_ENDPOINT, 'POST', payload, localStorage.getItem('jwt'));
 
     let status = request.status;
@@ -52,7 +54,7 @@ async function onSendSolution(e) {
         //construire buton dificultate
         divMessageElement.removeAttribute('hidden');
         divMessageElement.style.background = "#009cff";
-        messageTextElementSolution.innerHTML = 'Felicitari, ai rezolvat corect problema!';
+        messageTextElementSolution.innerText = 'Felicitari, ai rezolvat corect problema!';
 
         const problemMarkingElement = document.querySelector('.problem-marking');
         const dropdownElement = document.createElement('div');
@@ -107,8 +109,8 @@ async function onSendSolution(e) {
         divMessageElement.removeAttribute('hidden');
         divMessageElement.style.background = "#e12b2b";
         const response = await request.json();
-        messageTextElementSolution.innerHTML = '';
-        messageTextElementSolution.innerHTML = response.message;
+        messageTextElementSolution.innerText = '';
+        messageTextElementSolution.innerText = response.message;
     }
 }
 
@@ -118,7 +120,7 @@ async function getNextProblem() {
     divMessageElementWrongLimit.setAttribute('hidden', 'hidden');
     const submitButton = document.querySelector('.btn-submit');
     submitButton.disabled = false;
-    messageTextElementSolution.innerHTML = '';
+    messageTextElementSolution.innerText = '';
     problemSolutionElement.value = '';
     let problem;
 
@@ -148,9 +150,9 @@ function displayRequirement(data) {
     let problemCategory = data.category;
     let problemId = data.id;
 
-    problemRequirmentElement.innerHTML = problemRequirment;
+    problemRequirmentElement.innerText = problemRequirment;
     problemCategoryElement.innerHTML = '<img src="../icons/label.svg" alt="Categorie" width="20" height="20">' + problemCategory;
-    problemIdElement.innerHTML = problemId;
+    problemIdElement.innerText = problemId;
 
     refreshComments();
 
@@ -161,7 +163,7 @@ function displayRequirement(data) {
 document.getElementById('mark-wrong-link').addEventListener('click', async function (event) {
 
     event.preventDefault(); // Prevent the default behavior of the link
-    const problemId = problemIdElement.innerHTML;
+    const problemId = problemIdElement.innerText;
     const request = await sendJwtFetchRequestWithoutBody(WRONG_PROBLEM_ENDPOINT + "?problemId=" + problemId, 'POST', localStorage.getItem('jwt'))
     let status = request.status;
     //gestionez in fctie de raspuns
@@ -194,14 +196,14 @@ async function onDifficultySelected(e) {
     e.preventDefault();
 
     const selectedDifficulty = e.target.textContent.toUpperCase();
-    const problemId = problemIdElement.innerHTML;
+    const problemId = problemIdElement.innerText;
 
     const request = await sendJwtFetchRequest(DIFFICULTY_PROBLEM_ENDPOINT + "?problemId=" + problemId + "&difficulty=" + selectedDifficulty, 'POST', null, localStorage.getItem('jwt'));
     let status = request.status;
 
     if (status === 200) {
-        messageTextElementSolution.innerHTML = '';
-        messageTextElementSolution.innerHTML = 'Ai marcat problema ca fiind: ' + selectedDifficulty;
+        messageTextElementSolution.innerText = '';
+        messageTextElementSolution.innerText = 'Ai marcat problema ca fiind: ' + selectedDifficulty;
         console.log('S-a marcat problema');
     } else {
         //cerere respinsa
@@ -229,7 +231,7 @@ publishCommForm.addEventListener('submit', onPublishComm);
 async function getAllComments() {
     let comments = [];
 
-    const problemId = problemIdElement.innerHTML;
+    const problemId = problemIdElement.innerText;
     await sendJwtFetchRequestWithoutBody(COMMENTS_PROBLEM_ENDPOINT + "?problemId=" + problemId, 'GET', localStorage.getItem('jwt'))
         .then(response => response.json())
         .then(data => { comments.push(...data) });
@@ -267,9 +269,9 @@ async function refreshComments() {
         commentPost.className = 'comment-post';
 
         //MODIFICARE LA INTEGRARE
-        userName.innerHTML = allComments[i].student;
-        commData.innerHTML = new Date(allComments[i].date).toLocaleString();
-        commentPost.innerHTML = allComments[i].message;
+        userName.innerText = allComments[i].student;
+        commData.innerText = new Date(allComments[i].date).toLocaleString();
+        commentPost.innerText = allComments[i].message;
 
         userMetaComment.appendChild(userName);
         userMetaComment.appendChild(commData);
@@ -286,7 +288,7 @@ async function onPublishComm(e) {
     e.preventDefault();
 
     var commentText = document.getElementById("comment-text").value;
-    const problemId = problemIdElement.innerHTML;
+    const problemId = problemIdElement.innerText;
     var payload = {
         message: commentText,
         problem_id: problemId
@@ -312,3 +314,5 @@ async function onPublishComm(e) {
 guard();
 await getNextProblem();
 await refreshComments();
+
+
