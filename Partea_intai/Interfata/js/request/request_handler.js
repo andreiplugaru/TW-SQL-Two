@@ -62,4 +62,22 @@ export async function sendJwtFetchRequestWithoutBody(URL, METHOD, jwt) {
   return await fetch(URL, options);
 }
 
+export async function sendJwtFetchRequestSendFile(URL, METHOD, payload, jwt) {
+  const headers = {
+    'Content-Type': 'multipart/form-data',
+    'Authorization': `Bearer ${jwt}`
+  };
+
+  const options = {
+    method: METHOD,
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: headers,
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+    body: payload
+  };
+  return await fetch(URL, options);
+}
 

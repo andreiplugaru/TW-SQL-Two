@@ -24,21 +24,20 @@ async function getUsersTableInfo(){
 
 function displayUsersTableInfo(data){
     //primesc {username, pbRezolvate, nrMediuIncercari}
-    //ATENTIE LA INTEGRARE
     for(var i = 0; i < data.length; i++){
 
         const row = document.createElement('tr');
        
         const userCell = document.createElement('td');
-        userCell.innerHTML = data[i].username;
+        userCell.innerHTML = data[i].USERNAME;
         userCell.dataset.label='Utilizator';
     
         const problemsCell = document.createElement('td');
-        problemsCell.innerHTML = data[i].countProblems;
+        problemsCell.innerHTML = data[i].SOLVED;
         problemsCell.dataset.label = 'Probleme rezolvate';
 
         const attemptsCell = document.createElement('td');
-        attemptsCell.innerHTML = data[i].attempts;
+        attemptsCell.innerHTML = data[i].ATTEMPTS;
         attemptsCell.dataset.label = 'Nr mediu de incercari';
 
         row.appendChild(userCell);
@@ -74,7 +73,7 @@ function displayPbTableInfo(data){
        
         const linkCell = document.createElement('td');
         const anchor = document.createElement('a');
-        anchor.href = `problema_rezolvata.html?id=${data[i].ID_PROBLEM}`; 
+        anchor.href = `problema_rezolvata.html?id=${data[i].ID}`; 
         let text = data[i].REQUIREMENT.substr(0, 30);
         anchor.textContent = text;
         anchor.classList.add('pb');
@@ -84,11 +83,11 @@ function displayPbTableInfo(data){
         linkCell.dataset.label='Problema';
     
         const succededCell = document.createElement('td');
-        succededCell.innerHTML = data[i].succeded;
+        succededCell.innerHTML = data[i].SOLVED;
         succededCell.dataset.label = 'Incercari reusite';
 
         const attemptsCell = document.createElement('td');
-        attemptsCell.innerHTML = data[i].attempts;
+        attemptsCell.innerHTML = data[i].ATTEMPTS;
         attemptsCell.dataset.label = 'Nr mediu de incercari';
 
         row.appendChild(linkCell);
