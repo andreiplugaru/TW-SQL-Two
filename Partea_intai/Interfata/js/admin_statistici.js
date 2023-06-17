@@ -30,7 +30,7 @@ function displayUsersTableInfo(data){
         const row = document.createElement('tr');
        
         const userCell = document.createElement('td');
-        userCell.innerHTML = data[i].userName;
+        userCell.innerHTML = data[i].username;
         userCell.dataset.label='Utilizator';
     
         const problemsCell = document.createElement('td');

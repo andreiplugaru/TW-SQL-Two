@@ -45,11 +45,10 @@ function displayAccounts(data){
         deleteButton.style.border = 'none';
         deleteButton.style.borderRadius = '8px';
         deleteButton.style.cursor = 'pointer';
-        deleteButton.dataset.userId = data[i].idStud; //pt ca am asta aici
+        deleteButton.dataset.userId = data[i].id; //pt ca am asta aici
         buttonCell.appendChild(deleteButton);
         buttonCell.dataset.label = 'Actiune'
 
-        row.appendChild(idCell);
         row.appendChild(userCell);
         row.appendChild(emailCell);
         row.appendChild(buttonCell);
@@ -68,9 +67,9 @@ async function onDeleteRow(e){
     const deleteBtn = e.target;
     const studentId = deleteBtn.dataset.userId;
     
-    const request = await sendJwtFetchRequestWithoutBody(ADMIN_REMOVE_ACCOUNTS_ENDPOINT + "?studentId=" + studentId, 'DELETE', localStorage.getItem('jwt'))
+    const request = await sendJwtFetchRequestWithoutBody(ADMIN_REMOVE_ACCOUNTS_ENDPOINT + "?userId=" + studentId, 'DELETE', localStorage.getItem('jwt'))
     const status = request.status;
-    if(status === 200){
+    if(status === 204){
         resetTable();
         getAccounts();
     }else{

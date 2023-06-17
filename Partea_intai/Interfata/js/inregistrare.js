@@ -32,7 +32,7 @@ function onRegister(e) {
     request.onreadystatechange = (e) => {
         if (request.readyState === XMLHttpRequest.DONE) {
             const status = request.status;
-            const response = JSON.parse(request.response); //daca s-a creat user-ul, nu primesc raspuns??
+            
 
             if (status === 201) {
                 //user creat
@@ -42,6 +42,7 @@ function onRegister(e) {
                 //gestiune redirectionare catre home in functie de rol
                 window.location.assign("../index.html");
             } else {
+                const response = JSON.parse(request.response); 
                 errorTextElement.innerHTML = response.message;
             }
         }
