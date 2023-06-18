@@ -308,7 +308,7 @@ BEGIN
 --    DBMS_OUTPUT.PUT_LINE('-------------------------------------------------------');
 --    DBMS_OUTPUT.PUT_LINE(problema_urmatoare(4));
     DBMS_OUTPUT.PUT_LINE('-------------------------------------------------------');
-    DBMS_OUTPUT.PUT_LINE(problema_urmatoare(8));
+    DBMS_OUTPUT.PUT_LINE(problema_urmatoare(71));
     DBMS_OUTPUT.PUT_LINE('-------------------------------------------------------');
 END;
 
