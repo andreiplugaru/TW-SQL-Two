@@ -112,7 +112,10 @@ class UserRepository {
     }
 
     async findAllInfo() {
-        const query = `SELECT u.USERNAME as USERNAME, COUNT(a.id) as ATTEMPTS, COUNT(sp.id_student) as SOLVED  FROM students JOIN users u ON students.id_user = u.id LEFT JOIN SOLVED_PROBLEMS sp ON students.id_user = sp.id_student LEFT JOIN ATTEMPTS a ON a.id_student = students.id_user GROUP BY u.USERNAME ORDER BY SOLVED DESC`
+        const query = `
+SELECT u.USERNAME as USERNAME, (select COUNT(1) FROM (select * from attempts where id_student = students.id_user)) as ATTEMPTS, (select COUNT(1) FROM (select distinct id_student, id_problem from SOLVED_PROBLEMS where id_student = students.id_user)) as SOLVED  
+FROM students  JOIN users u ON students.id_user = u.id 
+ORDER BY SOLVED DESC`
         return await db.executeQuery(query, {})
     }
 
