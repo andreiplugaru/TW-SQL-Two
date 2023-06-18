@@ -29,16 +29,23 @@ const routes = ({
             request.on('data', (chunk) => {
                 body.push(chunk);
             }).on('end', async () => {
-                const requestBody = JSON.parse(body);
-                let comment = new Comment(null, studentId, requestBody.message, null, requestBody.problem_id)
-                await commentService.create(comment)
-            })
-            response.writeHead(201, DEFAULT_HEADER)
+                try {
+                    const requestBody = JSON.parse(body);
+                    let comment = new Comment(null, studentId, requestBody.message, null, requestBody.problem_id)
+                    await commentService.create(comment)
+                    response.writeHead(201, DEFAULT_HEADER)
+                    response.end()
+                }catch (err) {
+                    errorHandler(err, response)
+                    response.end()
 
+                }
+            })
         } catch (err) {
-            // errorHandler(err, response)
+             errorHandler(err, response)
+            response.end()
+
         }
-        response.end()
     }
 })
 

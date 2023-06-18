@@ -31,9 +31,9 @@ const routes = ({
             try {
                 let userId = await AuthenticationUtil.checkToken(userService, request)
                 const requestBody = JSON.parse(body);
-                if (!requestBody.password || !requestBody.email)
+                if (!requestBody.password || !requestBody.email || !requestBody.firstName || !requestBody.lastName)
                     throw new InvalidRequestBodyException()
-                user = new StudentRegisterDto(requestBody.username, requestBody.firstName, requestBody.lastName, requestBody.email, requestBody.password)
+                user = new StudentRegisterDto('', requestBody.firstName, requestBody.lastName, requestBody.email, requestBody.password)
                 await userService.updateUser(userId, user)
                 response.writeHead(204, DEFAULT_HEADER)
             } catch (err) {

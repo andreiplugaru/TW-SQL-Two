@@ -440,7 +440,7 @@ paths:
     get:
       tags:
         - Problems
-      description: Auto generated using Swagger Inspector
+      description: 
       parameters:
         - name: count
           in: query
@@ -454,7 +454,7 @@ paths:
           example: SUBINTEROGARI CORELATE
       responses:
         '200':
-          description: Auto generated using Swagger Inspector
+          description: 
           content:
             application/json:
               schema:
@@ -466,8 +466,467 @@ paths:
                     [{"comments":[{"message":"test","username":"admin"}],"requirement":"Afisati
                     cursurile care au cel mai mare numar de credite din fiecare
                     an (pot exista si mai multe pe an)."}]
+  /api/v1/auth/login:
+    post:
+      tags:
+        - Auth
+      description: 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                username:
+                  type: string
+            examples:
+              '0':
+                value: |-
+                  {
+                      "username":"andreinou",
+                      "password":"Parolamaea1!"
+                  }
+              '1':
+                value: |-
+                  {
+                      "username":"usernou",
+                      "password":"Parolamea1!"
+                  }
+      responses:
+        '200':
+          description: 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  role:
+                    type: string
+                  token:
+                    type: string
+                  username:
+                    type: string
+              examples:
+                '0':
+                  value: >-
+                    {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJub3UiLCJpYXQiOjE2ODcwODI1MTEsImV4cCI6MTY4NzA4OTcxMX0.1zr3QP_lVMbS_m7WPviv8109ekn5qdrYPpyjad-y7Tg","username":"usernou","role":"STUDENT"}
+        '401':
+          description: 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                '0':
+                  value: '{"message":"Datele de autentificare sunt incorecte"}'
+      servers:
+        - url: http://localhost:3000
+    servers:
+      - url: http://localhost:3000
+  /api/v1/admin/problems:
+    get:
+      tags:
+        - Admin
+      description:
+      security:
+        - BearerAuth: [ ]
+      responses:
+        '200':
+          description: 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: { }
+              examples:
+                '0':
+                  value: >-
+                    [{"ID":126,"REQUIREMENT":"cerinta mea
+                    frumoasa","SOLVED":1,"ATTEMPTS":1},{"ID":25,"REQUIREMENT":"cerinta25","SOLVED":1,"ATTEMPTS":1},{"ID":44,"REQUIREMENT":"cerinta44","SOLVED":1,"ATTEMPTS":1},{"ID":27,"REQUIREMENT":"cerinta27","SOLVED":1,"ATTEMPTS":1},{"ID":88,"REQUIREMENT":"cerinta88","SOLVED":2,"ATTEMPTS":2},{"ID":45,"REQUIREMENT":"cerinta45","SOLVED":1,"ATTEMPTS":1},{"ID":67,"REQUIREMENT":"cerinta67","SOLVED":3,"ATTEMPTS":3},{"ID":89,"REQUIREMENT":"cerinta89","SOLVED":2,"ATTEMPTS":2},{"ID":47,"REQUIREMENT":"cerinta47","SOLVED":1,"ATTEMPTS":1},{"ID":76,"REQUIREMENT":"cerinta76","SOLVED":2,"ATTEMPTS":2}]
+      servers:
+        - url: http://localhost:3000
+    servers:
+      - url: http://localhost:3000
+  /api/v1/auth/register:
+    post:
+      tags:
+        - Auth
+      description: 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                password:
+                  type: string
+                email:
+                  type: string
+                username:
+                  type: string
+            examples:
+              '0':
+                value: |-
+                  {
+                      "username":"andreinou",
+                      "password":"Parolamea1!",
+                      "firstName":"Andrei",
+                      "lastName":"Plugaru",
+                      "email":"andrei.plugaru2001@gmail.com"
+                  }
+              '1':
+                value: |-
+                  {
+                      "username":"andreinou",
+                      "password":"Parolamea1!",
+                      "firstName":"Andrei",
+                      "lastName":"Plugaru",
+                      "email":"andrei.plugaru@gmail.com"
+                  }
+      responses:
+        '201':
+          description: 
+        '400':
+          description: 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                '0':
+                  value: '{"message":"Username andreinou is already taken"}'
+      servers:
+        - url: http://localhost:3000
+    servers:
+      - url: http://localhost:3000
+  /api/v1/admin/users:
+    get:
+      tags:
+        - Admin
+      description:
+      security:
+        - BearerAuth: [ ]
+      responses:
+        '200':
+          description: 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: { }
+              examples:
+                '0':
+                  value: >-
+                    [{"USERNAME":"usernou","ATTEMPTS":7,"SOLVED":5},{"USERNAME":"alexaP","ATTEMPTS":0,"SOLVED":4},{"USERNAME":"aleexa","ATTEMPTS":6,"SOLVED":3},{"USERNAME":"ali","ATTEMPTS":2,"SOLVED":2},{"USERNAME":"andra","ATTEMPTS":0,"SOLVED":0},{"USERNAME":"user","ATTEMPTS":0,"SOLVED":0},{"USERNAME":"test1","ATTEMPTS":0,"SOLVED":0}]
+  /api/v1/students:
+    get:
+      tags:
+        - Users
+      description:
+      security:
+        - BearerAuth: [ ]
+      responses:
+        '200':
+          description: 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  firstName:
+                    type: string
+                  lastName:
+                    type: string
+                  solvedProblems:
+                    type: integer
+                  markedProblems:
+                    type: integer
+                  proposedProblems:
+                    type: integer
+                  email:
+                    type: string
+                  username:
+                    type: string
+              examples:
+                '0':
+                  value: >-
+                    {"firstName":"user","lastName":"user","email":"andrei.plugaru2s001@gmail.com","username":"usernou","solvedProblems":5,"markedProblems":4,"proposedProblems":2}
+      servers:
+        - url: http://localhost:3000
+    servers:
+      - url: http://localhost:3000
+    /api/v1/users:
+      get:
+        tags:
+          - Users
+        description:
+        security:
+          - BearerAuth: [ ]
+        responses:
+          '200':
+            description: 
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    firstName:
+                      type: string
+                    lastName:
+                      type: string
+                    email:
+                      type: string
+                    username:
+                      type: string
+                examples:
+                  '0':
+                    value: >-
+                      {"firstName":"Andrei1","lastName":"Plugaru1","email":"andrei.nou@gmail.com","username":"usernou"}
+        servers:
+          - url: http://localhost:3000
+      delete:
+        description: 
+        parameters:
+          - name: userId
+            in: query
+            schema:
+              type: string
+            example: '10'
+        responses:
+          '204':
+            description: 
+        servers:
+          - url: http://localhost:3000
+      servers:
+        - url: http://localhost:3000
+    /api/v1/problems/interesting:
+      get:
+        tags:
+          - Problems
+        description: 
+        parameters:
+          - name: count
+            in: query
+            schema:
+              type: string
+            example: '10'
+          - name: category
+            in: query
+            schema:
+              type: string
+            example: SUBINTEROGARI CORELATE
+        responses:
+          '200':
+            description: 
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties: { }
+                examples:
+                  '0':
+                    value: >-
+                      [{"comments":[{"message":"test","username":"admin"}],"requirement":"Afisati
+                      cursurile care au cel mai mare numar de credite din fiecare
+                      an (pot exista si mai multe pe an)."}]
+        servers:
+          - url: http://localhost:3000
+      servers:
+        - url: http://localhost:3000
+    /api/v1/users/all:
+      get:
+        tags:
+          - Users
+        description:
+        security:
+          - BearerAuth: [ ]
+        responses:
+          '200':
+            description: 
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties: { }
+                examples:
+                  '0':
+                    value: >-
+                      [{"id":69,"username":"admin","email":"andrei.plugarsu2001@gmail.com"},{"id":30,"username":"andra","email":"andra3@yahoo.com"},{"id":51,"username":"ali","email":"palalexandra333@yahoo.com"},{"id":10,"username":"test1","email":"test@gmail.com"},{"id":49,"username":"user","email":"andrei.plugaru2001@gmail.com"},{"id":50,"username":"usernou","email":"andrei.nou@gmail.com"},{"id":52,"username":"aleexa","email":"palalexandra3333@yahoo.com"},{"id":70,"username":"andreinou","email":"andrei.plugaru@gmail.com"},{"id":7,"username":"alexaP","email":"palalexandra33@yahoo.com"}]
+          '403':
+            description: 
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                examples:
+                  '0':
+                    value: '{"message":"This action is forbidden"}'
         default:
           description: aaa
+        servers:
+          - url: http://localhost:3000
+      servers:
+        - url: http://localhost:3000
+  /api/v1/users:
+    patch:
+      tags:
+        - Users
+      description:
+      security:
+        - BearerAuth: [ ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                password:
+                  type: string
+                email:
+                  type: string
+                username:
+                  type: string
+            examples:
+              '0':
+                value: |-
+                  {
+                      "username":"andreinou",
+                      "firstName":"Andrei1",
+                      "lastName": "Plugaru1",
+                      "password":"Parolanoua1!",
+                      "email":"andrei.nou@gmail.com"
+                  }
+      responses:
+        '204':
+          description: 
+      servers:
+        - url: http://localhost:3000
+    servers:
+      - url: http://localhost:3000
+  /api/v1/comments:
+    get:
+      tags:
+        - Comments
+      description:
+      parameters:
+        - name: problemId
+          in: query
+          schema:
+            type: string
+          example: '100'
+      responses:
+        '200':
+          description: 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: { }
+              examples:
+                '0':
+                  value: >-
+                    [{"id":130,"student":"admin","message":"test","date":"2023-06-17T21:00:00.000Z","problemId":287}]
+        '404':
+          description: 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                '0':
+                  value: '{"message":"Problem with id 100 not found"}'
+    post:
+      tags:
+        - Comments
+      description:
+      security:
+          - BearerAuth: [ ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                problem_id:
+                  type: integer
+                message:
+                  type: string
+            examples:
+              '0':
+                value: |-
+                  {
+                     "problem_id":100,
+                     "message":"mesaj din open api"
+                  }
+              '1':
+                value: |-
+                  {
+                     "problem_id":287,
+                     "message":"mesaj din open api"
+                  }
+      responses:
+        '201':
+          description: 
+        '404':
+          description: 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                '0':
+                  value: '{"message":"Problem with id 100 not found"}'
+      servers:
+        - url: http://localhost:3000
+    servers:
+      - url: http://localhost:3000
+  /api/v1/categories:
+    get:
+      tags:
+        - Categories
+      description:
+      responses:
+        '200':
+          description: 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: { }
+              examples:
+                '0':
+                  value: >-
+                    [{"ID":1,"NAME":"JOIN"},{"ID":2,"NAME":"GROUP
+                    BY"},{"ID":3,"NAME":"ORDER
+                    BY"},{"ID":21,"NAME":"SUBINTEROGARI"},{"ID":4,"NAME":"DISTINCT"},{"ID":5,"NAME":"INTEROGARI"},{"ID":6,"NAME":"WHERE"},{"ID":7,"NAME":"LIKE"},{"ID":8,"NAME":"TRIM"},{"ID":9,"NAME":"MONTHS_BETWEEN"},{"ID":10,"NAME":"CONCAT"},{"ID":11,"NAME":"LPAD"},{"ID":12,"NAME":"RPAD"},{"ID":13,"NAME":"DECODE"},{"ID":14,"NAME":"TRANSLATE"},{"ID":15,"NAME":"LEFT
+                    OUTER
+                    JOIN"},{"ID":16,"NAME":"SUM"},{"ID":17,"NAME":"AVG"},{"ID":18,"NAME":"HAVING"},{"ID":19,"NAME":"ROWNUM"},{"ID":20,"NAME":"SUBINTEROGARI
+                    CORELATE"}]
       servers:
         - url: http://localhost:3000
     servers:
