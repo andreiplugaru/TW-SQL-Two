@@ -175,6 +175,9 @@ document.getElementById('mark-wrong-link').addEventListener('click', async funct
     if (status === 201) {
         //mai pot marca atunci iau urm pb
         await getNextProblem();
+        problemSolutionElement.value = '';
+        problemSolutionElement.innerText = '';
+
     } else if (status === 401) {
         //afisez ca nu mai poate marca probleme drept gredite
         divMessageElementWrongLimit.removeAttribute('hidden');
