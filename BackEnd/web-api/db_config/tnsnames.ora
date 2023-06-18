@@ -1,8 +1,0 @@
-sqltwodb_high = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.eu-paris-1.oraclecloud.com))(connect_data=(service_name=g38bfaa0689ce89_sqltwodb_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
-
-sqltwodb_low = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.eu-paris-1.oraclecloud.com))(connect_data=(service_name=g38bfaa0689ce89_sqltwodb_low.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
-
-sqltwodb_medium = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.eu-paris-1.oraclecloud.com))(connect_data=(service_name=g38bfaa0689ce89_sqltwodb_medium.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
-
-
-

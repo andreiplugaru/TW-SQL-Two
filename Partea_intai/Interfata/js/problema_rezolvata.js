@@ -59,10 +59,8 @@ async function displayComments() {
     const allComments = await getAllComments();
 
     const exceptElement = document.getElementsByClassName('comment-box')[0];
-    console.log('exceptElement' + exceptElement);
     for (var i = commentsContainerElement.childNodes.length - 1; i >= 0; i--) {
         var child = commentsContainerElement.childNodes[i];
-        console.log(child);
         if (child !== exceptElement) {
             commentsContainerElement.removeChild(child);
         }

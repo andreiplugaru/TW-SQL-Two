@@ -1,6 +1,5 @@
 const xml2js = require('xml2js');
 const UnknownFormatException = require('../exceptions/UnknownFormatException.js')
-const {js2xml} = require("xml-js");
 
 function exportProblems(problems, format) {
     if (format === 'json') return exportToJSON(problems)

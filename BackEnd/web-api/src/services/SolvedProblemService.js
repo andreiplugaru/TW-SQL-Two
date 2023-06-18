@@ -17,12 +17,11 @@ class SolvedProblemService {
     }
 
     async save(solvedProblem) {
-        //TODO: INSERT in attempts
         let problem = await this.problemService.findById(solvedProblem.idProblem)
         await this.studentService.findById(solvedProblem.idStudent)
         await this.problemService.saveToAttempts(solvedProblem.idProblem, solvedProblem.idStudent)
-        let result = (await this.solvedProblemRepository.checkIfProblemIsCorrect(solvedProblem.solution, problem.solution))[0].RESULT
-        if (result === 'false')
+        let result = (await this.solvedProblemRepository.checkIfProblemIsCorrect(problem.solution, solvedProblem.solution))[0].RESULT
+        if (result === 'false' || result === 'FALSE')
             throw new SolutionNotCorrectException()
         await this.solvedProblemRepository.save(solvedProblem)
     }
@@ -30,7 +29,7 @@ class SolvedProblemService {
     async findSolvedProblemsByStudentId(id) {
         await this.studentService.findById(id)
         let problems = await this.solvedProblemRepository.findSolvedProblemsByStudentId(id)
-        for(let problem of problems){
+        for (let problem of problems) {
             delete problem.SOLUTION
         }
         return problems
@@ -42,11 +41,18 @@ class SolvedProblemService {
     }
 
     async getInfoAboutProblem(studentId, problemId, isAdmin) {
-        if(!isAdmin)
+        if (!isAdmin)
             if (await this.solvedProblemRepository.checkIfProblemIsSolved(studentId, problemId) !== true && await this.problemService.checkIfProblemIsProposed(problemId, studentId) !== true && await this.problemService.checkIfProblemIsMarked(problemId, studentId) !== true)
                 throw new ForbiddenException()
         return await this.problemService.findById(problemId)
+    }
 
+    async checkIfSolutionIsCorrect(problemId, solution) {
+        let problem = await this.problemService.findById(problemId)
+        let correctSolution = problem.solution
+        let result = (await this.solvedProblemRepository.checkIfProblemIsCorrect(correctSolution,solution))[0].RESULT
+        if (result === 'false' || result === 'FALSE')
+            throw new SolutionNotCorrectException()
     }
 }
 

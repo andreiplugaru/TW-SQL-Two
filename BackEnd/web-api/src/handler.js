@@ -15,7 +15,7 @@ const UserRoute = require('./routes/UserRoute.js')
 const CategoryRoute = require('./routes/CategoryRoute.js')
 const AdminRoute = require('./routes/AdminRoute.js')
 fs = require('fs');
-var path = require('path');
+const path = require('path');
 const solvedProblemService = solvedProblemFactory.generateInstance()
 const difficultyService = difficultyFactory.generateInstance()
 
@@ -37,12 +37,12 @@ const categoryRoutes = CategoryRoute({categoryService})
 const adminRoutes = AdminRoute({userService, problemService})
 const allRoutes = {
     '/dist:get': (request, response) => {
-        var filePath = '.' + request.url;
-        if (filePath == './api/v1/dist')
+        let filePath = '.' + request.url;
+        if (filePath === './api/v1/dist')
             filePath = './dist/index.html';
 
-        var extName = path.extname(filePath);
-        var contentType = 'text/html';
+        const extName = path.extname(filePath);
+        let contentType = 'text/html';
         switch (extName) {
             case '.js':
                 contentType = 'text/javascript';
@@ -53,16 +53,21 @@ const allRoutes = {
         }
 
         filePath = filePath.substring(filePath.indexOf("/dist"))
-        filePath = "." + filePath
-        fs.readFile(filePath, function (error, content) {
-            if (error) {
-                response.writeHead(500, DEFAULT_HEADER)
-                response.end();
-            } else {
-                response.writeHead(200, {'Content-Type': contentType});
-                response.end(content, 'utf-8');
-            }
-        });
+        filePath = "./src" + filePath
+        try {
+            fs.readFile(filePath, function (error, content) {
+                if (error) {
+                    response.writeHead(500, DEFAULT_HEADER)
+                    response.end();
+                } else {
+                    response.writeHead(200, {'Content-Type': contentType});
+                    response.end(content, 'utf-8');
+                }
+            });
+        } catch (e) {
+            response.writeHead(500, DEFAULT_HEADER)
+            response.end();
+        }
     },
     ...adminRoutes,
     ...categoryRoutes,

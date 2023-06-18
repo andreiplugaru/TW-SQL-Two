@@ -931,6 +931,47 @@ paths:
         - url: http://localhost:3000
     servers:
       - url: http://localhost:3000
+  /api/v1/problems/checker:
+    post:
+      tags:
+          - Problems
+      description:
+      security:
+        - BearerAuth: [ ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                solution:
+                  type: string
+                problemId:
+                  type: integer
+            examples:
+              '0':
+                value: |-
+                  {
+                      "problemId":284,
+                      "solution":"select * from studenti s1 where not exists (select 'bd' from studenti s2 where s1.nr_matricol != s2.nr_matricol and s1.grupa = s2.grupa and s1.an = s2.an)"
+                  }
+      responses:
+        '200':
+          description:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                '0':
+                  value: '{"message":"Your solution is correct"}'
+      servers:
+        - url: http://localhost:3000
+    servers:
+      - url: http://localhost:3000
 components:
   securitySchemes:
     BearerAuth:

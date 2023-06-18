@@ -12,6 +12,7 @@ const ForbiddenException = require("../exceptions/ForbiddenException");
 const {parseRequestBody, getBoundary} = require("../util/FileUploadUtil.js")
 const {exportProblems} = require("../util/ExportUtil.js")
 const {convertToJson} = require("../util/ImportUtil");
+const Comment = require("../entities/Comment");
 const routes = ({
                     userService, solvedProblemService, problemService,
                 }) => ({
@@ -303,6 +304,32 @@ const routes = ({
             response.writeHead(200, DEFAULT_HEADER)
             response.write(JSON.stringify(problems))
             response.end()
+        } catch (err) {
+            errorHandler(err, response)
+            response.end()
+        }
+    },
+    '/api/v1/problems/checker:post': async (request, response) => {
+        try {
+            let body = [];
+            await AuthenticationUtil.checkToken(userService, request)
+            request.on('data', (chunk) => {
+                body.push(chunk);
+            }).on('end', async () => {
+                try {
+                    const requestBody = JSON.parse(body);
+                    if(!requestBody.solution || !requestBody.problemId)
+                        throw new InvalidRequestBodyException()
+                    await solvedProblemService.checkIfSolutionIsCorrect(requestBody.problemId, requestBody.solution)
+                    response.writeHead(200, DEFAULT_HEADER)
+                    response.write(JSON.stringify({message: "Your solution is correct"}))
+                    response.end()
+                }catch (err) {
+                    errorHandler(err, response)
+                    response.end()
+
+                }
+            })
         } catch (err) {
             errorHandler(err, response)
             response.end()

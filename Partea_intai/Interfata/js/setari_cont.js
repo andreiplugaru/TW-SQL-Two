@@ -2,7 +2,7 @@ import { USER_SETTINGS_ENDPOINT, USER_PROFILE_INFO_ENDPOINT } from "./endpoints.
 import { sendJwtFetchRequest, sendJwtFetchRequestWithoutBody } from "./request/request_handler.js"
 
 
-function guard(){
+function guard() {
     if (localStorage.getItem('jwt') === null) {
         window.open("login.html", "_self");
     }
@@ -11,21 +11,21 @@ function guard(){
 //TO DO: ADMIN NU ARE SETTINGS
 
 var menuLinks = document.getElementById('nav-links');
-menuLinks.innerText = ''; 
+menuLinks.innerText = '';
 var logoLink = document.querySelector('.logo a');
 
-function manageMenu(){
+function manageMenu() {
 
     var userRole = localStorage.getItem('role');
 
-    if(userRole === 'STUDENT'){
+    if (userRole === 'STUDENT') {
         //link-uri pt student
         logoLink.href = 'elev_home.html';
         createLink('help.html', 'Help');
         createLink('profil_elev.html', 'Profil');
         createLink('elev_home.html', 'Acasa');
         createLink('login.html', 'Delogare');
-    }else if(userRole === 'ADMIN'){
+    } else if (userRole === 'ADMIN') {
         logoLink.href = 'administare.html';
         //link-uri admin NU ESTE TESTAT
         createLink('help.html', 'Help');
@@ -41,7 +41,7 @@ function createLink(href, text) {
     a.textContent = text;
     li.appendChild(a);
     menuLinks.appendChild(li);
-  }
+}
 
 
 const settingsForm = document.getElementById('settings-form');
@@ -52,25 +52,24 @@ const errorTextElement = document.getElementById('error-text');
 const passwordInput = document.getElementById('password');
 const passwordRepeatInput = document.getElementById('password_repeat');
 
-async function onUpdate(e){
+async function onUpdate(e) {
     e.preventDefault();
 
     const currentTarget = e.currentTarget;
     const payload = Object.fromEntries(new FormData(currentTarget));
-    console.log(payload);
     //validari parole
     if (passwordInput.value !== passwordRepeatInput.value) {
         errorTextElement.innerText = 'Parolele nu coincid!';
         return;
     }
     const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
-    if(!passwordRegex.test(passwordInput.value)){
+    if (!passwordRegex.test(passwordInput.value)) {
         errorTextElement.innerText = 'Parola trebuie sa contina cel putin 8 caractere, dintre care: 1 cifra, 1 litera mare, 1 caracter special!';
         return;
     }
 
 
-     const request = await sendJwtFetchRequest(USER_SETTINGS_ENDPOINT, "PATCH", payload, localStorage.getItem('jwt'));
+    const request = await sendJwtFetchRequest(USER_SETTINGS_ENDPOINT, "PATCH", payload, localStorage.getItem('jwt'));
     let status = request.status;
     if (status === 204) {
         //gestiune redirectionare catre home in functie de rol
@@ -88,20 +87,21 @@ async function onUpdate(e){
 }
 
 
-async function getUsername(){
-    
+async function getUsername() {
+
     errorTextElement.innerText = '';
     let info;
     await sendJwtFetchRequestWithoutBody(USER_PROFILE_INFO_ENDPOINT, 'GET', localStorage.getItem('jwt'))
         .then(response => response.json())
-        .then(data => { info = data 
-                        document.getElementById('username').value = info.username;
-                        document.getElementById('first-name').value = info.firstName;
-                        document.getElementById('last-name').value = info.lastName;    
-                        document.getElementById('email').value = info.email;    
+        .then(data => {
+            info = data
+            document.getElementById('username').value = info.username;
+            document.getElementById('first-name').value = info.firstName;
+            document.getElementById('last-name').value = info.lastName;
+            document.getElementById('email').value = info.email;
 
-   
-                    });
+
+        });
 }
 
 

@@ -30,6 +30,7 @@ problemForm.addEventListener('submit', onSendSolution);
 async function onSendSolution(e) {
     e.preventDefault();
     const solution = document.getElementById('problem-solution');
+    divMessageElement.setAttribute('hidden', 'hidden');
     const solutionValue = solution.textContent;
     const problemId = problemIdElement.innerText;
 
@@ -243,10 +244,8 @@ async function refreshComments() {
 
     const allComments = await getAllComments();
     const exceptElement = document.getElementsByClassName('comment-box')[0];
-    console.log('exceptElement' + exceptElement);
     for (var i = commentsContainerElement.childNodes.length - 1; i >= 0; i--) {
         var child = commentsContainerElement.childNodes[i];
-        console.log(child);
         if (child !== exceptElement) {
             commentsContainerElement.removeChild(child);
         }
