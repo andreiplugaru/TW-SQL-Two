@@ -39,6 +39,7 @@ function displayPbTableInfo(data) {
         const anchor = document.createElement('a');
         anchor.href = `problema_rezolvata.html?id=${data[i].ID}`;
         let text = data[i].REQUIREMENT.substr(0, 30);
+        text = text + '...';
         anchor.textContent = text;
         anchor.classList.add('pb');
         anchor.id = 'admin_pb';
@@ -130,6 +131,7 @@ function displayWrongPbTableInfo(data) {
         const anchor = document.createElement('a');
         anchor.href = `problema_rezolvata.html?id=${data[i].ID}`;
         let text = data[i].REQUIREMENT.substr(0, 30);
+        text = text + '...';
         anchor.textContent = text;
         anchor.classList.add('pb');
         anchor.id = 'wrong_pb';

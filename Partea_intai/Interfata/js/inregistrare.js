@@ -35,11 +35,6 @@ function onRegister(e) {
             
 
             if (status === 201) {
-                //user creat
-                // localStorage.setItem('jwt', response.token);
-                // localStorage.setItem('role', response.role);
-
-                //gestiune redirectionare catre home in functie de rol
                 window.location.assign("../index.html");
             } else {
                 const response = JSON.parse(request.response); 

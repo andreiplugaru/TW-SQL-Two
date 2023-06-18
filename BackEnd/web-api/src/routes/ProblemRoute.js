@@ -35,6 +35,7 @@ const routes = ({
             try {
                 let studentId = await AuthenticationUtil.checkToken(userService, request)
                 const requestBody = JSON.parse(body); // Assuming the request body is in JSON format
+                requestBody.solution = requestBody.solution.replace(/\u00a0/g, "");
                 const solvedProblemDto = new ProblemSolvedReceivedDto(studentId, requestBody.id_problem, requestBody.solution)
                 await solvedProblemService.save(solvedProblemDto)
                 response.writeHead(201, DEFAULT_HEADER)

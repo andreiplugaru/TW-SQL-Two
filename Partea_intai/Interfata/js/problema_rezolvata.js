@@ -26,7 +26,6 @@ async function getProblemInfo() {
 }
 
 function displayInfo(data) {
-    //ATENTIE LA INTEGRARE
     let problemRequirment = data.requirement;
     let problemCategory = data.category;
     let problemSolution = data.solution;

@@ -1,5 +1,5 @@
 import { STUDENT_PROBLEMS_STATISTICS_ENDPOINT } from "./endpoints.js";
-import { sendJwtFetchRequest, sendJwtFetchRequestWithoutBody } from "./request/request_handler.js"
+import {  sendJwtFetchRequestWithoutBody } from "./request/request_handler.js"
 
 function guard() {
     if (localStorage.getItem('jwt') === null || localStorage.getItem('role') !== 'STUDENT') {
@@ -21,7 +21,6 @@ async function getTableInfo(){
 
 function displayTableInfo(data){
     //primesc {idPb, cerintaPb, nrIncercariReusite, nrMediuIncercari}
-    //ATENTIE LA INTEGRARE
     for(var i = 0; i < data.length; i++){
 
         const row = document.createElement('tr');

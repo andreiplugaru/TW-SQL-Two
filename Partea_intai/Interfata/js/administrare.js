@@ -1,5 +1,5 @@
 import { ADMIN_ACCOUNTS_ENDPOINT, ADMIN_REMOVE_ACCOUNTS_ENDPOINT } from "./endpoints.js";
-import { sendJwtFetchRequest, sendJwtFetchRequestWithoutBody } from "./request/request_handler.js"
+import {  sendJwtFetchRequestWithoutBody } from "./request/request_handler.js"
 
 
 
@@ -25,7 +25,6 @@ async function getAccounts(){
 
 function displayAccounts(data){
     //primesc {idStud, userNameStud, emailStud}
-    //ATENTIE LA INTEGRARE
     for(var i = 0; i < data.length; i++){
 
         const row = document.createElement('tr');
@@ -45,7 +44,7 @@ function displayAccounts(data){
         deleteButton.style.border = 'none';
         deleteButton.style.borderRadius = '8px';
         deleteButton.style.cursor = 'pointer';
-        deleteButton.dataset.userId = data[i].id; //pt ca am asta aici
+        deleteButton.dataset.userId = data[i].id; 
         buttonCell.appendChild(deleteButton);
         buttonCell.dataset.label = 'Actiune'
 

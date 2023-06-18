@@ -69,6 +69,7 @@ async function getResolvedProblems() {
         const anchor = document.createElement('a');
         anchor.href = `problema_rezolvata.html?id=${problems[i].ID_PROBLEM}`;
         let text = problems[i].REQUIREMENT.substr(0, 30);
+        text = text + '...';
         anchor.textContent = text;
         anchor.classList.add('pb');
         anchor.id = 'resolved_pb';
@@ -114,6 +115,7 @@ async function getMarkedProblems() {
         const anchor = document.createElement('a');
         anchor.href = `problema_rezolvata.html?id=${problems[i].ID_PROBLEM}`; //IDKKK, MAYBE: problema_rezolvata.html/${problemsId[i]}
         let text = problems[i].REQUIREMENT.substr(0, 30);
+        text = text + '...';
 
         anchor.textContent = text;
         anchor.classList.add('pb');
@@ -157,8 +159,9 @@ async function getSuggestedProblems() {
         const cell = document.createElement('td');
         //imi formez ancora
         const anchor = document.createElement('a');
-        anchor.href = `problema_rezolvata.html?id=${problems[i].ID_PROBLEM}`; //IDKKK, MAYBE: problema_rezolvata.html/${problemsId[i]}
+        anchor.href = `problema_rezolvata.html?id=${problems[i].ID_PROBLEM}`; 
         let text = problems[i].REQUIREMENT.substr(0, 30);
+        text = text + '...';
 
         anchor.textContent = text;
         anchor.classList.add('pb');

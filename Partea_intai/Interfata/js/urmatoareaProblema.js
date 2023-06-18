@@ -31,8 +31,12 @@ async function onSendSolution(e) {
     e.preventDefault();
     const solution = document.getElementById('problem-solution');
     divMessageElement.setAttribute('hidden', 'hidden');
-    const solutionValue = solution.textContent;
+    let solutionValue = solution.textContent;
     const problemId = problemIdElement.innerText;
+
+    console.log(solutionValue);
+    solutionValue = solutionValue.replace(/(\r\n|\n|\r)/gm, "");
+    solutionValue = solutionValue.replace(/\&nbsp;/g, '');
 
     var payload = {
         solution: solutionValue,

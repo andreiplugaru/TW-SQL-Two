@@ -4,6 +4,10 @@ SELECT * FROM users;
 SELECT * FROM students;
 SELECT * FROM admins;
 SELECT * FROM problems;
+
+
+
+
 SELECT * FROM problem_categories;
 SELECT * FROM problem_difficulties;
 SELECT * FROM map_problem_difficulty;

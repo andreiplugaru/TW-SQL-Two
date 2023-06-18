@@ -8,7 +8,7 @@ function guard() {
     }
 }
 
-//TO DO: ADMIN NU ARE SETTINGS
+
 
 var menuLinks = document.getElementById('nav-links');
 menuLinks.innerText = '';
@@ -75,7 +75,6 @@ async function onUpdate(e) {
         //gestiune redirectionare catre home in functie de rol
         if (localStorage.getItem('role') === 'STUDENT') {
             window.location.assign("./elev_home.html");
-            //console.log('am reusit');
         } else {
             window.location.assign("./administrare.html");
         }

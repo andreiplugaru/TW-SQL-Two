@@ -34,7 +34,6 @@ async function getCategories(){
 
     const request = await sendJwtFetchRequestWithoutBody(CATEGORIES_PROBLEM_ENDPOINT, 'GET', localStorage.getItem('jwt'));
     const response = await request.json();
-    //console.log(response);
     for(var i=0; i<response.length; i++){
         
         const optionElement = document.createElement('option');

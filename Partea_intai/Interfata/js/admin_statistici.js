@@ -23,7 +23,6 @@ async function getUsersTableInfo(){
 }
 
 function displayUsersTableInfo(data){
-    //primesc {username, pbRezolvate, nrMediuIncercari}
     for(var i = 0; i < data.length; i++){
 
         const row = document.createElement('tr');
@@ -65,8 +64,7 @@ async function getPbTableInfo(){
 }
 
 function displayPbTableInfo(data){
-    //primesc {idPb, cerinta, incercariReusite, nrMediuIncercari}
-    //ATENTIE LA INTEGRARE LA INK-UL PROBLEMEI: eroare, spuneai ceva ca validezi pentru student
+
     for(var i = 0; i < data.length; i++){
 
         const row = document.createElement('tr');
@@ -75,6 +73,8 @@ function displayPbTableInfo(data){
         const anchor = document.createElement('a');
         anchor.href = `problema_rezolvata.html?id=${data[i].ID}`; 
         let text = data[i].REQUIREMENT.substr(0, 30);
+        text = text + '...';
+
         anchor.textContent = text;
         anchor.classList.add('pb');
         anchor.id = 'admin_pb';
