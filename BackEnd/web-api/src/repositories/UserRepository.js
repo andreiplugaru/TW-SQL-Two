@@ -55,7 +55,19 @@ class UserRepository {
     async checkIfEmailExists(studentRegisterDto) {
         let query = `SELECT * FROM ` + TABLE_NAME + ` WHERE EMAIL = :email`
         let bindParams = {
+            email: studentRegisterDto.email
+        }
+        const result = await db.executeQuery(query, bindParams)
+        if (result.length > 0) {
+            throw new EmailTakenException(studentRegisterDto.email);
+        }
+    }
+
+    async checkIfEmailExistsForOtherUser(userId, studentRegisterDto) {
+        let query = `SELECT * FROM ` + TABLE_NAME + ` WHERE EMAIL = :email and id != :userId`
+        let bindParams = {
             email: studentRegisterDto.email,
+            userId: userId
         }
         const result = await db.executeQuery(query, bindParams)
         if (result.length > 0) {
@@ -73,15 +85,40 @@ class UserRepository {
     }
 
     async updateUser(userId, userUpdateDto) {
-        let query = `UPDATE ` + TABLE_NAME + ` SET email = :email, password = :password WHERE id = :id`
+        await this.checkIfEmailExistsForOtherUser(userId, userUpdateDto)
+        let query = `UPDATE ` + TABLE_NAME + ` SET email = :email, firstName = :firstName, lastName = :lastName, password = :password WHERE id = :id`
         let bindParams = {
             id: userId,
             email: userUpdateDto.email,
-            password: userUpdateDto.password
+            password: userUpdateDto.password,
+            firstName: userUpdateDto.firstname,
+            lastName: userUpdateDto.lastname
         }
-        const result = await db.insertInTable(query, bindParams)
+        return await db.insertInTable(query, bindParams)
+    }
+
+    async getAllUsers() {
+        let query = `SELECT * FROM ` + TABLE_NAME
+        const result = await db.executeQuery(query, {})
         return result
     }
+
+    async deleteUser(userId) {
+        let query = `DELETE FROM ` + TABLE_NAME + ` WHERE id = :id`
+        let bindParams = {
+            id: userId
+        }
+        return await db.insertInTable(query, bindParams)
+    }
+
+    async findAllInfo() {
+        const query = `
+SELECT u.USERNAME as USERNAME, (select COUNT(1) FROM (select * from attempts where id_student = students.id_user)) as ATTEMPTS, (select COUNT(1) FROM (select distinct id_student, id_problem from SOLVED_PROBLEMS where id_student = students.id_user)) as SOLVED  
+FROM students  JOIN users u ON students.id_user = u.id 
+ORDER BY SOLVED DESC`
+        return await db.executeQuery(query, {})
+    }
+
 }
 
 module.exports = UserRepository;

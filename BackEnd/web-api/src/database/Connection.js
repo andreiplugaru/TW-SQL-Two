@@ -14,6 +14,7 @@ async function init() {
             poolAlias: 'default'
 
         });
+        console.log('Connection pool started');
     } catch (err) {
     }
 }
@@ -61,7 +62,28 @@ async function insertInTable(query, binds) {
         }
     }
 }
-
+async function insertManyInTable(query, binds) {
+    let connection;
+    try {
+        connection = await oracledb.getConnection('default');
+        const options = {outFormat: oracledb.OUT_FORMAT_OBJECT, autoCommit: true};
+        const result = await connection.executeMany(query, binds, options);
+        connection.commit();
+        return result.lastRowid
+    } catch (err) {
+        console.error(err);
+        const {errorNum} = err;
+        return `-${errorNum}`;
+    } finally {
+        if (connection) {
+            try {
+                await connection.close();
+            } catch (err) {
+                console.error(err);
+            }
+        }
+    }
+}
 async function executeQuery(query, binds) {
     let connection;
     try {
@@ -139,12 +161,13 @@ async function closePoolAndExit() {
 process
     .once('SIGTERM', closePoolAndExit)
     .once('SIGINT', closePoolAndExit);
+
 init();
 
 module.exports = {
     selectAllFromTable,
     insertInTable,
     executeQuery,
-    selectByIdFromTable,
+    insertManyInTable,
     executeQueryWithOutVar
 }

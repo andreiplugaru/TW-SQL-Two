@@ -1,5 +1,5 @@
 import { ADMIN_ACCOUNTS_ENDPOINT, ADMIN_REMOVE_ACCOUNTS_ENDPOINT } from "./endpoints.js";
-import { sendJwtFetchRequest, sendJwtFetchRequestWithoutBody } from "./request/request_handler.js"
+import {  sendJwtFetchRequestWithoutBody } from "./request/request_handler.js"
 
 
 
@@ -25,31 +25,29 @@ async function getAccounts(){
 
 function displayAccounts(data){
     //primesc {idStud, userNameStud, emailStud}
-    //ATENTIE LA INTEGRARE
     for(var i = 0; i < data.length; i++){
 
         const row = document.createElement('tr');
         
         const userCell = document.createElement('td');
-        userCell.innerHTML = data[i].username;
+        userCell.innerText = data[i].username;
         userCell.dataset.label='Utilizator';
 
         const emailCell = document.createElement('td');
-        emailCell.innerHTML = data[i].email;
+        emailCell.innerText = data[i].email;
         emailCell.dataset.label = 'E-mail';
 
         const buttonCell = document.createElement('td');
         const deleteButton = document.createElement('button');
-        deleteButton.innerHTML = 'STERGE';
+        deleteButton.innerText = 'STERGE';
         deleteButton.classList.add('btn');
         deleteButton.style.border = 'none';
         deleteButton.style.borderRadius = '8px';
         deleteButton.style.cursor = 'pointer';
-        deleteButton.dataset.userId = data[i].idStud; //pt ca am asta aici
+        deleteButton.dataset.userId = data[i].id; 
         buttonCell.appendChild(deleteButton);
         buttonCell.dataset.label = 'Actiune'
 
-        row.appendChild(idCell);
         row.appendChild(userCell);
         row.appendChild(emailCell);
         row.appendChild(buttonCell);
@@ -68,9 +66,9 @@ async function onDeleteRow(e){
     const deleteBtn = e.target;
     const studentId = deleteBtn.dataset.userId;
     
-    const request = await sendJwtFetchRequestWithoutBody(ADMIN_REMOVE_ACCOUNTS_ENDPOINT + "?studentId=" + studentId, 'DELETE', localStorage.getItem('jwt'))
+    const request = await sendJwtFetchRequestWithoutBody(ADMIN_REMOVE_ACCOUNTS_ENDPOINT + "?userId=" + studentId, 'DELETE', localStorage.getItem('jwt'))
     const status = request.status;
-    if(status === 200){
+    if(status === 204){
         resetTable();
         getAccounts();
     }else{

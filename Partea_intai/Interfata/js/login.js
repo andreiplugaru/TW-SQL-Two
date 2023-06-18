@@ -15,9 +15,8 @@ function onLogin(e) {
     const currentTarget = e.currentTarget;
 
     const payload = Object.fromEntries(new FormData(currentTarget));
-    //console.log(payload);
     const errorTextElement = document.getElementById('error-text');
-    errorTextElement.innerHTML = '';
+    errorTextElement.innerText = '';
 
     const request = sendRequest(LOGIN_ENDPOINT, "POST", payload);
     request.onreadystatechange = (e) => {
@@ -38,7 +37,7 @@ function onLogin(e) {
                     window.location.assign("./administrare.html");
                 }
             } else {
-                errorTextElement.innerHTML = response.message;
+                errorTextElement.innerText = response.message;
             }
         }
     }

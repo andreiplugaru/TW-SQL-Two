@@ -86,6 +86,40 @@ END;
 
 /
 
+
+
+
+--MAPARE DIFICULTATI PROBLEME
+
+DECLARE 
+    
+    CURSOR probleme IS
+        SELECT * FROM problems;
+    
+    v_id_difficulty map_problem_difficulty.id_difficulty%type;
+    v_id_problem problems.id%type;
+   
+BEGIN
+    
+    for v_linie_cursor in probleme loop
+        
+        v_id_problem := v_linie_cursor.id;
+        --BY DEFAULT O PROBLEMA ESTE CONSIDERATA USOARA, ULTERIOR I SE VA MODIFICA DIFICULTATEA LUAND IN CONSIDERARE MARKED_PROBLEMS
+        v_id_difficulty := 1;
+        INSERT INTO map_problem_difficulty VALUES (v_id_problem, v_id_difficulty);
+       
+    end loop;
+
+END;
+commit;
+/
+
+
+
+
+
+
+
 --INSERT INTO WRONG_PROBLEMS
 INSERT INTO wrong_problems VALUES (3, 11, 0);
 

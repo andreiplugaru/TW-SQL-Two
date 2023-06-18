@@ -42,7 +42,7 @@ class AuthenticationService {
     }
 
     async register(studentRegisterDto) {
-        if (studentRegisterDto.username === undefined || studentRegisterDto.username === null || studentRegisterDto.username === '' || studentRegisterDto.password === undefined || studentRegisterDto.password === null || studentRegisterDto.password === '') {
+        if (studentRegisterDto.username === undefined || studentRegisterDto.firstName === null || studentRegisterDto.lastName === '' || studentRegisterDto.password === undefined || studentRegisterDto.email === null) {
             throw new UnauthorizedException()
         }
         delete studentRegisterDto.repeatPassword;

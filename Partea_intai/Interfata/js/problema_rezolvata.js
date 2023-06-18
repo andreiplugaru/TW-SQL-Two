@@ -1,7 +1,7 @@
-import { RESOLVED_PROBLEM_ENDPOINT, COMMENTS_PROBLEM_ENDPOINT , PUBLISH_COMMENT_PROBLEM_ENDPOINT} from "./endpoints.js"
+import { RESOLVED_PROBLEM_ENDPOINT, COMMENTS_PROBLEM_ENDPOINT, PUBLISH_COMMENT_PROBLEM_ENDPOINT } from "./endpoints.js"
 import { sendJwtFetchRequestWithoutBody, sendJwtFetchRequest } from "./request/request_handler.js"
 
-function guard(){
+function guard() {
     if (localStorage.getItem('jwt') === null) {
         window.open("login.html", "_self");
     }
@@ -17,23 +17,22 @@ async function getProblemInfo() {
     var urlParams = new URLSearchParams(window.location.search);
     var idProblem = urlParams.get('id');
     let problem;
-    await sendJwtFetchRequestWithoutBody(RESOLVED_PROBLEM_ENDPOINT +  "?problemId=" + idProblem, 'GET', localStorage.getItem('jwt'))
+    await sendJwtFetchRequestWithoutBody(RESOLVED_PROBLEM_ENDPOINT + "?problemId=" + idProblem, 'GET', localStorage.getItem('jwt'))
         .then(response => response.json())
         .then(data => { problem = data });
 
-    
+
     displayInfo(problem);
 }
 
 function displayInfo(data) {
-    //ATENTIE LA INTEGRARE
     let problemRequirment = data.requirement;
     let problemCategory = data.category;
     let problemSolution = data.solution;
 
-    problemRequirmentElement.innerHTML = problemRequirment;
+    problemRequirmentElement.innerText = problemRequirment;
     problemCategoryElement.innerHTML = '<img src="../icons/label.svg" alt="Categorie" width="20" height="20">' + problemCategory;
-    problemSolutionElement.innerHTML = problemSolution;
+    problemSolutionElement.innerText = problemSolution;
 
 }
 
@@ -51,18 +50,16 @@ async function getAllComments() {
     await sendJwtFetchRequestWithoutBody(COMMENTS_PROBLEM_ENDPOINT + "?problemId=" + idProblem, 'GET', localStorage.getItem('jwt'))
         .then(response => response.json())
         .then(data => { comments.push(...data) });
-        
+
     return comments;
 }
 
-async function displayComments(){
+async function displayComments() {
     const allComments = await getAllComments();
 
     const exceptElement = document.getElementsByClassName('comment-box')[0];
-    console.log('exceptElement' + exceptElement);
     for (var i = commentsContainerElement.childNodes.length - 1; i >= 0; i--) {
         var child = commentsContainerElement.childNodes[i];
-        console.log(child);
         if (child !== exceptElement) {
             commentsContainerElement.removeChild(child);
         }
@@ -84,9 +81,9 @@ async function displayComments(){
         const commentPost = document.createElement('div');
         commentPost.className = 'comment-post';
 
-        userName.innerHTML = allComments[i].student;
-        commData.innerHTML = allComments[i].date;
-        commentPost.innerHTML = allComments[i].message;
+        userName.innerText = allComments[i].student;
+        commData.innerText = new Date(allComments[i].date).toLocaleString();
+        commentPost.innerText = allComments[i].message;
 
         userMetaComment.appendChild(userName);
         userMetaComment.appendChild(commData);
@@ -131,21 +128,21 @@ async function onPublishComm(e) {
 //MANAGE MENU
 
 var menuLinks = document.getElementById('nav-links');
-menuLinks.innerHTML = ''; 
+menuLinks.innerText = '';
 var logoLink = document.querySelector('.logo a');
 
-function manageMenu(){
+function manageMenu() {
 
     var userRole = localStorage.getItem('role');
 
-    if(userRole === 'STUDENT'){
+    if (userRole === 'STUDENT') {
         //link-uri pt student
         logoLink.href = 'elev_home.html';
         createLink('help.html', 'Help');
         createLink('profil_elev.html', 'Profil');
         createLink('elev_home.html', 'Acasa');
         createLink('login.html', 'Delogare');
-    }else if(userRole === 'ADMIN'){
+    } else if (userRole === 'ADMIN') {
         logoLink.href = 'administrare.html';
         console.log("vtm");
         //link-uri admin NU ESTE TESTAT
@@ -162,7 +159,7 @@ function createLink(href, text) {
     a.textContent = text;
     li.appendChild(a);
     menuLinks.appendChild(li);
-  }
+}
 
 guard();
 manageMenu();

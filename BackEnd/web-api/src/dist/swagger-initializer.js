@@ -5,7 +5,7 @@ if (typeof window !== 'undefined') {
 
     // the following lines will be replaced by docker/configurator, when it runs in a docker-container
     window.ui = SwaggerUIBundle({
-      url: "dist/api-doc.yaml",
+      url: "./dist/api-doc.yaml",
       dom_id: '#swagger-ui',
       deepLinking: true,
       presets: [

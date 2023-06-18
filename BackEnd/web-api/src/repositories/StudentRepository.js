@@ -24,6 +24,8 @@ class StudentRepository {
         }
         return await db.insertInTable(query, binds)
     }
+
+
 }
 
 module.exports = StudentRepository

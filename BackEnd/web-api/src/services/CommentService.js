@@ -10,6 +10,7 @@ class CommentService {
     }
 
     async create(comment) {
+        await this.problemService.findById(comment.problemId)
         return await this.commentRepository.create(comment);
     }
 

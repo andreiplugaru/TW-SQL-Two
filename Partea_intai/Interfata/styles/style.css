@@ -17,6 +17,17 @@ body {
 
 }
 
+#img-parent{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#tabele{
+	padding: 1em;
+	align-self: center;
+}
+
 .container {
 	position: relative;
 	display: flex;

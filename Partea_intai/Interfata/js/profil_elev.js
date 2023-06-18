@@ -40,12 +40,12 @@ function displayInfo(data) {
     let countMarkedPb = data.markedProblems;
     let countSuggestedPb = data.proposedProblems;
 
-    nameElement.innerHTML = firstName + " " + lastName;
-    usernameElement.innerHTML = "Utilizator: " + username;
-    emailElement.innerHTML = "E-mail: " + email;
-    countResolvedPbElement.innerHTML = "Probleme rezolvate: " + countResolvedPb;
-    countMarkedPbElement.innerHTML = "Probleme marcate: " + countMarkedPb;
-    countSuggestedPbElement.innerHTML = "Probleme propuse: " + countSuggestedPb;
+    nameElement.innerText = firstName + " " + lastName;
+    usernameElement.innerText = "Utilizator: " + username;
+    emailElement.innerText = "E-mail: " + email;
+    countResolvedPbElement.innerText = "Probleme rezolvate: " + countResolvedPb;
+    countMarkedPbElement.innerText = "Probleme marcate: " + countMarkedPb;
+    countSuggestedPbElement.innerText = "Probleme propuse: " + countSuggestedPb;
 
 }
 
@@ -67,8 +67,9 @@ async function getResolvedProblems() {
         const cell = document.createElement('td');
         //imi formez ancora
         const anchor = document.createElement('a');
-        anchor.href = `problema_rezolvata.html?id=${problems[i].ID_PROBLEM}`; //IDKKK, MAYBE: problema_rezolvata.html/${problemsId[i]}
+        anchor.href = `problema_rezolvata.html?id=${problems[i].ID_PROBLEM}`;
         let text = problems[i].REQUIREMENT.substr(0, 30);
+        text = text + '...';
         anchor.textContent = text;
         anchor.classList.add('pb');
         anchor.id = 'resolved_pb';
@@ -114,6 +115,7 @@ async function getMarkedProblems() {
         const anchor = document.createElement('a');
         anchor.href = `problema_rezolvata.html?id=${problems[i].ID_PROBLEM}`; //IDKKK, MAYBE: problema_rezolvata.html/${problemsId[i]}
         let text = problems[i].REQUIREMENT.substr(0, 30);
+        text = text + '...';
 
         anchor.textContent = text;
         anchor.classList.add('pb');
@@ -157,8 +159,9 @@ async function getSuggestedProblems() {
         const cell = document.createElement('td');
         //imi formez ancora
         const anchor = document.createElement('a');
-        anchor.href = `problema_rezolvata.html?id=${problems[i].ID_PROBLEM}`; //IDKKK, MAYBE: problema_rezolvata.html/${problemsId[i]}
+        anchor.href = `problema_rezolvata.html?id=${problems[i].ID_PROBLEM}`; 
         let text = problems[i].REQUIREMENT.substr(0, 30);
+        text = text + '...';
 
         anchor.textContent = text;
         anchor.classList.add('pb');

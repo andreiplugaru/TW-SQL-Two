@@ -1,4 +1,5 @@
 const StudentNotFoundException = require('../exceptions/StudentNotFoundException.js')
+const UserResponseDto = require("../dtos/UserResponseDto");
 class StudentService {
     constructor({
         studentRepository, userService
@@ -30,6 +31,26 @@ class StudentService {
         let createdUser = await this.userService.getByRowId(rowId)
         await this.studentRepository.createStudent(createdUser[0].ID)
     }
+
+    async findStudentInfoById(id) {
+        let user = await this.userService.findById(id)
+        let userInfo = new UserResponseDto()
+        userInfo.firstName = user[0].FIRSTNAME
+        userInfo.lastName = user[0].LASTNAME
+        userInfo.email = user[0].EMAIL
+        userInfo.username = user[0].USERNAME
+
+        let problems = await this.userService.solvedProblemService.findSolvedProblemsByStudentId(id)
+        userInfo.solvedProblems = problems.length
+
+        let markedProblems = await this.userService.problemService.findMarkedDifficultyProblemsByStudentId(id)
+        userInfo.markedProblems = markedProblems.length
+
+        let proposedProblems = await this.userService.problemService.findProposedProblemsByStudentId(id)
+        userInfo.proposedProblems = proposedProblems.length
+        return userInfo;
+    }
+
 }
 
 module.exports = StudentService
