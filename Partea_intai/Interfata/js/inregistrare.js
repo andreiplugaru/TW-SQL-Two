@@ -6,7 +6,7 @@ const registerForm = document.getElementById('register-form');
 registerForm.addEventListener('submit', onRegister);
 
 const errorTextElement = document.getElementById('error-text');
-errorTextElement.innerHTML = '';
+errorTextElement.innerText = '';
 
 function onRegister(e) {
 
@@ -16,13 +16,13 @@ function onRegister(e) {
 
     let payload = Object.fromEntries(new FormData(currentTarget));
     if (payload.password !== payload.repeatPassword) {
-        errorTextElement.innerHTML = "Parolele nu coincid";
+        errorTextElement.innerText = "Parolele nu coincid";
         return;
     }
 
     const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
     if(!passwordRegex.test(payload.password)){
-        errorTextElement.innerHTML = 'Parola trebuie sa contina cel putin 8 caractere, dintre care: 1 cifra, 1 litera mare, 1 caracter special!';
+        errorTextElement.innerText = 'Parola trebuie sa contina cel putin 8 caractere, dintre care: 1 cifra, 1 litera mare, 1 caracter special!';
         return;
     }
     
@@ -32,17 +32,13 @@ function onRegister(e) {
     request.onreadystatechange = (e) => {
         if (request.readyState === XMLHttpRequest.DONE) {
             const status = request.status;
-            const response = JSON.parse(request.response);
+            
 
             if (status === 201) {
-                //user creat
-                // localStorage.setItem('jwt', response.token);
-                // localStorage.setItem('role', response.role);
-
-                //gestiune redirectionare catre home in functie de rol
                 window.location.assign("../index.html");
             } else {
-                errorTextElement.innerHTML = response.message;
+                const response = JSON.parse(request.response); 
+                errorTextElement.innerText = response.message;
             }
         }
     }

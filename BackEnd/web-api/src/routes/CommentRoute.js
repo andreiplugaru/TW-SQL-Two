@@ -1,4 +1,4 @@
-const DEFAULT_HEADER = require('../util/util.js');
+const {DEFAULT_HEADER, errorHandler} = require('../util/util.js');
 const url = require("url");
 const querystring = require("querystring");
 const Comment = require("../entities/Comment.js");
@@ -29,17 +29,22 @@ const routes = ({
             request.on('data', (chunk) => {
                 body.push(chunk);
             }).on('end', async () => {
-                const requestBody = JSON.parse(body);
-                let comment = new Comment(null, studentId, requestBody.message, null, requestBody.problem_id)
-                await commentService.create(comment)
-            })
-            response.writeHead(201, DEFAULT_HEADER)
+                try {
+                    const requestBody = JSON.parse(body);
+                    let comment = new Comment(null, studentId, requestBody.message, null, requestBody.problem_id)
+                    await commentService.create(comment)
+                    response.writeHead(201, DEFAULT_HEADER)
+                    response.end()
+                }catch (err) {
+                    errorHandler(err, response)
+                    response.end()
 
+                }
+            })
         } catch (err) {
-            //   response.writeHead(err.errorCode, DEFAULT_HEADER)
-            response.write(JSON.stringify({'message': err.message}))
+             errorHandler(err, response)
+            response.end()
         }
-        response.end()
     }
 })
 

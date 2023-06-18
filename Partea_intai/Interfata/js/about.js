@@ -1,5 +1,5 @@
 var menuLinks = document.getElementById('nav-links');
-menuLinks.innerHTML = ''; 
+menuLinks.innerText = ''; 
 var logoLink = document.querySelector('.logo a');
 
 function manageMenu(){

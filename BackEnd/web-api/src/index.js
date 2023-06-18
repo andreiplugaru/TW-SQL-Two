@@ -1,9 +1,7 @@
 const http = require('node:http')
 const dotenv = require('dotenv');
 dotenv.config();
-console.log(dotenv.config());
-var Handler = require('./handler')
-
+const Handler = require('./handler')
 
 const PORT = process.env.PORT || 3000
 http.createServer((req, response) => Handler.handler(req, response))

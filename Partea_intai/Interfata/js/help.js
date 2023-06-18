@@ -1,9 +1,8 @@
-//n-am nevoie de guard pe logare, trebuie doar gestionat meniul
 
 
 var menuLinks = document.getElementById('nav-links');
 var logoLink = document.querySelector('.logo a');
-menuLinks.innerHTML = ''; 
+menuLinks.innerText = ''; 
 
 function manageMenu(){
 
@@ -29,7 +28,6 @@ function manageMenu(){
         createLink('help.html', 'Help');
         createLink('login.html', 'Logare');
         createLink('inregistrare.html', 'Inregistrare');
-        //createLink('../index.html', 'Pagina principala');
     }
 
 }

@@ -38,20 +38,19 @@
                             <div class="overlay">
                                 <div class="text">Marcare problema gresita</div>
                             </div>
-                            <div class="error-text centered" id="error-text"></div>
                         </div>
                     </a>
-                    <!-- <div class="dropdown">
-                        <button class="dropbtn">Selectare dificultate</button>
-                        <div class="dropdown-content">
-                            <a href="#">Usoara</a>
-                            <a href="#">Medie</a>
-                            <a href="#">Grea</a>
-                        </div>
-                    </div> -->
+                    <div class="wrong-limit" id="wrong-limit">
+                        <div id="wrong-limit-message-wrapper"><div id="wrong-limit-message"> Nu mai poti marca probleme drept gresite, ai depasit limita. Vei putea marca, dupa ce primesti drepturi de la admin.</div></div>
+                    </div>
+             
                 </div>
             </div>
-
+            
+            <div  id="message" >
+                    <div id="message-text-for-solution"></div>
+            </div>
+            
             <div class="container-item" id="problem-forms">
 
                 <div class="category" id="problem-category">
@@ -64,49 +63,17 @@
 
                     <span class="textarea" id="problem-solution" role="textbox" spellcheck="false" contenteditable
                         autofocus></span>
-                    <div class="error-text centered" id="error-text-solution"></div>
                     <input type="submit" class="btn-submit" value="Trimite solutia">
 
 
                 </form>
-                <!-- <form action="creare_problema.html">
-                    <button class="next-problem" id="next-problem-id">Problema urmatoare[apare doar daca a fost rezolvata
-                        corect]</button>
-                </form> -->
+                
             </div>
             <div class="container-item">
                 <div class="comments-title"> Comentarii</div>
                 <hr>
                 <div class="comments" id="problem-comments">
-                    <!-- <div class="post-comment">
-                        <div class="list">
-                            <div class="user">
-                                <div class="user-meta">
-                                    <div class="name">Andrei</div>
-                                    <div class="date">10.04.203</div>
-                                </div>
-                            </div>
-                            <div class="comment-post">
-                                Lorem ipsumempora
-                                eveniet
-                                saepe minus at exercitationem iste nam amet..lorem lo
-                            </div>
-                        </div>
-                        <div class="list">
-                            <div class="user">
-                                <div class="user-meta">
-                                    <div class="name">Andrei</div>
-                                    <div class="date">10.04.203</div>
-                                </div>
-                            </div>
-                            <div class="comment-post">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, incidunt porro dolore
-                                repellendus labore recusandae veniam illo dolorum explicabo, aspernatur non tempora
-                                eveniet
-                                saepe minus at exercitationem iste nam amet.
-                            </div>
-                        </div>
-                    </div> -->
+                    
                     <div class="comment-box">
                         <form action="#" id="publish-comm">
                             <textarea name="comment" id="comment-text" cols="30"

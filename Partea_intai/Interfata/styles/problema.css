@@ -1,5 +1,4 @@
 form {
-    display: grid;
     padding: 1em;
     grid-gap: 1em;
 }
@@ -125,6 +124,42 @@ form .btn-submit {
 .wrong_problem:hover .overlay {
     bottom: 0;
     height: 100%;
+}
+
+
+#message {
+
+    align-items: center;
+    border-radius: 5px;
+}
+
+#message-text-for-solution {
+
+    padding: 7px;
+    font-size: 18px;
+    color: #fafafb;
+}
+
+.wrong-limit {
+
+    align-items: center;
+}
+
+#wrong-limit-message-wrapper {
+
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#wrong-limit-message {
+
+    padding: 7px;
+    font-size: 15px;
+    color: #fafafb;
+    background-color: #e12b2b;
+    border-radius: 5px;
 }
 
 .text {
@@ -297,4 +332,3 @@ form .btn-submit {
     background: #0266a4;
 
 }
-

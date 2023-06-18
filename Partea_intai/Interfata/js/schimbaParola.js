@@ -11,7 +11,6 @@ function onSendMail(e){
 
     const currentTarget = e.currentTarget;
 
-     //SCHIMBAM IN HTML EMAIL IN LOCUL UTILIZATOR??
     const payload = Object.fromEntries(new FormData(currentTarget));
 
     const request = sendRequest(RECOVERY_PASS_ENDPOINT,"POST", payload);
