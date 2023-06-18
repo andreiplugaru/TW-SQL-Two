@@ -1,7 +1,7 @@
-import { RESOLVED_PROBLEM_ENDPOINT, COMMENTS_PROBLEM_ENDPOINT , PUBLISH_COMMENT_PROBLEM_ENDPOINT} from "./endpoints.js"
+import { RESOLVED_PROBLEM_ENDPOINT, COMMENTS_PROBLEM_ENDPOINT, PUBLISH_COMMENT_PROBLEM_ENDPOINT } from "./endpoints.js"
 import { sendJwtFetchRequestWithoutBody, sendJwtFetchRequest } from "./request/request_handler.js"
 
-function guard(){
+function guard() {
     if (localStorage.getItem('jwt') === null) {
         window.open("login.html", "_self");
     }
@@ -17,11 +17,11 @@ async function getProblemInfo() {
     var urlParams = new URLSearchParams(window.location.search);
     var idProblem = urlParams.get('id');
     let problem;
-    await sendJwtFetchRequestWithoutBody(RESOLVED_PROBLEM_ENDPOINT +  "?problemId=" + idProblem, 'GET', localStorage.getItem('jwt'))
+    await sendJwtFetchRequestWithoutBody(RESOLVED_PROBLEM_ENDPOINT + "?problemId=" + idProblem, 'GET', localStorage.getItem('jwt'))
         .then(response => response.json())
         .then(data => { problem = data });
 
-    
+
     displayInfo(problem);
 }
 
@@ -51,11 +51,11 @@ async function getAllComments() {
     await sendJwtFetchRequestWithoutBody(COMMENTS_PROBLEM_ENDPOINT + "?problemId=" + idProblem, 'GET', localStorage.getItem('jwt'))
         .then(response => response.json())
         .then(data => { comments.push(...data) });
-        
+
     return comments;
 }
 
-async function displayComments(){
+async function displayComments() {
     const allComments = await getAllComments();
 
     const exceptElement = document.getElementsByClassName('comment-box')[0];
@@ -85,7 +85,7 @@ async function displayComments(){
         commentPost.className = 'comment-post';
 
         userName.innerText = allComments[i].student;
-        commData.innerText = allComments[i].date;
+        commData.innerText = new Date(allComments[i].date).toLocaleString();
         commentPost.innerText = allComments[i].message;
 
         userMetaComment.appendChild(userName);
@@ -131,21 +131,21 @@ async function onPublishComm(e) {
 //MANAGE MENU
 
 var menuLinks = document.getElementById('nav-links');
-menuLinks.innerText = ''; 
+menuLinks.innerText = '';
 var logoLink = document.querySelector('.logo a');
 
-function manageMenu(){
+function manageMenu() {
 
     var userRole = localStorage.getItem('role');
 
-    if(userRole === 'STUDENT'){
+    if (userRole === 'STUDENT') {
         //link-uri pt student
         logoLink.href = 'elev_home.html';
         createLink('help.html', 'Help');
         createLink('profil_elev.html', 'Profil');
         createLink('elev_home.html', 'Acasa');
         createLink('login.html', 'Delogare');
-    }else if(userRole === 'ADMIN'){
+    } else if (userRole === 'ADMIN') {
         logoLink.href = 'administrare.html';
         console.log("vtm");
         //link-uri admin NU ESTE TESTAT
@@ -162,7 +162,7 @@ function createLink(href, text) {
     a.textContent = text;
     li.appendChild(a);
     menuLinks.appendChild(li);
-  }
+}
 
 guard();
 manageMenu();

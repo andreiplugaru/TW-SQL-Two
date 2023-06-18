@@ -1,78 +1,46 @@
 openapi: 3.0.1
 info:
-  title: SQL TWO
-  description: SQL TWO
-  version: '1'
+  title: SQL-TWO
+  description: Api specifications for SQL-TWO
+  version: '0.1'
 servers:
   - url: http://localhost:3000
 paths:
-  /api/v1/problems:
-    get:
-      description: Auto generated using Swagger Inspector
+  /api/v1/problems/difficulty/marker:
+    post:
+      tags:
+        - Problems
+      description: 
+      security:
+        - BearerAuth: [ ]
       parameters:
+        - name: difficulty
+          in: query
+          schema:
+            type: string
+          example: GREA
         - name: problemId
           in: query
           schema:
             type: string
-          example: '1'
+          example: '127'
       responses:
         '200':
-          description: Auto generated using Swagger Inspector
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  problem:
-                    type: object
-                    properties:
-                      solution:
-                        type: string
-                      id:
-                        type: integer
-                      requirement:
-                        type: string
-                      idCategory:
-                        type: integer
-              examples:
-                '0':
-                  value: >-
-                    {"problem":{"id":1,"requirement":"cerinta1","solution":"solutie1","idCategory":2}}
+          description:
       servers:
         - url: http://localhost:3000
     servers:
       - url: http://localhost:3000
-  /api/v1/problems/solved:
+  /api/v1/problems/statistics:
     get:
-      parameters:
-        - name: studentId
-          in: query
-          required: false
-          type: string
-          x-example: '6'
+      tags:
+        - Problems
+      description: 
+      security:
+        - BearerAuth: [ ]
       responses:
         '200':
-          description: Definition generated from Swagger Inspector
-          schema:
-            type: string
-    post:
-      description: Auto generated using Swagger Inspector
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                id_problem:
-                  type: integer
-                id_student:
-                  type: integer
-            examples:
-              '0':
-                value: "{\r\n    \"id_problem\":15,\r\n    \"id_student\":6\r\n}"
-      responses:
-        '400':
-          description: Auto generated using Swagger Inspector
+          description: 
           content:
             application/json:
               schema:
@@ -80,23 +48,333 @@ paths:
                 properties: {}
               examples:
                 '0':
-                  value: '"Student 6 should not solve problem 15"'
+                  value: >-
+                    [{"ID_PROBLEM":288,"REQUIREMENT":"cerinta
+                    mea","ATTEMPTS":0,"SOLVED":0},{"ID_PROBLEM":289,"REQUIREMENT":"cerinta","ATTEMPTS":0,"SOLVED":0}]
+        '403':
+          description: 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                '0':
+                  value: '{"message":"This action is forbidden"}'
+      servers:
+        - url: http://localhost:3000
+    servers:
+      - url: http://localhost:3000
+  /api/v1/problems/proposed:
+    get:
+      tags:
+        - Problems
+      description: 
+      security:
+        - BearerAuth: [ ]
+      responses:
+        '200':
+          description: 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                '0':
+                  value: >-
+                    [{"ID_USER":50,"ID_PROBLEM":288,"AT_TIME":"2023-06-17T20:55:53.000Z","ID":288,"REQUIREMENT":"cerinta
+                    mea","SOLUTION":"rezolvarea mea","ID_CATEGORY":7}]
+                '1':
+                  value: '[]'
+      servers:
+        - url: http://localhost:3000
+    servers:
+      - url: http://localhost:3000
+  /api/v1/problems:
+    delete:
+      tags:
+        - Problems
+      description: 
+      security:
+        - BearerAuth: [ ]
+      parameters:
+        - name: problemId
+          in: query
+          schema:
+            type: string
+          example: '127'
+      responses:
+        '204':
+          description: 
+      servers:
+        - url: http://localhost:3000
+    servers:
+      - url: http://localhost:3000
+  /api/v1/problems/solved:
+    get:
+      tags:
+        - Problems
+      description: 
+      security:
+        - BearerAuth: [ ]
+      responses:
+        '200':
+          description: 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                '0':
+                  value: >-
+                    [{"ID_STUDENT":50,"ID_PROBLEM":44,"AT_TIME":"2023-06-17T12:29:00.000Z","ID":44,"REQUIREMENT":"cerinta44","ID_CATEGORY":3}]
+      servers:
+        - url: http://localhost:3000
+    post:
+      tags:
+        - Problems
+      description: 
+      security:
+        - BearerAuth: [ ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                solution:
+                  type: string
+                id_problem:
+                  type: integer
+            examples:
+              '0':
+                value: |-
+                  {
+                      "id_problem": 126,
+                      "solution":"Select * from studenti"
+                  }
+      responses:
+        '201':
+          description: 
+      servers:
+        - url: http://localhost:3000
+    servers:
+      - url: http://localhost:3000
+  /api/v1/problems/export:
+    get:
+      tags:
+        - Problems
+      description: 
+      security:
+        - BearerAuth: [ ]
+      parameters:
+        - name: format
+          in: query
+          schema:
+            type: string
+          example: xml
+      responses:
+        '200':
+          description: 
+        '403':
+          description: 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                '0':
+                  value: '{"message":"This action is forbidden"}'
+      servers:
+        - url: http://localhost:3000
+    servers:
+      - url: http://localhost:3000
+  /api/v1/problems/all:
+    get:
+      tags:
+        - Problems
+      description: 
+      security:
+        - BearerAuth: [ ]
+      responses:
+        '200':
+          description: 
+        '403':
+          description: 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                '0':
+                  value: '{"message":"This action is forbidden"}'
+      servers:
+        - url: http://localhost:3000
+    servers:
+      - url: http://localhost:3000
+  /api/v1/problems/student/solved/info:
+    get:
+      tags:
+        - Problems
+      description: 
+      security:
+        - BearerAuth: [ ]
+      parameters:
+        - name: problemId
+          in: query
+          schema:
+            type: string
+          example: '127'
+      responses:
+        '200':
+          description: 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  solution:
+                    type: string
+                  id:
+                    type: integer
+                  requirement:
+                    type: string
+                  category:
+                    type: string
+              examples:
+                '0':
+                  value: >-
+                    {"id":127,"requirement":"werer","solution":"ewrer34","category":"GROUP
+                    BY"}
+        '403':
+          description: 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                '0':
+                  value: '{"message":"This action is forbidden"}'
+      servers:
+        - url: http://localhost:3000
+    servers:
+      - url: http://localhost:3000
+  /api/v1/problems/wrong:
+    get:
+      tags:
+        - Problems
+      description: 
+      security:
+        - BearerAuth: [ ]
+      responses:
+        '200':
+          description: 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                '0':
+                  value: >-
+                    [{"ID":51,"REQUIREMENT":"cerinta51"},{"ID":127,"REQUIREMENT":"werer"}]
+        '403':
+          description: 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                '0':
+                  value: '{"message":"This action is forbidden"}'
+      servers:
+        - url: http://localhost:3000
+    post:
+      tags:
+        - Problems
+      description: 
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: problemId
+          in: query
+          schema:
+            type: string
+          example: '127'
+      responses:
+        '201':
+          description: 
+        '403':
+          description: 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                '0':
+                  value: '{"message":"This action is forbidden"}'
+      servers:
+        - url: http://localhost:3000
+    delete:
+      tags:
+        - Problems
+      description: 
+      security:
+        - BearerAuth: [ ]
+      parameters:
+        - name: problemId
+          in: query
+          schema:
+            type: string
+          example: '51'
+      responses:
+        '204':
+          description: 
+        '403':
+          description: 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                '0':
+                  value: '{"message":"This action is forbidden"}'
       servers:
         - url: http://localhost:3000
     servers:
       - url: http://localhost:3000
   /api/v1/problems/next:
     get:
-      description: Auto generated using Swagger Inspector
-      parameters:
-        - name: studentId
-          in: query
-          schema:
-            type: string
-          example: '6'
+      tags:
+        - Problems
+      description: 
+      security:
+        - BearerAuth: [ ]
       responses:
         '200':
-          description: Auto generated using Swagger Inspector
+          description: 
           content:
             application/json:
               schema:
@@ -106,14 +384,96 @@ paths:
                     type: integer
                   requirement:
                     type: string
-                  idCategory:
-                    type: integer
+                  category:
+                    type: string
               examples:
                 '0':
-                  value: '{"id":4,"requirement":"cerinta4","idCategory":2}'
-                '1':
-                  value: '{"id":4,"requirement":"cerinta4","idCategory":2}'
+                  value: '{"id":47,"requirement":"cerinta47","category":"ORDER BY"}'
+        '403':
+          description: 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                '0':
+                  value: '{"message":"This action is forbidden"}'
+  /api/v1/problems/marked:
+    get:
+      tags:
+        - Problems
+      description: 
+      security:
+        - BearerAuth: [ ]
+      responses:
+        '200':
+          description: 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                '0':
+                  value: >-
+                    [{"ID_STUDENT":50,"ID_PROBLEM":44,"ID_DIFFICULTY":1,"ID":44,"REQUIREMENT":"cerinta44","SOLUTION":"select
+                    * from
+                    studenti","ID_CATEGORY":3},{"ID_STUDENT":50,"ID_PROBLEM":44,"ID_DIFFICULTY":3,"ID":44,"REQUIREMENT":"cerinta44","SOLUTION":"select
+                    * from
+                    studenti","ID_CATEGORY":3},{"ID_STUDENT":50,"ID_PROBLEM":127,"ID_DIFFICULTY":3,"ID":127,"REQUIREMENT":"werer","SOLUTION":"ewrer34","ID_CATEGORY":2},{"ID_STUDENT":50,"ID_PROBLEM":127,"ID_DIFFICULTY":3,"ID":127,"REQUIREMENT":"werer","SOLUTION":"ewrer34","ID_CATEGORY":2}]
+        '403':
+          description: 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                '0':
+                  value: '{"message":"This action is forbidden"}'
+  /api/v1/problems/interesting:
+    get:
+      tags:
+        - Problems
+      description: Auto generated using Swagger Inspector
+      parameters:
+        - name: count
+          in: query
+          schema:
+            type: string
+          example: '10'
+        - name: category
+          in: query
+          schema:
+            type: string
+          example: SUBINTEROGARI CORELATE
+      responses:
+        '200':
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: { }
+              examples:
+                '0':
+                  value: >-
+                    [{"comments":[{"message":"test","username":"admin"}],"requirement":"Afisati
+                    cursurile care au cel mai mare numar de credite din fiecare
+                    an (pot exista si mai multe pe an)."}]
+        default:
+          description: aaa
       servers:
         - url: http://localhost:3000
     servers:
       - url: http://localhost:3000
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer

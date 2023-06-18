@@ -29,7 +29,11 @@ class SolvedProblemService {
 
     async findSolvedProblemsByStudentId(id) {
         await this.studentService.findById(id)
-        return await this.solvedProblemRepository.findSolvedProblemsByStudentId(id)
+        let problems = await this.solvedProblemRepository.findSolvedProblemsByStudentId(id)
+        for(let problem of problems){
+            delete problem.SOLUTION
+        }
+        return problems
     }
 
     async checkIfProblemIsSolved(studentId, problemId) {
@@ -37,9 +41,10 @@ class SolvedProblemService {
         return await this.solvedProblemRepository.checkIfProblemIsSolved(studentId, problemId)
     }
 
-    async getInfoAboutProblem(studentId, problemId) {
-        if (await this.solvedProblemRepository.checkIfProblemIsSolved(studentId, problemId) !== true && await this.problemService.checkIfProblemIsProposed(problemId, studentId) !== true && await this.problemService.checkIfProblemIsMarked(problemId, studentId) !== true)
-            throw new ForbiddenException()
+    async getInfoAboutProblem(studentId, problemId, isAdmin) {
+        if(!isAdmin)
+            if (await this.solvedProblemRepository.checkIfProblemIsSolved(studentId, problemId) !== true && await this.problemService.checkIfProblemIsProposed(problemId, studentId) !== true && await this.problemService.checkIfProblemIsMarked(problemId, studentId) !== true)
+                throw new ForbiddenException()
         return await this.problemService.findById(problemId)
 
     }

@@ -5,6 +5,7 @@ const UnknownDifficultyException = require("../exceptions/UnknownDifficultyExcep
 const InvalidCategoryException = require("../exceptions/InvalidCategoryException.js");
 const ProblemWrongNotFoundException = require("../exceptions/ProblemWrongNotFoundException.js");
 const InvalidUploadFileException = require("../exceptions/InvalidUploadFileException.js");
+const TooManyWrongProblemException = require("../exceptions/TooManyWrongProblemExcpetion.js");
 
 class ProblemService {
     constructor({
@@ -39,12 +40,20 @@ class ProblemService {
         await this.findById(problemId)
         if (await this.checkIfProblemIsMarkedAsWrong(studentId, problemId))
             throw new ProblemMarkedWrongException()
+        let wrongProblems = await this.getNumberOfWrongProblemsMarkedByStudent(studentId)
+        if (wrongProblems[0]["NUMBER_OF_WRONG_PROBLEMS"] >= 5) {
+            throw new TooManyWrongProblemException()
+        }
         await this.problemRepository.markProblemAsWrong(studentId, problemId);
     }
 
     async checkIfProblemIsMarkedAsWrong(studentId, problemId) {
         let response = await this.problemRepository.checkIfProblemIsMarkedAsWrong(studentId, problemId);
         return response.length > 0;
+    }
+
+    async getNumberOfWrongProblemsMarkedByStudent(studentId) {
+        return await this.problemRepository.getNumberOfWrongProblemsMarkedByStudent(studentId);
     }
 
     async markProblemDifficulty(studentId, problemId, difficulty) {
@@ -127,6 +136,27 @@ class ProblemService {
 
     async findAllInfo() {
         return await this.problemRepository.findAllInfo()
+    }
+
+    async getInterestingProblems(category, count) {
+        let categoryFromDB = await this.categoryRepository.findByName(category)
+        if (categoryFromDB.length === 0)
+            throw new InvalidCategoryException(category)
+        let problemIds = await this.problemRepository.getInterestingProblems(categoryFromDB[0].ID, count)
+        let problems = await this.problemRepository.getInterestingProblemsInfo(problemIds)
+        const groupById =  problems.reduce((group, problem) => {
+            const ID = problem.ID;
+            group[ID] = group[ID] ?? {};
+            delete problem.ID
+            let comment = {}
+            comment.message = problem.MESSAGE
+            comment.username = problem.USERNAME
+            group[ID].comments = group[ID].comments ?? [];
+            group[ID].comments.push(comment);
+            group[ID].requirement = problem.REQUIREMENT
+            return group;
+        }, {});
+        return Array.from(new Map(Object.entries(groupById)).values())
     }
 
 }
