@@ -145,14 +145,18 @@ class ProblemService {
         let problemIds = await this.problemRepository.getInterestingProblems(categoryFromDB[0].ID, count)
         let problems = await this.problemRepository.getInterestingProblemsInfo(problemIds)
         const groupById =  problems.reduce((group, problem) => {
-            const REQUIREMENT = problem.REQUIREMENT;
-            group[REQUIREMENT] = group[REQUIREMENT] ?? [];
-            delete problem.REQUIREMENT
+            const ID = problem.ID;
+            group[ID] = group[ID] ?? {};
             delete problem.ID
-            group[REQUIREMENT].push(problem);
+            let comment = {}
+            comment.message = problem.MESSAGE
+            comment.username = problem.USERNAME
+            group[ID].comments = group[ID].comments ?? [];
+            group[ID].comments.push(comment);
+            group[ID].requirement = problem.REQUIREMENT
             return group;
         }, {});
-        return groupById
+        return Array.from(new Map(Object.entries(groupById)).values())
     }
 
 }

@@ -11,7 +11,6 @@ const InvalidRequestBodyException = require("../exceptions/InvalidRequestBodyExc
 const ForbiddenException = require("../exceptions/ForbiddenException");
 const {parseRequestBody, getBoundary} = require("../util/FileUploadUtil.js")
 const {exportProblems} = require("../util/ExportUtil.js")
-const {importProblems} = require("../util/ImportUtil.js")
 const {convertToJson} = require("../util/ImportUtil");
 const routes = ({
                     userService, solvedProblemService, problemService,

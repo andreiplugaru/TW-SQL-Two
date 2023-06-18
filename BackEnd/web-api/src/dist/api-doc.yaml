@@ -436,6 +436,36 @@ paths:
               examples:
                 '0':
                   value: '{"message":"This action is forbidden"}'
+  /api/v1/problems/interesting:
+    get:
+      tags:
+        - Problems
+      description: Auto generated using Swagger Inspector
+      parameters:
+        - name: count
+          in: query
+          schema:
+            type: string
+          example: '10'
+        - name: category
+          in: query
+          schema:
+            type: string
+          example: SUBINTEROGARI CORELATE
+      responses:
+        '200':
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: { }
+              examples:
+                '0':
+                  value: >-
+                    [{"comments":[{"message":"test","username":"admin"}],"requirement":"Afisati
+                    cursurile care au cel mai mare numar de credite din fiecare
+                    an (pot exista si mai multe pe an)."}]
         default:
           description: aaa
       servers:
