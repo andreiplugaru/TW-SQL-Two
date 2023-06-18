@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>SQL-Two(SQL Tutoring) Scholarly HTML Report</title>
+    <link rel="stylesheet" href="https://w3c.github.io/scholarly-html/css/scholarly.min.css">
+    <script src="https://w3c.github.io/scholarly-html/js/scholarly.min.js"></script>
+</head>
+
+<body>
+<header>
+    <h1>SQL-Two(SQL Tutoring) Raport - Scholarly HTML</h1>
+</header>
+
+<!--1.Introducere-->
+<section id="introduction" role="doc-introduction">
+    <h2>Introducere</h2>
+    Acest document contine o prezentare a apllicatiei web SQL-TWO, realizata de
+
+    <div itemscope itemtype="https://schema.org/Person">
+        <span itemprop="familyName">Plugaru</span>
+        <span itemprop="givenName">Andrei</span>
+        si
+        <span itemprop="familyName">Pal</span>
+        <span itemprop="givenName">Alexandra</span>
+        in cadrul disciplinei Tehnologii Web.
+    </div>
+
+    <section id="Document-conventions">
+        <h3>Conventii</h3>
+        <p>
+            Acest document a fost redactat luand in consideratie prevederile oferite de macheta
+            <a href="#ieee-template" property="sa:roleAction" resource="#note1" rel="footnote"> IEEE System
+                Requirements
+                Specification Template</a>
+        </p>
+    </section>
+    <section id="purpose">
+        <h3>Scopul produsului</h3>
+        <p>
+            Scopul aplicatiei este de a facilita invatarea limbajului SQL prin rezolvarea si crearea unor exercitii
+            aferente domeniului.
+        </p>
+    </section>
+    <section id="intended-audience">
+        <h3>Publicul tinta</h3>
+        <p>
+            Documentul este destinat persoanelor ce sunt in curs de invatare a limbajului SQL ce vor folosi
+            aplicatia SQL-TWO, precum si eventualilor dezvoltatori software care vor dori extinderea
+            functionalitatilor aplicatiei.
+        </p>
+    </section>
+
+</section>
+
+<!--2.Functionalitati-->
+<section id="functionalities">
+    <h2>Caracteristicile aplicatiei</h2>
+    <section id="users-functionalities">
+        <h2>Functionalitatile utilizatorilor</h2>
+        <p>
+            Functionalitatile aplicatiei sunt in functie de rol.
+        </p>
+        <section id="student-functionality">
+            <h3>Functionalitatile elevului</h3>
+            <ol>
+                <li>Crearea unui cont, logare</li>
+                <li>Modificarea datelor contului</li>
+                <li>Rezolvarea unor exercitii si marcarea lor</li>
+                <li>Adaugarea unor noi exercitii</li>
+                <li>Vizualizarea exercitiilor rezolvate si adaugate</li>
+                <li>Vizualizarea unor statistici despre exercitiile propuse</li>
+            </ol>
+        </section>
+        <section id="admin-functionality">
+            <h3>
+                Functionalitatile administratorului:
+            </h3>
+            <ol>
+                <li>Logare</li>
+                <li>Administrarea conturilor si a exercitiilor</li>
+                <li>Vizualizarea unor statistici despre toate exercitiile</li>
+                <li>Importarea si exportarea exercitiilor</li>
+            </ol>
+        </section>
+    </section>
+    <section id="implementation-details">
+        <h2>Detalii de implementare</h2>
+        <p>
+            In cadrul dezvoltarii interfetei s-a tinut cont de unele bune practici.
+            In primul rand, paginile sunt proiectate pentru a fi responsive.
+            De asemenea, paginile sunt in acelasi stil, toate urmand un sablon bazat pe integrarea de sectiuni
+            marcate.
+        </p>
+        <section id="database">
+            <h2>Baza de date</h2>
+            <p>
+                Baza de date folosita este Oracle, gazduita in cloud, pentru o mai buna sincronizare a datelor si pentru
+                a facilita eventualul deployment al aplicatiei.
+                Pentru a implementa facilitatile aplicatiei au fost create urmatoarele tabele:
+            <ol>
+                <li>
+                    added-problems
+                </li>
+                <li>admins</li>
+                <li>attempts</li>
+                <li>comments</li>
+                <li>marked_problems</li>
+                <li>problem_categories</li>
+                <li>problem_difficulties</li>
+                <li>problems</li>
+                <li>solved_problems</li>
+                <li>students</li>
+                <li>students</li>
+                <li>users</li>
+                <li>wrong_problems</li>
+            </ol>
+            </p>
+        </section>
+
+    </section>
+    <section id="used-technologies">
+        <h2>Tehnologii utilizate</h2>
+        <p>
+            Pentru a implementa aplicatia s-au folosit urmatoarele tehnologii:
+        <ol>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>Node.js</li>
+            <li>Oracle DB</li>
+        </ol>
+        <section id="security">
+            <h2>Securitate</h2>
+            <p>Pentru a fi procesate, cererile spre server trebuie sa contina in header token-ul de autorizare JWT, primit in urma logarii.
+            Aditional, unele endpoint-uri verifica si rolul utilizatorului ce a facut cererea, pentru a permite doar unele operatiuni.</p>
+        </section>
+    </section>
+</section>
+
+<section id="application-architecture">
+    <h2>Arhitectura aplicatiei</h2>
+    <p>
+        Aplicatia este contruita pe baza arhitecturii SOA (Service Oriented Architecture). Astfel, clientul face
+        request-uri
+        catre server, iar acesta din urma raspunde strict cu datele necesare. In acest fel, clientul este responasbil de
+        randarea paginilor, iar serverul de procesarea datelor.
+    </p>
+    //TODO: c4
+    <p>
+        Pentru a facilita dezvoltarea aplicatiei, avem o arhitectura bazata pe layers. Astfel, cererile, initial ajung in layer-ul
+        de routare, care le trimite mai departe catre layer-ul de servicii, apoi sunt trimise catre layer-ul de repositories,
+        care se ocupa de accesul la baza de date.
+    </p>
+    <section id="db-access">
+        <h2>Accesul la baze date</h2>
+        <p>Singurul layer responsabil de accesul la baze de date este repository-ul. Acesta, insa, foloseste un connection pool pentru
+        a reutiliza conexiunile la baza de date, pentru a nu fi nevoie de a crea o noua conexiune pentru fiecare cerere, ceea ce
+        ar reprezenta o operatie care ar afecta performanta.</p>
+    </section>
+</section>
+
+<section id="features">
+    <h2>Functionalitati</h2>
+    <section id="auth">
+        <h2>Autentificare</h2>
+        <p>Pentru inregistrarea utilizatorul trebuie sa specifice: numele de utilizator, email-ul, parola, numele si
+            prenumele.
+            In cazul in care acestea sunt valide si utilizatorul si email-ul nu au mai fost utilizate, se va efectua
+            inregistrarea, in
+            caz contrar un mesaj corespunzator va fi afisat. In urma inregistrarii, parolei i este aplicat un hash, dupa
+            care este salvata in baza de date.
+        </p>
+        <p>
+            Pentru logare, utilizatorul trebuie sa specifice numele de utilizator si parola. In cazul in care acestea
+            sunt valide, serviciul web returneaza un JWT
+            care este stocat in local storage si este utilizat pentru request-urile viitoare catre server.
+        </p>
+    </section>
+    <section id="problems">
+        <h2>
+            Probleme
+        </h2>
+        <p>
+            Problemele propuse studentului spre rezolvare cresc in dificultate pe masura ce rezolva mai multe probleme.
+            Dupa ce a rezolvat un numar de probleme, studentul este obligat sa propuna o noua problema, dupa care poate
+            rezolva in continuare. In momentul in care a rezolvat o problema, aceasta poate sa ii marcheze dificulatatea
+            sau sa rezolve alta problema.
+        </p>
+        <p>
+            Daca studentul considera, el poate marca o problema ca fiind gresita. Acesta poate face acest lucru de 5 ori,
+            dupa ce aceasta limita este depasita, studentul trebuie sa astepte ca admin-ul sa gestioneze problemele marcate
+            drept gresite, pentru ca el sa poata marca din nou astfel.
+        </p>
+        <p>
+            Toti utilizatorii aplicatiei (studenti/adimin) pot vizualiza comentarii lasate pentru problemele propuse spre rezolvare
+            si, de asemenea, pot posta propriul comentariu.
+        </p>
+
+    </section>
+    <section id="admin">
+        <h2>
+            Administrare</h2>
+        <p>
+            Administratorul are acces la toate problemele si poate sa le stearga, dar si sa importe, atat din format
+            xml/json, cat si sa exporte problemele in aceste formate. Pe langa aceasta, mai are acces la diverse statistici despre
+            problemele rezolvate, dar si despre utilizatorii inregistrati.
+        </p>
+        <p>Administratorul mai are posibilitatea de a gestiona problemele marcate drept gresite de catre elevi. Astfel, poate
+        accepta o astfel de marcare, problema fiind ulterior stearsa din baza de date sau o poate respinge.</p>
+    </section>
+</section>
+
+</section>
+<section id="references">
+
+    <h3>
+        Referinte
+    </h3>
+    <ol>
+        <li id="ieee-template">
+
+            <a href="https://github.com/rick4470/IEEE-SRS-Tempate">IEEE Template for System Requirements
+                Specification Documents</a><br>
+
+        </li>
+        <li id="scholarly-document-structure">
+            <a href="https://w3c.github.io/scholarly-html/#abstract"> Scholarly document structure</a>
+        </li>
+
+        <li id="repository-github">
+            <a href="https://github.com/andreiplugaru/TW-SQL-Two">Repository-ul de GitHub al proiectului</a>
+        </li>
+
+        <li id="jwt">
+            <a href="https://jwt.io/">JSON Web Tokens</a>
+        </li>
+        <li id="nodejs">
+            <a href="https://nodejs.org/en/">Node.js</a>
+        </li>
+        <li id="oracle">
+            <a href="https://www.oracle.com/cloud/">Oracle Cloud</a>
+        </li>
+    </ol>
+</section>
+</body>
+
+</html>

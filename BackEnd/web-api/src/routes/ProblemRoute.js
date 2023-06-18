@@ -9,7 +9,6 @@ const querystring = require('querystring');
 const HttpException = require("../exceptions/HttpException");
 const InvalidRequestBodyException = require("../exceptions/InvalidRequestBodyException");
 const ForbiddenException = require("../exceptions/ForbiddenException");
-const {parseRequestBody, getBoundary} = require("../util/FileUploadUtil.js")
 const {exportProblems} = require("../util/ExportUtil.js")
 const {convertToJson} = require("../util/ImportUtil");
 const Comment = require("../entities/Comment");
